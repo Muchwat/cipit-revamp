@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIPIT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            line-height: 1.5;
+            background-color: #fff;
+            /* Changed background to white */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            /* background-color: #fff; Removed container background */
+            padding-bottom: 2rem;
+            /* Add padding to bottom */
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 6rem;
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo {
+            position: relative;
+            bottom: -.5rem;
+            /* Match the menu li's value for precise alignment */
+        }
+
+        .logo img {
+            max-height: 50px;
+            display: block;
+            content: url('/logo.png');
+        }
+
+        .menu ul {
+            display: flex;
+            gap: 0px;
+        }
+
+        .menu li {
+            list-style: none;
+            position: relative;
+            bottom: -1.5rem;
+            z-index: 200;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #00177a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 8.8rem;
+            height: 8.8rem;
+            border-radius: 50%;
+            border: .8rem solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 200;
+        }
+
+        .menu a:hover,
+        .menu a.active-mega {
+            background-color: #00177a;
+            color: white;
+            border-color: white;
+            width: 7rem;
+            height: 7rem;
+            margin: .9rem;
+        }
+
+        .menu .active {
+            color: #00177a;
+        }
+
+        .mega-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #00177a;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: left;
+            z-index: 10;
+            margin-top: -3rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+
+        .mega-menu h3 {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+        }
+
+        .mega-menu a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            text-decoration: none;
+            border-radius: 0;
+            border: none;
+            width: auto;
+            height: auto;
+            transition: background 0.3s ease;
+        }
+
+        .mega-menu a:hover,
+        .mega-menu a.active-mega {
+            background: #eee;
+            color: #00177a;
+            width: auto;
+            height: auto;
+            margin: 0;
+            border: none;
+        }
+
+        .mega-menu .column {
+            padding: 0 10px;
+        }
+
+        .mega-menu.active {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Jumbotron Slider Styles */
+        .jumbotron-slider {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            margin-top: 0;
+            /* Removed top margin */
+        }
+
+        .slider-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .slide-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .slide-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .slide-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-content .btn {
+            padding: 10px 20px;
+            background-color: #00177a;
+            color: white;
+            text-decoration: none;
+            border-radius: 0;
+            /* Removed rounded corners */
+            transition: background-color 0.3s;
+        }
+
+        .slide-content .btn:hover {
+            background-color: #002db3;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 3;
+            padding: 0 20px;
+        }
+
+        .slider-nav button {
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 10px 15px;
+            border-radius: 0;
+            /* Removed rounded corners */
+            transition: background-color 0.3s;
+        }
+
+        .slider-nav button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Publications Section */
+        .publications-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .publications-section h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #00177a;
+            display: inline-block;
+            border-bottom: 3px solid #00177a;
+            padding-bottom: 5px;
+        }
+
+        .publications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            text-align: left;
+        }
+
+        .publication-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 0;
+            /* Removed rounded corners */
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .publication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .publication-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .publication-card-content {
+            padding: 20px;
+        }
+
+        .publication-card-content h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .publication-card-content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .publication-card-content .read-more {
+            color: #00177a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .publication-card-content .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Podcast Section */
+        .podcast-section {
+            padding: 40px 0;
+            background-color: #f9f9f9;
+        }
+
+        .podcast-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .podcast-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #00177a;
+            display: inline-block;
+            border-bottom: 3px solid #00177a;
+            padding-bottom: 5px;
+        }
+
+        .podcast-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .podcast-card {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            transition: box-shadow 0.3s;
+        }
+
+        .podcast-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .podcast-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+
+        .podcast-info {
+            text-align: left;
+        }
+
+        .podcast-info h3 {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .podcast-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .podcast-info .listen-now {
+            background-color: #00177a;
+            color: #fff;
+            padding: 8px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .podcast-info .listen-now:hover {
+            background-color: #002db3;
+        }
+
+
+        /* Footer Styles */
+        .site-footer {
+            background-color: #00177a;
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            text-align: left;
+        }
+
+        .footer-about,
+        .footer-links,
+        .footer-social {
+            padding: 10px;
+        }
+
+        .footer-about h4,
+        .footer-links h4,
+        .footer-social h4 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li a {
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-links ul li a:hover {
+            color: #ccc;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ccc;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            background-color: #000f5a;
+            color: #ccc;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-header">
+            <p>Your one-stop solution for all your IT needs.</p>
+        </div>
+
+        <nav>
+            <div class="main-header">
+                <div class="logo">
+                    <img src="logo.png" alt="CIPIT Logo">
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li class="has-mega">
+                            <a href="#Research" class="active">Research</a>
+                            <div class="mega-menu">
+                                <h3>Research Areas</h3>
+                                <div class="column">
+                                    <h4>Focus Areas</h4>
+                                    <a href="#">AI & Policy</a>
+                                    <a href="#">Data Governance</a>
+                                    <a href="#">Digital Rights</a>
+                                </div>
+                                <div class="column">
+                                    <h4>Projects</h4>
+                                    <a href="#">Open Data</a>
+                                    <a href="#">Internet Policy</a>
+                                    <a href="#">Cybersecurity</a>
+                                </div>
+                                <div class="column">
+                                    <h4>Publications</h4>
+                                    <a href="#">Reports</a>
+                                    <a href="#">Case Studies</a>
+                                    <a href="#">Research Papers</a>
+                                </div>
+                                <div class="column">
+                                    <h4>More</h4>
+                                    <a href="#">Workshops</a>
+                                    <a href="#">Conferences</a>
+                                    <a href="#">Collaborations</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="#Study">Study</a></li>
+                        <li><a href="#People">People</a></li>
+                        <li><a href="#News">News & Events</a></li>
+                        <li><a href="#Contact">About</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="jumbotron-slider">
+            <div class="slider-wrapper">
+                <div class="slide" style="background-image: url('https://placehold.co/1200x500/333/FFF?text=Slide+1');">
+                    <div class="slide-content">
+                        <h2>Welcome to Our Research Hub</h2>
+                        <p>Exploring the frontiers of technology and policy.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+                <div class="slide" style="background-image: url('https://placehold.co/1200x500/555/FFF?text=Slide+2');">
+                    <div class="slide-content">
+                        <h2>Innovative Projects</h2>
+                        <p>Discover our latest work in AI, Data, and Digital Rights.</p>
+                        <a href="#" class="btn">View Projects</a>
+                    </div>
+                </div>
+                <div class="slide" style="background-image: url('https://placehold.co/1200x500/777/FFF?text=Slide+3');">
+                    <div class="slide-content">
+                        <h2>Join Our Community</h2>
+                        <p>Engage with us through events, workshops, and collaborations.</p>
+                        <a href="#" class="btn">Get Involved</a>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <section class="publications-section">
+            <h2>Recent Publications</h2>
+            <div class="publications-grid">
+                <div class="publication-card">
+                    <img src="https://placehold.co/600x400/00177a/FFFFFF?text=Publication+Image"
+                        alt="Publication Image">
+                    <div class="publication-card-content">
+                        <h3>The Ethics of Artificial Intelligence in Governance</h3>
+                        <p>An in-depth analysis of the challenges and opportunities of implementing AI in public sector
+                            services.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="publication-card">
+                    <img src="https://placehold.co/600x400/00177a/FFFFFF?text=Publication+Image"
+                        alt="Publication Image">
+                    <div class="publication-card-content">
+                        <h3>Cross-Border Data Flows and Privacy Regulations</h3>
+                        <p>This paper examines the legal frameworks governing data transfer between nations and its
+                            impact on privacy.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+                <div class="publication-card">
+                    <img src="https://placehold.co/600x400/00177a/FFFFFF?text=Publication+Image"
+                        alt="Publication Image">
+                    <div class="publication-card-content">
+                        <h3>Cybersecurity Threats in the IoT Era</h3>
+                        <p>A comprehensive overview of emerging security vulnerabilities in Internet of Things devices
+                            and networks.</p>
+                        <a href="#" class="read-more">Read More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <section class="podcast-section">
+        <div class="podcast-container">
+            <h2>Recent Podcasts</h2>
+            <div class="podcast-grid">
+                <div class="podcast-card">
+                    <img src="https://placehold.co/120x120/555/FFF?text=Podcast" alt="Podcast Cover Art">
+                    <div class="podcast-info">
+                        <h3>Episode 12: The Future of Digital Identity</h3>
+                        <p>A conversation on self-sovereign identity, blockchain, and the next wave of digital
+                            verification.</p>
+                        <a href="#" class="listen-now">Listen Now <i class="fas fa-play-circle"></i></a>
+                    </div>
+                </div>
+                <div class="podcast-card">
+                    <img src="https://placehold.co/120x120/555/FFF?text=Podcast" alt="Podcast Cover Art">
+                    <div class="podcast-info">
+                        <h3>Episode 11: AI in Creative Industries</h3>
+                        <p>Exploring how artificial intelligence is transforming art, music, and storytelling.</p>
+                        <a href="#" class="listen-now">Listen Now <i class="fas fa-play-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <h4>About CIPIT</h4>
+                <p>Your one-stop solution for all your IT needs. We are dedicated to providing the best service and
+                    advancing research in technology.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#Research">Research</a></li>
+                    <li><a href="#Study">Study</a></li>
+                    <li><a href="#People">People</a></li>
+                    <li><a href="#News">News & Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 CIPIT. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mega Menu Script
+        const hasMega = document.querySelector(".has-mega");
+        const megaMenu = hasMega.querySelector(".mega-menu");
+        const megaLink = hasMega.querySelector("a");
+        const container = document.querySelector(".container");
+
+        hasMega.addEventListener("mouseenter", () => {
+            const containerRect = container.getBoundingClientRect();
+            const hasMegaRect = hasMega.getBoundingClientRect();
+
+            megaMenu.style.width = containerRect.width + 'px';
+            megaMenu.style.left = (containerRect.left - hasMegaRect.left) + "px";
+
+            megaMenu.classList.add("active");
+            megaLink.classList.add("active-mega");
+        });
+
+        hasMega.addEventListener("mouseleave", () => {
+            megaMenu.classList.remove("active");
+            megaLink.classList.remove("active-mega");
+        });
+
+        // Jumbotron Slider Script
+        const sliderWrapper = document.querySelector('.slider-wrapper');
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev-slide');
+        const nextBtn = document.querySelector('.next-slide');
+
+        let currentIndex = 0;
+        const slideCount = slides.length;
+
+        function goToSlide(index) {
+            if (index < 0) {
+                index = slideCount - 1;
+            } else if (index >= slideCount) {
+                index = 0;
+            }
+            sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+            currentIndex = index;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            goToSlide(currentIndex + 1);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            goToSlide(currentIndex - 1);
+        });
+
+        // Auto-slide functionality
+        setInterval(() => {
+            goToSlide(currentIndex + 1);
+        }, 5000); // Change slide every 5 seconds
+
+    </script>
+</body>
+
+</html>
