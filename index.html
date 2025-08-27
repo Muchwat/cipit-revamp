@@ -58,7 +58,7 @@
         .logo img {
             max-height: 50px;
             display: block;
-            content: url('/logo.png');
+            content: url('https://placehold.co/150x50/00177a/FFFFFF?text=CIPIT');
         }
 
         .menu {
@@ -415,73 +415,120 @@
         }
 
 
-        /* Footer Styles */
+        /* --- NEW FOOTER STYLES --- */
         .site-footer {
             background-color: #00177a;
-            color: #fff;
-            padding: var(--section-padding) 0;
+            color: #e0e0e0;
+            padding: var(--section-padding) 0 0;
+            font-size: 0.95rem;
         }
 
         .footer-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 20px var(--section-padding-small);
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: var(--section-padding-small);
             text-align: left;
         }
 
-        .footer-about,
-        .footer-links,
-        .footer-social {
-            padding: 10px;
+        .footer-about p,
+        .footer-contact p {
+            line-height: 1.7;
         }
 
         .footer-about h4,
         .footer-links h4,
-        .footer-social h4 {
-            margin-bottom: 15px;
+        .footer-social h4,
+        .footer-contact h4 {
+            margin-bottom: 1.5rem;
             font-size: var(--h3-font-size);
-            border-bottom: 2px solid #fff;
-            padding-bottom: 5px;
+            font-weight: 600;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
             display: inline-block;
+            border-bottom: none;
+            /* Remove old border */
+        }
+
+        .footer-about h4::after,
+        .footer-links h4::after,
+        .footer-social h4::after,
+        .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #fff;
         }
 
         .footer-links ul {
             list-style: none;
         }
 
-        .footer-links ul li a {
-            color: #fff;
-            text-decoration: none;
+        .footer-links ul li {
             margin-bottom: 10px;
-            display: block;
-            transition: color 0.3s;
+        }
+
+        .footer-links ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .footer-links ul li a:hover {
-            color: #ccc;
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-contact a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
         }
 
         .social-icons a {
-            color: #fff;
-            font-size: 1.5rem;
-            margin-right: 15px;
-            transition: color 0.3s;
+            color: #00177a;
+            background-color: #fff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .social-icons a:hover {
-            color: #ccc;
+            background-color: #e0e0e0;
+            transform: translateY(-3px);
+            color: #00177a;
         }
 
         .footer-bottom {
             text-align: center;
             padding: 20px;
             background-color: #000f5a;
-            color: #ccc;
-            margin-top: 20px;
+            color: #a0a0a0;
+            margin-top: var(--section-padding-small);
+            font-size: 0.9rem;
         }
+
 
         /* Responsive Styles */
         @media (max-width: 992px) {
@@ -598,7 +645,8 @@
         <nav>
             <div class="main-header">
                 <div class="logo">
-                    <img src="logo.png" alt="CIPIT Logo">
+                    <img src="logo.png" alt="CIPIT Logo"
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x50/00177a/FFFFFF?text=CIPIT';">
                 </div>
                 <div class="menu">
                     <button class="hamburger"><i class="fas fa-bars"></i></button>
@@ -735,12 +783,30 @@
         </div>
     </section>
 
+    <!-- UPDATED FOOTER HTML -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-about">
-                <h4>About CIPIT</h4>
-                <p>Your one-stop solution for all your IT needs. We are dedicated to providing the best service and
-                    advancing research in technology.</p>
+                <img src="logow.png" alt="CIPIT Logo" height="60px"
+                    onerror="this.onerror=null;this.src='https://placehold.co/150x50/FFFFFF/00177a?text=CIPIT';">
+                <br>
+                <br>
+                <p>The Centre for Intellectual Property and Information Technology Law (CIPIT) is an evidence-based
+                    research and training Centre based at Strathmore University, Nairobi, Kenya.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>CONTACT US</h4>
+                <p>
+                    Student Center Building,<br>
+                    2nd Floor,<br>
+                    Madaraka Estate Ole Sangale Road<br>
+                    Nairobi West Area<br>
+                    City Square , Nairobi<br>
+                    P.O Box 59857 - 00200<br>
+                    Nairobi, Kenya<br>
+                    (+254) (0)703-034612<br>
+                    <a href="mailto:cipit@strathmore.edu">cipit@strathmore.edu</a>
+                </p>
             </div>
             <div class="footer-links">
                 <h4>Quick Links</h4>
@@ -749,22 +815,26 @@
                     <li><a href="#Study">Study</a></li>
                     <li><a href="#People">People</a></li>
                     <li><a href="#News">News & Events</a></li>
+                    <li><a href="#Contact">About</a></li>
                 </ul>
             </div>
             <div class="footer-social">
                 <h4>Follow Us</h4>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 CIPIT. All Rights Reserved.</p>
+            <p>&copy; <span id="copyright-year"></span> CIPIT. Except where otherwise noted, content on this site is
+                licensed under a Creative
+                Commons Attribution 4.0 International license.</p>
         </div>
     </footer>
+
 
     <script>
         // Hamburger Menu Toggle
@@ -836,6 +906,9 @@
         setInterval(() => {
             goToSlide(currentIndex + 1);
         }, 5000); // Change slide every 5 seconds
+
+        // Dynamically set copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
     </script>
 </body>
