@@ -7,6 +7,15 @@
     <title>CIPIT</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        :root {
+            --gr: 1.618;
+            --base-font-size: 1rem;
+            --h2-font-size: calc(var(--base-font-size) * var(--gr) * 1.5);
+            --h3-font-size: calc(var(--base-font-size) * var(--gr));
+            --section-padding: 5rem;
+            --section-padding-small: calc(var(--section-padding) / var(--gr));
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,19 +24,20 @@
         }
 
         body {
-            line-height: 1.5;
+            line-height: var(--gr);
             background-color: #fff;
-            /* Changed background to white */
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            text-align: center;
             position: relative;
-            /* background-color: #fff; Removed container background */
-            padding-bottom: 2rem;
-            /* Add padding to bottom */
+            padding: 0 15px 2rem 15px;
+        }
+
+        /* Make nav the positioning context for the mega menu */
+        nav {
+            position: relative;
         }
 
         .main-header {
@@ -36,13 +46,13 @@
             justify-content: space-between;
             height: 6rem;
             position: relative;
-            z-index: 100;
+            z-index: 1000;
         }
 
         .logo {
             position: relative;
             bottom: -.5rem;
-            /* Match the menu li's value for precise alignment */
+            z-index: 1001;
         }
 
         .logo img {
@@ -51,35 +61,40 @@
             content: url('/logo.png');
         }
 
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
         .menu ul {
             display: flex;
             gap: 0px;
+            list-style: none;
         }
 
         .menu li {
-            list-style: none;
-            position: relative;
-            bottom: -1.5rem;
-            z-index: 200;
+            /* Position is no longer needed here */
         }
 
-        .menu a {
+        .menu>ul>li>a {
             text-decoration: none;
             color: #00177a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-align: center;
+            display: grid;
+            place-items: center;
             width: 8.8rem;
             height: 8.8rem;
             border-radius: 50%;
             border: .8rem solid transparent;
             transition: all 0.3s ease;
+            /* Move positioning here to keep vertical alignment */
             position: relative;
-            z-index: 200;
+            bottom: -1.5rem;
+            z-index: 20;
         }
 
-        .menu a:hover,
-        .menu a.active-mega {
+        .menu>ul>li>a:hover,
+        .menu>ul>li>a.active-mega {
             background-color: #00177a;
             color: white;
             border-color: white;
@@ -95,24 +110,27 @@
         .mega-menu {
             display: none;
             position: absolute;
-            top: 100%;
+            /* Position relative to the nav element */
+            top: 6rem;
+            /* Height of the header */
             left: 0;
+            width: 100%;
+            /* Span the full width of the nav/container */
             background: #00177a;
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            padding: var(--section-padding-small);
             text-align: left;
             z-index: 10;
-            margin-top: -3rem;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+            transition: opacity 0.3s ease, visibility 0.3s;
         }
 
         .mega-menu h3 {
             grid-column: 1 / -1;
             margin-bottom: 1rem;
+            font-size: var(--h3-font-size);
         }
 
         .mega-menu a {
@@ -120,8 +138,6 @@
             padding: 8px 12px;
             color: white;
             text-decoration: none;
-            border-radius: 0;
-            border: none;
             width: auto;
             height: auto;
             transition: background 0.3s ease;
@@ -131,8 +147,6 @@
         .mega-menu a.active-mega {
             background: #eee;
             color: #00177a;
-            width: auto;
-            height: auto;
             margin: 0;
             border: none;
         }
@@ -147,7 +161,16 @@
             gap: 20px;
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: #00177a;
+            cursor: pointer;
+            z-index: 1001;
         }
 
         /* Jumbotron Slider Styles */
@@ -157,7 +180,6 @@
             height: 500px;
             overflow: hidden;
             margin-top: 0;
-            /* Removed top margin */
         }
 
         .slider-wrapper {
@@ -193,15 +215,17 @@
             color: white;
             text-align: center;
             z-index: 2;
+            width: 61.8%;
+            /* Golden Ratio width */
         }
 
         .slide-content h2 {
-            font-size: 2.5rem;
+            font-size: var(--h2-font-size);
             margin-bottom: 1rem;
         }
 
         .slide-content p {
-            font-size: 1.2rem;
+            font-size: var(--h3-font-size);
             margin-bottom: 1.5rem;
         }
 
@@ -211,7 +235,6 @@
             color: white;
             text-decoration: none;
             border-radius: 0;
-            /* Removed rounded corners */
             transition: background-color 0.3s;
         }
 
@@ -238,7 +261,6 @@
             cursor: pointer;
             padding: 10px 15px;
             border-radius: 0;
-            /* Removed rounded corners */
             transition: background-color 0.3s;
         }
 
@@ -248,13 +270,13 @@
 
         /* Publications Section */
         .publications-section {
-            padding: 40px 20px;
+            padding: var(--section-padding) 0;
             text-align: center;
         }
 
         .publications-section h2 {
-            font-size: 2rem;
-            margin-bottom: 30px;
+            font-size: var(--h2-font-size);
+            margin-bottom: var(--section-padding-small);
             color: #00177a;
             display: inline-block;
             border-bottom: 3px solid #00177a;
@@ -264,7 +286,7 @@
         .publications-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: var(--section-padding-small);
             text-align: left;
         }
 
@@ -272,7 +294,6 @@
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 0;
-            /* Removed rounded corners */
             overflow: hidden;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -290,11 +311,11 @@
         }
 
         .publication-card-content {
-            padding: 20px;
+            padding: var(--section-padding-small);
         }
 
         .publication-card-content h3 {
-            font-size: 1.2rem;
+            font-size: var(--h3-font-size);
             color: #333;
             margin-bottom: 10px;
         }
@@ -316,7 +337,7 @@
 
         /* Podcast Section */
         .podcast-section {
-            padding: 40px 0;
+            padding: var(--section-padding) 0;
             background-color: #f9f9f9;
         }
 
@@ -328,8 +349,8 @@
 
         .podcast-section h2 {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 30px;
+            font-size: var(--h2-font-size);
+            margin-bottom: var(--section-padding-small);
             color: #00177a;
             display: inline-block;
             border-bottom: 3px solid #00177a;
@@ -339,16 +360,18 @@
         .podcast-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: var(--section-padding-small);
         }
 
         .podcast-card {
             display: flex;
+            flex-direction: column;
             align-items: center;
             background: #fff;
             border: 1px solid #ddd;
-            padding: 20px;
+            padding: var(--section-padding-small);
             transition: box-shadow 0.3s;
+            text-align: center;
         }
 
         .podcast-card:hover {
@@ -359,15 +382,16 @@
             width: 120px;
             height: 120px;
             object-fit: cover;
-            margin-right: 20px;
+            margin-right: 0;
+            margin-bottom: 15px;
         }
 
         .podcast-info {
-            text-align: left;
+            text-align: center;
         }
 
         .podcast-info h3 {
-            font-size: 1.3rem;
+            font-size: var(--h3-font-size);
             color: #333;
             margin-bottom: 5px;
         }
@@ -395,7 +419,7 @@
         .site-footer {
             background-color: #00177a;
             color: #fff;
-            padding: 40px 0;
+            padding: var(--section-padding) 0;
         }
 
         .footer-container {
@@ -404,7 +428,7 @@
             padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            gap: var(--section-padding-small);
             text-align: left;
         }
 
@@ -418,7 +442,7 @@
         .footer-links h4,
         .footer-social h4 {
             margin-bottom: 15px;
-            font-size: 1.2rem;
+            font-size: var(--h3-font-size);
             border-bottom: 2px solid #fff;
             padding-bottom: 5px;
             display: inline-block;
@@ -458,6 +482,110 @@
             color: #ccc;
             margin-top: 20px;
         }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .menu ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 6rem;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu ul.active {
+                display: flex;
+            }
+
+            .menu li {
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .menu>ul>li>a {
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                border: none;
+                padding: 1rem;
+                z-index: 1;
+                /* Reset positioning for mobile view */
+                position: static;
+                bottom: 0;
+            }
+
+            /* Increased specificity to override desktop styles */
+            .menu>ul>li>a:hover,
+            .menu>ul>li>a.active-mega {
+                background-color: transparent;
+                color: #00177a;
+                border-color: transparent;
+                width: 100%;
+                height: auto;
+                margin: 0;
+            }
+
+            .logo {
+                bottom: 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mega-menu {
+                position: static;
+                width: 100% !important;
+                box-shadow: none;
+                margin-top: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                /* Hidden by default */
+            }
+
+            li.has-mega.open .mega-menu {
+                display: grid;
+                /* Show when parent has .open */
+            }
+
+            .mega-menu.active {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .podcast-card {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .podcast-card img {
+                margin-right: 20px;
+                margin-bottom: 0;
+            }
+
+            .podcast-info {
+                flex: 1.618;
+                /* Golden Ratio flex */
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .slide-content h2 {
+                font-size: 1.8rem;
+            }
+
+            .slide-content p {
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 
@@ -473,6 +601,7 @@
                     <img src="logo.png" alt="CIPIT Logo">
                 </div>
                 <div class="menu">
+                    <button class="hamburger"><i class="fas fa-bars"></i></button>
                     <ul>
                         <li class="has-mega">
                             <a href="#Research" class="active">Research</a>
@@ -583,7 +712,7 @@
 
     <section class="podcast-section">
         <div class="podcast-container">
-            <h2>Recent Podcasts</h2>
+            <h2 style="text-align:center; width: 100%;">Recent Podcasts</h2>
             <div class="podcast-grid">
                 <div class="podcast-card">
                     <img src="https://placehold.co/120x120/555/FFF?text=Podcast" alt="Podcast Cover Art">
@@ -638,27 +767,43 @@
     </footer>
 
     <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".menu ul");
+        hamburger.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+
         // Mega Menu Script
         const hasMega = document.querySelector(".has-mega");
         const megaMenu = hasMega.querySelector(".mega-menu");
         const megaLink = hasMega.querySelector("a");
-        const container = document.querySelector(".container");
 
+        // Desktop hover behavior
         hasMega.addEventListener("mouseenter", () => {
-            const containerRect = container.getBoundingClientRect();
-            const hasMegaRect = hasMega.getBoundingClientRect();
-
-            megaMenu.style.width = containerRect.width + 'px';
-            megaMenu.style.left = (containerRect.left - hasMegaRect.left) + "px";
-
-            megaMenu.classList.add("active");
-            megaLink.classList.add("active-mega");
+            if (window.innerWidth > 992) {
+                // The width and positioning are now handled by CSS.
+                // This script just toggles the active class.
+                megaMenu.classList.add("active");
+                megaLink.classList.add("active-mega");
+            }
         });
 
         hasMega.addEventListener("mouseleave", () => {
-            megaMenu.classList.remove("active");
-            megaLink.classList.remove("active-mega");
+            if (window.innerWidth > 992) {
+                megaMenu.classList.remove("active");
+                megaLink.classList.remove("active-mega");
+            }
         });
+
+        // Mobile click behavior for mega menu
+        megaLink.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992) {
+                e.preventDefault(); // Only prevent default on mobile to allow tap-to-open
+                hasMega.classList.toggle('open');
+            }
+        });
+
 
         // Jumbotron Slider Script
         const sliderWrapper = document.querySelector('.slider-wrapper');
