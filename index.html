@@ -96,12 +96,8 @@
 
         .menu ul {
             display: flex;
-            gap: 0px;
+            gap: 0.5rem;
             list-style: none;
-        }
-
-        .menu li {
-            /* Position is no longer needed here */
         }
 
         .menu>ul>li>a {
@@ -110,15 +106,15 @@
             text-align: center;
             display: grid;
             place-items: center;
-            width: 8.8rem;
-            height: 8.8rem;
+            width: 7rem;
+            height: 7rem;
             border-radius: 50%;
             border: .8rem solid transparent;
             transition: all 0.3s ease;
-            /* Move positioning here to keep vertical alignment */
             position: relative;
             bottom: -1.5rem;
             z-index: 20;
+            white-space: nowrap;
         }
 
         .menu>ul>li>a:hover,
@@ -126,9 +122,11 @@
             background-color: #00177a;
             color: white;
             border-color: white;
-            width: 7rem;
-            height: 7rem;
-            margin: .9rem;
+            width: 6.5rem;
+            height: 6.5rem;
+            margin: 0.25rem;
+            /* Adjusted to prevent layout shift (7 - 6.5)/2 */
+            white-space: normal;
         }
 
         .menu .active {
@@ -138,12 +136,9 @@
         .mega-menu {
             display: none;
             position: absolute;
-            /* Position relative to the nav element */
             top: 6rem;
-            /* Height of the header */
             left: 0;
             width: 100%;
-            /* Span the full width of the nav/container */
             background: #00177a;
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -621,6 +616,7 @@
                 opacity: 1;
                 visibility: visible;
                 display: none;
+                color: white;
                 /* Hidden by default */
             }
 
@@ -670,6 +666,13 @@
                 margin-bottom: 0.5rem;
             }
         }
+
+        .menu-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -691,7 +694,7 @@
         <nav>
             <div class="main-header">
                 <div class="logo">
-                    <img src="/logo.png" alt="CIPIT Logo"
+                    <img src="logo.png" alt="CIPIT Logo"
                         onerror="this.onerror=null;this.src='https://placehold.co/150x50/00177a/FFFFFF?text=CIPIT';">
                 </div>
                 <div class="menu">
@@ -700,27 +703,33 @@
                         <li class="has-mega">
                             <a href="#Research" class="active">Research</a>
                             <div class="mega-menu">
-                                <h3>Research Areas</h3>
+                                <h3 class="menu-title">Research</h3>
                                 <div class="column">
-                                    <h4>Focus Areas</h4>
+                                    <h4 class="menu-title">IP & Innovation</h4>
                                     <a href="#">AI & Policy</a>
                                     <a href="#">Data Governance</a>
                                     <a href="#">Digital Rights</a>
                                 </div>
                                 <div class="column">
-                                    <h4>Projects</h4>
+                                    <h4 class="menu-title">Artificial Intelligence</h4>
                                     <a href="#">Open Data</a>
                                     <a href="#">Internet Policy</a>
                                     <a href="#">Cybersecurity</a>
                                 </div>
                                 <div class="column">
-                                    <h4>Publications</h4>
+                                    <h4 class="menu-title">Data Policy and Governance Center</h4>
                                     <a href="#">Reports</a>
                                     <a href="#">Case Studies</a>
                                     <a href="#">Research Papers</a>
                                 </div>
                                 <div class="column">
-                                    <h4>More</h4>
+                                    <h4 class="menu-title">Digital ID</h4>
+                                    <a href="#">Workshops</a>
+                                    <a href="#">Conferences</a>
+                                    <a href="#">Collaborations</a>
+                                </div>
+                                <div class="column">
+                                    <h4 class="menu-title">Cyber Law & Policy</h4>
                                     <a href="#">Workshops</a>
                                     <a href="#">Conferences</a>
                                     <a href="#">Collaborations</a>
