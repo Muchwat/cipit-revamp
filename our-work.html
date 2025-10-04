@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Work - CIPIT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --gr: 1.618;
+            --base-font-size: 1rem;
+            --h2-font-size: calc(var(--base-font-size) * var(--gr) * 1.5);
+            --h3-font-size: calc(var(--base-font-size) * var(--gr));
+            --section-padding: 5rem;
+            --section-padding-small: calc(var(--section-padding) / var(--gr));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            line-height: var(--gr);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 15px 2rem 15px;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .top-header-left a,
+        .top-header-right a {
+            color: #c02126;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .top-header-left a:hover,
+        .top-header-right a:hover {
+            color: #a2080d;
+        }
+
+        .top-header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            position: relative;
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 6rem;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo {
+            position: relative;
+            bottom: -.5rem;
+            z-index: 1001;
+        }
+
+        .logo img {
+            max-height: 50px;
+            display: block;
+            content: url('/logo.png');
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu ul {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .menu>ul>li>a {
+            text-decoration: none;
+            color: #c02126;
+            text-align: center;
+            display: grid;
+            place-items: center;
+            width: 7rem;
+            height: 7rem;
+            border-radius: 50%;
+            border: .8rem solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            bottom: -1.5rem;
+            z-index: 20;
+            white-space: nowrap;
+        }
+
+        .menu>ul>li>a:hover,
+        .menu>ul>li>a.active-mega {
+            background-color: #c02126;
+            color: white;
+            border-color: white;
+            width: 6.5rem;
+            height: 6.5rem;
+            margin: 0.25rem;
+            white-space: normal;
+        }
+
+        .menu .active {
+            color: #c02126;
+        }
+
+        .mega-menu {
+            display: none;
+            position: absolute;
+            top: 6rem;
+            left: 0;
+            width: 100%;
+            background: #c02126;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: var(--section-padding-small);
+            text-align: left;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+            border-radius: 12px;
+        }
+
+        .mega-menu h3 {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+            font-size: var(--h3-font-size);
+        }
+
+        .mega-menu a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            width: auto;
+            height: auto;
+            transition: background 0.3s ease;
+        }
+
+        .mega-menu a:hover,
+        .mega-menu a.active-mega {
+            background: #eee;
+            border-radius: 8px;
+            color: #c02126;
+            font-weight: 600;
+            margin: 0;
+            border: none;
+        }
+
+        .mega-menu .column {
+            padding: 0 10px;
+        }
+
+        .mega-menu.active {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: #c02126;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .breadcrumbs {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: white;
+            background-color: #c02126;
+            border-radius: 12px;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .breadcrumbs h3,
+        .breadcrumbs a,
+        .breadcrumbs span {
+            color: white;
+        }
+
+        .breadcrumbs a {
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+        /* Our Work Page Styles */
+        .our-work-section {
+            padding: var(--section-padding) 0;
+        }
+
+        .our-work-section h2 {
+            font-size: var(--h2-font-size);
+            color: #c02126;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .our-work-section p {
+            font-size: var(--h3-font-size);
+            line-height: 1.5;
+            text-align: center;
+            margin-bottom: var(--section-padding-small);
+        }
+
+        .work-areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .work-card {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: left;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .work-card h3 {
+            font-size: 1.5rem;
+            color: #c02126;
+            margin-bottom: 0.5rem;
+        }
+
+        .work-card p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .work-card a {
+            color: #c02126;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .work-card a:hover {
+            text-decoration: underline;
+        }
+
+
+        .site-footer {
+            background-color: #c02126;
+            color: #e0e0e0;
+            padding: var(--section-padding) 0 0;
+            font-size: 0.95rem;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px var(--section-padding-small);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--section-padding-small);
+            text-align: left;
+        }
+
+        .footer-about p,
+        .footer-contact p {
+            line-height: 1.7;
+        }
+
+        .footer-about h4,
+        .footer-links h4,
+        .footer-social h4,
+        .footer-contact h4 {
+            margin-bottom: 1.5rem;
+            font-size: var(--h3-font-size);
+            font-weight: 600;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+            display: inline-block;
+            border-bottom: none;
+        }
+
+        .footer-about h4::after,
+        .footer-links h4::after,
+        .footer-social h4::after,
+        .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #fff;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-contact a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: #c02126;
+            background-color: #fff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-3px);
+            color: #c02126;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            background-color: #000f5a;
+            color: #a0a0a0;
+            margin-top: var(--section-padding-small);
+            font-size: 0.9rem;
+            border-radius: 0 0 12px 12px;
+        }
+
+        @media (max-width: 992px) {
+            .menu ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 6rem;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu ul.active {
+                display: flex;
+            }
+
+            .menu li {
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .menu>ul>li>a {
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                border: none;
+                padding: 1rem;
+                z-index: 1;
+                position: static;
+                bottom: 0;
+            }
+
+            .menu>ul>li>a:hover,
+            .menu>ul>li>a.active-mega {
+                background-color: transparent;
+                color: #c02126;
+                border-color: transparent;
+                width: 100%;
+                height: auto;
+                margin: 0;
+            }
+
+            .logo {
+                bottom: 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mega-menu {
+                position: static;
+                width: 100% !important;
+                box-shadow: none;
+                margin-top: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                color: white;
+            }
+
+            li.has-mega.open .mega-menu {
+                display: grid;
+            }
+
+            .mega-menu.active {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .top-header {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+
+            .top-header-left {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .menu-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-header">
+            <div class="top-header-left">
+                <a href="#opportunities">Opportunities</a>
+                <a href="#contact-us">Contact Us</a>
+            </div>
+            <div class="top-header-right">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <nav>
+            <div class="main-header">
+                <div class="logo">
+                    <img src="logo.png" alt="CIPIT Logo"
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x50/c02126/FFFFFF?text=CIPIT';">
+                </div>
+                <div class="menu">
+                    <button class="hamburger"><i class="fas fa-bars"></i></button>
+                    <ul>
+                        <li class="has-mega">
+                            <a href="index.html" class="active-mega">Who we are</a>
+                            <div class="mega-menu">
+                                <div class="column">
+                                    <h4 class="menu-title">Who we are</h4>
+                                    <a href="about-us.html">About Us</a>
+                                    <a href="team.html">Team</a>
+                                    <a href="steering-committee.html">Steering Committee</a>
+                                    <a href="our-work.html" class="active">Our Work</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega">
+                            <a href="#Research">Research</a>
+                            <div class="mega-menu">
+                                <div class="column">
+                                    <h4 class="menu-title">Our Research Themes</h4>
+                                    <a href="artificial-intelligence.html">Artificial Intelligence</a>
+                                    <a href="data-governance-and-policy.html">Data Governance & Policy</a>
+                                    <a href="digital-identity.html">Digital Identity</a>
+                                    <a href="ip-and-innovation.html">IP and Innovation</a>
+                                    <a href="cyber-law-and-policy.html">Cyber Law & Policy</a>
+                                </div>
+                                <div class="column">
+                                    <h4 class="menu-title">Learning and Development</h4>
+                                    <a href="trainings.html">Trainings</a>
+                                    <a href="writing-prizes.html">Writing Prizes</a>
+                                    <a href="fellowships.html">Fellowships</a>
+                                    <a href="jipit.html">JIPIT</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="publications.html">Publications</a></li>
+                        <li><a href="news.html">News & Events</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="podcasts.html">Podcasts</a></li>
+                        <li><a href="#search" class="search-icon-link" aria-label="Search"><i
+                                    class="fas fa-search"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="breadcrumbs">
+            <div>
+                <h3>Our Work</h3>
+                <a href="index.html">Home</a> / <a href="about-us.html">Who we are</a> / <span>Our Work</span>
+            </div>
+        </div>
+
+        <section class="our-work-section">
+            <div class="container">
+                <h2>Our Mission and Work</h2>
+                <p>The Centre for Intellectual Property and Information Technology Law (CIPIT) conducts evidence-based
+                    research on issues at the intersection of law, technology, and innovation in Africa. We aim to be
+                    the leading African centre for evidence-based research and policy on law and technology, advancing
+                    approaches that prioritise human rights, local perspectives, and inclusive innovation.</p>
+
+                <div class="work-areas-grid">
+                    <div class="work-card">
+                        <h3>Intellectual Property and Innovation</h3>
+                        <p>Our research provides in-depth analysis and insights into how IP frameworks can support
+                            innovation while balancing the rights of creators and the public.</p>
+                        <a href="#">Learn More &rarr;</a>
+                    </div>
+                    <div class="work-card">
+                        <h3>Artificial Intelligence</h3>
+                        <p>We study the development and legal frameworks of AI tools and applications in Africa,
+                            focusing on their ethical implications and governance.</p>
+                        <a href="#">Learn More &rarr;</a>
+                    </div>
+                    <div class="work-card">
+                        <h3>Data Governance and Policy</h3>
+                        <p>We provide independent analysis to support data-related policy development, focusing on data
+                            protection, privacy, and open data for the Global South.</p>
+                        <a href="#">Learn More &rarr;</a>
+                    </div>
+                    <div class="work-card">
+                        <h3>Cyber Law and Policy</h3>
+                        <p>Our work explores the legal and policy dimensions of cybersecurity, digital forensics, and
+                            information security to create secure digital environments.</p>
+                        <a href="#">Learn More &rarr;</a>
+                    </div>
+                    <div class="work-card">
+                        <h3>Digital Identity</h3>
+                        <p>We conduct research on the appropriate use of digital identity systems to ensure they are
+                            secure, inclusive, and respect human rights.</p>
+                        <a href="#">Learn More &rarr;</a>
+                    </div>
+                    <div class="work-card">
+                        <h3>Capacity Building</h3>
+                        <p>We are committed to nurturing the next generation of African experts through training
+                            programs, fellowships, and mentorship initiatives.</p>
+                        <a href="#">Learn More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="logow.png" alt="CIPIT Logo" height="50px"
+                    onerror="this.onerror=null;this.src='https://placehold.co/150x50/FFFFFF/c02126?text=CIPIT';">
+                <br>
+                <br>
+                <p>The Centre for Intellectual Property and Information Technology Law (CIPIT) is an evidence-based
+                    research and training Centre based at Strathmore University, Nairobi, Kenya.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>CONTACT US</h4>
+                <p>
+                    Student Center Building,<br>
+                    2nd Floor,<br>
+                    Madaraka Estate Ole Sangale Road<br>
+                    City Square , Nairobi<br>
+                    P.O Box 59857 - 00200<br>
+                    Nairobi, Kenya<br>
+                    (+254) (0)703-034612<br>
+                    <a href="mailto:cipit@strathmore.edu">cipit@strathmore.edu</a>
+                </p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#Research">Research</a></li>
+                    <li><a href="#Study">Study</a></li>
+                    <li><a href="#People">People</a></li>
+                    <li><a href="news.html">News & Events</a></li>
+                    <li><a href="#Contact">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="copyright-year"></span> CIPIT. Except where otherwise noted, content on this site is
+                licensed under a Creative
+                Commons Attribution 4.0 International license.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".menu ul");
+        hamburger.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+
+        const hasMegaElements = document.querySelectorAll(".has-mega");
+
+        hasMegaElements.forEach(hasMega => {
+            const megaMenu = hasMega.querySelector(".mega-menu");
+            const megaLink = hasMega.querySelector("a");
+
+            hasMega.addEventListener("mouseenter", () => {
+                if (window.innerWidth > 992) {
+                    megaMenu.classList.add("active");
+                    megaLink.classList.add("active-mega");
+                }
+            });
+
+            hasMega.addEventListener("mouseleave", () => {
+                if (window.innerWidth > 992) {
+                    megaMenu.classList.remove("active");
+                    megaLink.classList.remove("active-mega");
+                }
+            });
+
+            megaLink.addEventListener('click', (e) => {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    hasMega.classList.toggle('open');
+                }
+            });
+        });
+
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>
