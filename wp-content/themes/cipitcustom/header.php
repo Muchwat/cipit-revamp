@@ -60,7 +60,7 @@
                             <div class="mega-menu">
                                 <div class="column">
                                     <h4 class="menu-title">News & Events</h4>
-                                    <a href="https://cipit.revamp.org.test/news-and-events/">Blog</a>
+                                    <a href="/blog">Blog</a>
                                     <a href="podcasts.html">Podcasts</a>
                                 </div>
                             </div>
