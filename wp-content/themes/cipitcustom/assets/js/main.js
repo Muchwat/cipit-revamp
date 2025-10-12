@@ -8,16 +8,20 @@
 
 /**
  * Initializes the common navigation features (hamburger menu and mega menu functionality).
+ * Uses resilient selectors to target elements output by the Custom_Mega_Menu_Walker.
  */
 function initNavigation() {
     const hamburger = document.querySelector(".hamburger");
     const navMenu = document.querySelector(".menu ul");
+    // Selects <li> elements with the 'has-mega' class (applied in WP Admin)
     const hasMegaElements = document.querySelectorAll(".has-mega");
 
-    // 1. Hamburger Menu Toggle
+    // 1. Hamburger Menu Toggle (Mobile)
     if (hamburger && navMenu) {
         hamburger.addEventListener("click", () => {
             navMenu.classList.toggle("active");
+            // Also close any open mega-menus when the main menu is toggled
+            hasMegaElements.forEach(item => item.classList.remove('open'));
         });
     } else {
         console.warn("Navigation elements (hamburger or navMenu) not found.");
@@ -25,10 +29,12 @@ function initNavigation() {
 
     // 2. Mega Menu Hover (Desktop) and Click Toggle (Mobile)
     hasMegaElements.forEach(hasMega => {
-        const megaMenu = hasMega.querySelector(".mega-menu");
-        const megaLink = hasMega.querySelector("a");
+        // Use :scope to target only direct children, matching the Walker's output
+        const megaMenu = hasMega.querySelector(":scope > .mega-menu");
+        const megaLink = hasMega.querySelector(":scope > a");
 
         if (megaMenu && megaLink) {
+
             // Desktop hover behavior
             hasMega.addEventListener("mouseenter", () => {
                 if (window.innerWidth > 992) {
@@ -48,6 +54,15 @@ function initNavigation() {
             megaLink.addEventListener('click', (e) => {
                 if (window.innerWidth <= 992) {
                     e.preventDefault();
+
+                    // Close all other open mega-menus for accordion effect
+                    hasMegaElements.forEach(item => {
+                        if (item !== hasMega) {
+                            item.classList.remove('open');
+                        }
+                    });
+
+                    // Toggle the current one
                     hasMega.classList.toggle('open');
                 }
             });

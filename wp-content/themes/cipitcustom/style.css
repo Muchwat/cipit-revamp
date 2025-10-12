@@ -131,8 +131,20 @@ nav {
     white-space: nowrap;
 }
 
-.menu>ul>li>a:hover,
+/* NOTE: Desktop hover is now handled by pure CSS later in this file */
+.menu>ul>li>a:hover {
+    /* Only keep the hover for non-mega menu items (if any exist) */
+    background-color: var(--primary-color);
+    color: white;
+    border-color: white;
+    width: 6.5rem;
+    height: 6.5rem;
+    margin: 0.25rem;
+    white-space: normal;
+}
+
 .menu>ul>li>a.active-mega {
+    /* Kept for potential JS use/fallback, but better handled by pure CSS */
     background-color: var(--primary-color);
     color: white;
     border-color: white;
@@ -146,8 +158,9 @@ nav {
     color: var(--primary-color);
 }
 
+/* --- FIX: Base Mega Menu Styles for Desktop Hover --- */
 .mega-menu {
-    display: none;
+    /* REMOVED: display: none; */
     position: absolute;
     top: 6rem;
     left: 0;
@@ -162,7 +175,11 @@ nav {
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s;
     border-radius: var(--border-radius);
+    pointer-events: none;
+    /* Disable mouse until visible */
 }
+
+/* --- END FIX --- */
 
 .mega-menu h3 {
     grid-column: 1 / -1;
@@ -195,12 +212,14 @@ nav {
     padding: 0 10px;
 }
 
+/* NOTE: .mega-menu.active is now primarily used for mobile/JS fallback */
 .mega-menu.active {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     opacity: 1;
     visibility: visible;
+    pointer-events: all;
 }
 
 .hamburger {
@@ -1790,7 +1809,28 @@ nav {
 /* =======================================================
    Responsive Design
    ======================================================= */
-@media (min-width: 768px) {
+@media (min-width: 993px) {
+
+    /* --- FIX: Pure CSS Hover for Mega Menu (Desktop) --- */
+    .has-mega:hover>.mega-menu {
+        opacity: 1;
+        visibility: visible;
+        display: grid;
+        /* Use grid for layout */
+        pointer-events: all;
+    }
+
+    .has-mega:hover>a {
+        background-color: var(--primary-color);
+        color: white;
+        border-color: white;
+        width: 6.5rem;
+        height: 6.5rem;
+        margin: 0.25rem;
+        white-space: normal;
+    }
+
+    /* --- END FIX --- */
 
     /* Index Page Overrides */
     .report-card {
@@ -1906,6 +1946,8 @@ nav {
         opacity: 1;
         visibility: visible;
         display: none;
+        pointer-events: all;
+        /* Important for mobile */
     }
 
     li.has-mega.open .mega-menu {
