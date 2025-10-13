@@ -4,10 +4,6 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Unified Site Styles -->
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/main.css">
     <?php wp_head(); ?>
 </head>
 
@@ -17,7 +13,9 @@
         <nav>
             <div class="main-header">
                 <div class="logo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="CIPIT Logo">
+                    <a href="/">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="CIPIT Logo">
+                    </a>
                 </div>
                 <div class="menu">
                     <button class="hamburger"><i class="fas fa-bars"></i></button>
