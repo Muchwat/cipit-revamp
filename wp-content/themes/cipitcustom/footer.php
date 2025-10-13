@@ -1,3 +1,12 @@
+<div class="newsletter">
+    <h2>Stay Updated</h2>
+    <p>Subscribe to our newsletter to receive the latest research, publications, and blog posts directly in your
+        inbox.</p>
+    <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" required>
+        <button type="submit">Subscribe</button>
+    </form>
+</div>
 </div>
 <footer class="site-footer">
     <div class="footer-container">
