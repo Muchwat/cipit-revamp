@@ -10,8 +10,10 @@ get_header();
 </div>
 
 <section class="blog-header">
-    <h1>Search Results for “<?php echo esc_html(get_search_query()); ?>”</h1>
-    <p>Showing posts that match your search.</p>
+    <h1>
+        Search Results for “<?php echo wp_trim_words(get_search_query(), 3, '...'); ?>”
+    </h1>
+    <p>Showing blog posts that match your search.</p>
 
     <div class="search-container">
         <?php get_search_form(); ?>
@@ -19,10 +21,22 @@ get_header();
 </section>
 
 <main class="site-main container mx-auto px-4 py-8">
-    <?php if (have_posts()): ?>
+    <?php
+    // Custom search query restricted to "blog" category
+    $paged = get_query_var('paged') ? get_query_var('paged') : 1;
+
+    $search_query = new WP_Query([
+        's' => get_search_query(),
+        'category_name' => 'blog', // only show posts from Blog category
+        'posts_per_page' => 6,
+        'paged' => $paged,
+    ]);
+    ?>
+
+    <?php if ($search_query->have_posts()): ?>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <?php while (have_posts()):
-                the_post(); ?>
+            <?php while ($search_query->have_posts()):
+                $search_query->the_post(); ?>
                 <article <?php post_class('p-4 border rounded-lg shadow-sm'); ?>>
                     <?php if (has_post_thumbnail()): ?>
                         <a href="<?php the_permalink(); ?>">
@@ -47,15 +61,17 @@ get_header();
         <div class="mt-8">
             <?php
             echo paginate_links([
-                'total' => $wp_query->max_num_pages,
+                'total' => $search_query->max_num_pages,
                 'current' => max(1, get_query_var('paged')),
             ]);
             ?>
         </div>
 
     <?php else: ?>
-        <p>No results found for your search. Try another keyword.</p>
+        <p>No blog results found for “<?php echo esc_html(get_search_query()); ?>”. Try another keyword.</p>
     <?php endif; ?>
+
+    <?php wp_reset_postdata(); ?>
 </main>
 
 <?php get_footer(); ?>
