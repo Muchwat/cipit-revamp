@@ -2,6 +2,28 @@
 /* Template Name: Blog Page */
 get_header(); ?>
 
+<div class="breadcrumbs">
+    <div>
+        <h3>Blog</h3>
+        <a href="index.html">Home</a> / <span>Blog</span>
+    </div>
+</div>
+
+<!-- Blog Header -->
+<section class="blog-header">
+    <h1>CIPIT Blog</h1>
+    <p>Insights, analysis, and commentary on intellectual property, information technology law, and digital
+        policy in Africa</p>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <form class="search-bar">
+            <input type="text" placeholder="Search blog posts, topics, or authors...">
+            <button type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
+    </div>
+</section>
+
 <main class="site-main container mx-auto px-4 py-8">
 
     <h1 class="text-3xl font-bold mb-8"><?php the_title(); ?></h1>
