@@ -24,6 +24,40 @@ get_header(); ?>
     </div>
 </section>
 
+
+<!-- Featured Post -->
+<div class="featured-post">
+    <div class="featured-image">
+        The Future of AI Regulation in Africa
+        <div class="featured-badge">FEATURED</div>
+    </div>
+    <div class="featured-content">
+        <div class="post-meta">
+            <span><i class="far fa-calendar"></i> May 15, 2023</span>
+            <span><i class="far fa-user"></i> Dr. Jane Muthoni</span>
+            <span><i class="far fa-folder"></i> Artificial Intelligence</span>
+        </div>
+        <h2>Navigating the Complex Landscape of AI Governance in African Jurisdictions</h2>
+        <p>As artificial intelligence technologies become increasingly integrated into public and private sector
+            operations across Africa, the need for robust regulatory frameworks has never been more urgent. This
+            post examines the current state of AI regulation in key African countries, identifies gaps in
+            existing approaches, and proposes a rights-based framework for future policy development.</p>
+        <a href="#" class="read-more-btn">Read Full Article</a>
+    </div>
+</div>
+
+<!-- Blog Categories -->
+<div class="blog-categories">
+    <button class="category-btn active">All Topics</button>
+    <button class="category-btn">Artificial Intelligence</button>
+    <button class="category-btn">Data Governance</button>
+    <button class="category-btn">Digital Identity</button>
+    <button class="category-btn">IP & Innovation</button>
+    <button class="category-btn">Cyber Law</button>
+    <button class="category-btn">Policy Analysis</button>
+</div>
+
+
 <main class="site-main container mx-auto px-4 py-8">
 
     <h1 class="text-3xl font-bold mb-8"><?php the_title(); ?></h1>
