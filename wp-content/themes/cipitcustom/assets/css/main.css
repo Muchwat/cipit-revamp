@@ -1078,24 +1078,85 @@ nav {
 }
 
 /* *** Image Container Styles for Grid Cards (Darker Gradient) *** */
-.blog-card-image,
-.book-cover,
-.podcast-card-image {
-    height: 200px;
-    background: linear-gradient(45deg, var(--secondary-color), #333);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
+.blog-card-image {
+    /* Set a fixed height for the container to ensure consistency */
+    height: 250px;
+    /* The container must be positioned relative for absolute children (link, badge) */
     position: relative;
-    max-width: 100%;
-    /* For responsive layout on larger screens */
+    /* Ensure no flex property interferes with the <img> being a direct child of the <a> */
+    display: block;
+    overflow: hidden;
+    /* Dark background fallback if image fails or for the overlay text effect */
+    background: linear-gradient(45deg, var(--secondary-color), #333);
 }
 
-.blog-card-badge,
-.book-card-badge,
-.podcast-card-badge {
+/* Style the link element (which contains the image and text) to cover the whole container */
+.blog-card-image a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* Centers the category text */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    font-size: 1.2rem;
+    z-index: 2;
+    /* Overlay layer */
+    /* Add a transition to the overlay background for a hover effect */
+    transition: background 0.3s ease;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Target the image INSIDE the link (the actual thumbnail) and force it to fill the link's space */
+.blog-card-image a img {
+    width: 100%;
+    height: 100%;
+    /* CRUCIAL: Ensures the image covers the 250px area without distortion, cropping as needed */
+    object-fit: cover;
+    position: absolute;
+    /* Allows the image to fill the link */
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* Place image below the text overlay (z-index: 2) */
+}
+
+/* Style the link's background to be the transparent overlay using pseudo-element */
+.blog-card-image a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* Dark overlay for text readability */
+    z-index: 2;
+    transition: background 0.3s ease;
+}
+
+/* Ensure the text content within the <a> is on top of the overlay */
+/* Targeting the immediate children of <a> is often needed to pull content over the ::before element */
+.blog-card-image a>* {
+    z-index: 3;
+    position: relative;
+}
+
+.blog-card-image a:hover::before {
+    background: rgba(0, 0, 0, 0.2);
+    /* Lighter overlay on hover */
+}
+
+
+.blog-card-badge {
     position: absolute;
     top: 15px;
     left: 15px;
@@ -1105,6 +1166,8 @@ nav {
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: 600;
+    z-index: 5;
+    /* Ensure badge is on top of everything */
 }
 
 .blog-card-content {
@@ -1533,13 +1596,62 @@ nav {
 }
 
 .podcast-card-image {
-    height: 200px;
+    /* Uses the same styling as .blog-card-image for consistency */
+    height: 250px;
+    display: block;
+    position: relative;
+    overflow: hidden;
     background: linear-gradient(45deg, var(--secondary-color), #333);
+}
+
+.podcast-card-image a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+}
+
+.podcast-card-image a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
     color: white;
+    padding: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
+    text-align: center;
+    z-index: 2;
+    transition: background 0.3s ease;
+}
+
+.podcast-card-image a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 2;
+    transition: background 0.3s ease;
+}
+
+.podcast-card-image a:hover::before {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.podcast-card-image a>* {
+    z-index: 3;
     position: relative;
 }
 
