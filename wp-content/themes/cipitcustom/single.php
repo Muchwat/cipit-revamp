@@ -1,63 +1,70 @@
-<?php get_header(); ?>
+<?php
+// single.php - Single Post Template
+get_header();
 
-<main id="primary" class="site-main container mx-auto py-12">
+if (have_posts()):
+    while (have_posts()):
+        the_post();
+        ?>
 
-    <?php
-    if (have_posts()):
-        while (have_posts()):
-            the_post();
-            // Check if post belongs to the 'Blog' category
-            if (has_category('Blog')):
-                ?>
-                <article <?php post_class('prose lg:prose-xl max-w-3xl mx-auto'); ?>>
-                    <header class="mb-8 text-center">
-                        <h1 class="text-4xl font-bold mb-2"><?php the_title(); ?></h1>
-                        <p class="text-gray-500 text-sm">
-                            Posted on <?php echo get_the_date(); ?> by <?php the_author(); ?>
-                        </p>
-                        <?php if (has_post_thumbnail()): ?>
-                            <div class="my-6">
-                                <?php the_post_thumbnail('large', ['class' => 'rounded-xl shadow-lg mx-auto']); ?>
-                            </div>
+        <div class="breadcrumbs">
+            <div>
+                <h3><?php the_title(); ?></h3>
+                <a href="<?php echo esc_url(home_url('/')); ?>">Home</a> / <a
+                    href="<?php echo get_permalink(get_option('page_for_posts')); ?>">Blog</a> /
+                <span><?php echo wp_trim_words(get_the_title(), 5, '...'); ?></span>
+            </div>
+        </div>
+
+        <main class="site-main container">
+            <article id="post-<?php the_ID(); ?>" <?php post_class('single-post'); ?>>
+
+                <header class="single-post-header">
+                    <h1 class="post-title"><?php the_title(); ?></h1>
+                    <div class="post-meta-full">
+                        <span><i class="far fa-calendar"></i> <?php echo get_the_date(); ?></span>
+                        <span><i class="far fa-user"></i> <?php the_author(); ?></span>
+
+                        <?php $categories = get_the_category();
+                        if (!empty($categories)): ?>
+                            <span><i class="far fa-folder"></i> <?php echo esc_html($categories[0]->name); ?></span>
                         <?php endif; ?>
-                    </header>
 
-                    <div class="post-content">
-                        <?php the_content(); ?>
+                        <span class="reading-time">
+                            <i class="fas fa-clock"></i>
+                            <?php echo round(str_word_count(strip_tags(get_the_content())) / 200); ?> min read
+                        </span>
+                    </div>
+                </header>
+
+
+
+                <div class="post-content">
+                    <?php the_content(); ?>
+                </div>
+
+                <div class="post-footer">
+                    <div class="post-tags">
+                        <?php the_tags('Tags: ', ', ', ''); ?>
                     </div>
 
-                    <footer class="mt-8 border-t pt-6 text-center text-sm text-gray-500">
-                        <?php the_category(', '); ?>
-                        <?php the_tags('<br>Tags: ', ', '); ?>
-                    </footer>
-                </article>
-
-                <?php
-            else:
-                // For non-blog posts (custom types, pages, etc.)
-                ?>
-                <article <?php post_class('max-w-3xl mx-auto prose'); ?>>
-                    <h1 class="text-3xl font-semibold mb-4"><?php the_title(); ?></h1>
-                    <div class="content">
-                        <?php the_content(); ?>
+                    <div class="author-box">
+                        <div class="author-avatar">
+                            <?php echo get_avatar(get_the_author_meta('ID'), 80); ?>
+                        </div>
+                        <div class="author-info">
+                            <h4>About <?php the_author(); ?></h4>
+                            <p><?php the_author_meta('description'); ?></p>
+                        </div>
                     </div>
-                </article>
+                </div>
 
-                <?php
-            endif;
+            </article>
+        </main>
 
-            // Post navigation
-            the_post_navigation([
-                'prev_text' => '← %title',
-                'next_text' => '%title →',
-            ]);
+        <?php
+    endwhile;
+endif;
 
-        endwhile;
-    else:
-        echo '<p>No post found.</p>';
-    endif;
-    ?>
-
-</main>
-
-<?php get_footer(); ?>
+get_footer();
+?>

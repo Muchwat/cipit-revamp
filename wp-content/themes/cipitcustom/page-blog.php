@@ -15,14 +15,9 @@ get_header(); ?>
         policy in Africa</p>
 
     <div class="search-container">
-        <?php get_search_form(); // This outputs the search form based on searchform.php ?>
+        <?php get_search_form(); ?>
     </div>
 </section>
-
-<?php
-// Featured Post
-get_template_part('template-parts/content', 'featured');
-?>
 
 <main class="site-main container mx-auto px-4 py-8">
 
@@ -32,8 +27,8 @@ get_template_part('template-parts/content', 'featured');
         <?php
         // Fetch all tags used on your blog posts
         $tags = get_tags(array(
-            'taxonomy' => 'post_tag', // Fetches tags instead of categories
-            'hide_empty' => true,      // Only show tags currently applied to posts
+            'taxonomy' => 'post_tag',
+            'hide_empty' => true,
         ));
 
         foreach ($tags as $tag) {
@@ -41,22 +36,79 @@ get_template_part('template-parts/content', 'featured');
         }
         ?>
     </div>
+
     <?php
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-    $blog_query = new WP_Query([
-        // Assuming your 'blog' category slug is 'blog'. You might adjust this.
+
+    // Featured Post Query
+    $featured_query = new WP_Query([
+        'posts_per_page' => 1,
+        'post__in' => get_option('sticky_posts'),
+        'ignore_sticky_posts' => 1,
         'category_name' => 'blog',
-        'posts_per_page' => 6,
+    ]);
+
+    // Main Blog Query
+    $blog_query = new WP_Query([
+        'category_name' => 'blog',
+        'posts_per_page' => 9,
         'paged' => $paged,
+        'post__not_in' => get_option('sticky_posts'), // Exclude featured posts from main loop
     ]);
     ?>
+
+    <?php if ($featured_query->have_posts()): ?>
+        <?php while ($featured_query->have_posts()):
+            $featured_query->the_post(); ?>
+
+            <!-- Featured Post - Corrected Structure -->
+            <div class="featured-post">
+                <div class="featured-image">
+                    <a href="<?php the_permalink(); ?>">
+                        <?php if (has_post_thumbnail()): ?>
+                            <?php the_post_thumbnail('full'); ?>
+                        <?php endif; ?>
+                    </a>
+                    <div class="featured-badge">
+                        FEATURED
+                    </div>
+                </div>
+
+                <div class="featured-content">
+                    <div class="post-meta">
+                        <span><i class="far fa-calendar"></i> <?php echo get_the_date(); ?></span>
+                        <span><i class="far fa-user"></i> <?php the_author(); ?></span>
+                        <?php
+                        $categories = get_the_category();
+                        if ($categories): ?>
+                            <span><i class="far fa-folder"></i> <?php echo esc_html($categories[0]->name); ?></span>
+                        <?php endif; ?>
+                    </div>
+
+                    <h2>
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </h2>
+
+                    <p>
+                        <?php echo wp_trim_words(get_the_excerpt(), 40); ?>
+                    </p>
+
+                    <a href="<?php the_permalink(); ?>" class="read-more-btn">
+                        Read Full Article
+                    </a>
+                </div>
+            </div>
+
+        <?php endwhile; ?>
+        <?php wp_reset_postdata(); ?>
+    <?php endif; ?>
 
     <?php if ($blog_query->have_posts()): ?>
         <div class="blog-posts">
             <?php while ($blog_query->have_posts()):
                 $blog_query->the_post();
 
-                // Get the first TAG's name for the 'Image Overlay Text' (Updated for consistency)
+                // Get the first TAG's name for the 'Image Overlay Text'
                 $post_tags = get_the_tags();
                 $overlay_text = !empty($post_tags) ? esc_html($post_tags[0]->name) : 'Read More';
 
@@ -68,9 +120,9 @@ get_template_part('template-parts/content', 'featured');
                     <div class="blog-card-image">
                         <a href="<?php the_permalink(); ?>">
                             <?php if (has_post_thumbnail()): ?>
-                                <?php the_post_thumbnail('large'); // Output the image ?>
+                                <?php the_post_thumbnail('large'); ?>
                             <?php endif; ?>
-                            <?php echo $overlay_text; // The text on the image overlay ?>
+                            <?php echo $overlay_text; ?>
                         </a>
                         <?php if ($is_new): ?>
                             <div class="blog-card-badge">NEW</div>

@@ -998,6 +998,45 @@ nav {
     position: relative;
 }
 
+/* Style the link element (which contains the image and text) to cover the whole container */
+.featured-image a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* Centers the category text */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    font-size: 1.2rem;
+    z-index: 2;
+    /* Overlay layer */
+    /* Add a transition to the overlay background for a hover effect */
+    transition: background 0.3s ease;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Target the image INSIDE the link (the actual thumbnail) and force it to fill the link's space */
+.featured-image a img {
+    width: 100%;
+    height: 100%;
+    /* CRUCIAL: Ensures the image covers the 250px area without distortion, cropping as needed */
+    object-fit: cover;
+    position: absolute;
+    /* Allows the image to fill the link */
+    top: 0;
+    left: 0;
+    z-index: 1;
+    /* Place image below the text overlay (z-index: 2) */
+}
+
 .featured-badge {
     position: absolute;
     top: 20px;
@@ -2149,5 +2188,157 @@ nav {
     .podcast-card-image {
         max-width: 100%;
         height: 200px;
+    }
+}
+
+/* =======================================================
+   Single Post Page Styles (The Blog Detail Page)
+   ======================================================= */
+.single-post {
+    padding-top: var(--section-padding-small);
+}
+
+.single-post-header {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 2.5rem;
+}
+
+.post-title {
+    font-size: calc(var(--h2-font-size) * 1.1);
+    /* Slightly larger than standard H2 */
+    color: var(--secondary-color);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.post-meta-full {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #777;
+    font-size: 0.95rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+.post-meta-full span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.post-featured-image {
+    max-width: 100%;
+    margin-bottom: 3rem;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    /* Light shadow for depth */
+}
+
+.post-featured-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Post Content Styling (for readability and Golden Ratio line-height) */
+.post-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: var(--gr);
+    color: var(--dark-gray);
+}
+
+.post-content p {
+    margin-bottom: 1.5rem;
+}
+
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    color: var(--primary-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: var(--h3-font-size);
+    line-height: 1.3;
+}
+
+.post-content a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.post-content a:hover {
+    color: var(--primary-hover);
+}
+
+/* Post Footer (Tags and Author) */
+.post-footer {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    padding-top: 2rem;
+    border-top: 2px solid var(--light-gray);
+}
+
+.post-tags {
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.post-tags a {
+    background-color: var(--light-gray);
+    color: var(--secondary-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
+    text-decoration: none;
+    margin-right: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.post-tags a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* Author Box Styling */
+.author-box {
+    display: flex;
+    align-items: center;
+    background: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    gap: 1.5rem;
+}
+
+.author-avatar img {
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    display: block;
+}
+
+.author-info h4 {
+    font-size: 1.3rem;
+    margin: 0 0 0.5rem;
+    color: var(--secondary-color);
+}
+
+.author-info p {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .post-meta-full {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
     }
 }
