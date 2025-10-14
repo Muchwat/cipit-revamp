@@ -70,6 +70,56 @@ function initNavigation() {
     });
 }
 
+/* Blog Tag Filtering Logic (Revised main.js) */
+
+jQuery(document).ready(function ($) {
+    // Use the localized variable defined in functions.php
+    const ajaxurl = my_ajax_object.ajax_url;
+
+    const $filterButtons = $('#blog-tag-filter .tag-btn');
+    const $postsContainer = $('.blog-posts');
+    const postsPerLoad = 6;
+
+    // Function to handle fetching and replacing posts
+    function filterPosts(tagSlug, page = 1) {
+        // Show a loading state
+        $postsContainer.html('<div class="loading-indicator" style="text-align:center; padding: 50px;">Loading...</div>');
+
+        $.ajax({
+            url: ajaxurl, // <-- Uses the correctly localized URL
+            type: 'POST',
+            data: {
+                action: 'filter_blog_posts',
+                tag: tagSlug,
+                paged: page,
+                posts_per_page: postsPerLoad
+            },
+            success: function (response) {
+                $postsContainer.html(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                // Log the error to the console for detailed debugging
+                console.error("AJAX Error: ", textStatus, errorThrown);
+                $postsContainer.html('<p style="text-align:center;">Sorry, we could not load the posts. Check console for details.</p>');
+            }
+        });
+    }
+
+    // Event Listener for Tag Filter Buttons
+    $filterButtons.on('click', function () {
+        const $this = $(this);
+        const tagSlug = $this.data('slug');
+
+        // 1. Update active button state
+        $filterButtons.removeClass('active');
+        $this.addClass('active');
+
+        // 2. Run the filter function (resetting to page 1)
+        filterPosts(tagSlug, 1);
+    });
+});
+
+
 /**
  * Updates the footer copyright year.
  */

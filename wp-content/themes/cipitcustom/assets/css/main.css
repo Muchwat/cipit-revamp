@@ -907,7 +907,7 @@ nav {
 
 
 /* Shared Filter/Category Button Styles */
-.category-btn,
+.tag-btn,
 .filter-btn {
     /* Unified category and event filter buttons */
     padding: 0.6rem 1.6rem;
@@ -920,8 +920,8 @@ nav {
     font-weight: 500;
 }
 
-.category-btn:hover,
-.category-btn.active,
+.tag-btn:hover,
+.tag-btn.active,
 .filter-btn:hover,
 .filter-btn.active {
     background: var(--primary-color);
@@ -960,7 +960,7 @@ nav {
 /* =======================================================
    Blog Page Styles (.blog.html)
    ======================================================= */
-.blog-categories {
+.blog-tags {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;

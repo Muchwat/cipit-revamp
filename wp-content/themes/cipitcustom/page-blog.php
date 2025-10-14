@@ -25,20 +25,22 @@ get_template_part('template-parts/content', 'featured');
 ?>
 
 <main class="site-main container mx-auto px-4 py-8">
-    <?php
-    // Blog Categories - You might want to make this dynamic later
-    // For now, I'll keep the structure from the static HTML for reference
-    ?>
-    <div class="blog-categories">
-        <button class="category-btn active">All Topics</button>
-        <button class="category-btn">Artificial Intelligence</button>
-        <button class="category-btn">Data Governance</button>
-        <button class="category-btn">Digital Identity</button>
-        <button class="category-btn">IP & Innovation</button>
-        <button class="category-btn">Cyber Law</button>
-        <button class="category-btn">Policy Analysis</button>
-    </div>
 
+    <div class="blog-tags" id="blog-tag-filter">
+        <button class="tag-btn active" data-slug="all">All Topics</button>
+
+        <?php
+        // Fetch all tags used on your blog posts
+        $tags = get_tags(array(
+            'taxonomy' => 'post_tag', // Fetches tags instead of categories
+            'hide_empty' => true,      // Only show tags currently applied to posts
+        ));
+
+        foreach ($tags as $tag) {
+            echo '<button class="tag-btn" data-slug="' . esc_attr($tag->slug) . '">' . esc_html($tag->name) . '</button>';
+        }
+        ?>
+    </div>
     <?php
     $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
     $blog_query = new WP_Query([
@@ -54,9 +56,9 @@ get_template_part('template-parts/content', 'featured');
             <?php while ($blog_query->have_posts()):
                 $blog_query->the_post();
 
-                // Get the first category's name for the 'Image Overlay Text'
-                $categories = get_the_category();
-                $overlay_text = !empty($categories) ? esc_html($categories[0]->name) : 'Read More';
+                // Get the first TAG's name for the 'Image Overlay Text' (Updated for consistency)
+                $post_tags = get_the_tags();
+                $overlay_text = !empty($post_tags) ? esc_html($post_tags[0]->name) : 'Read More';
 
                 // Check if the post is recent (e.g., posted in the last 7 days) to show 'NEW' badge
                 $post_age = (time() - get_the_time('U')) / (60 * 60 * 24);
