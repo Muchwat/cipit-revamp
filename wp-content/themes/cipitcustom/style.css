@@ -1,0 +1,22 @@
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 3rem;
+}
+
+.pagination a {
+    color: #b50509;
+    border: 1px solid #b50509;
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pagination a:hover,
+.pagination a.active {
+    background-color: #b50509;
+    color: #fff;
+}

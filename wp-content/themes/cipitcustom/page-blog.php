@@ -15,7 +15,12 @@ get_header(); ?>
         policy in Africa</p>
 
     <div class="search-container">
-        <?php get_search_form(); ?>
+        <form role="search" method="get" class="search-bar" action="<?php echo esc_url(home_url('/')); ?>">
+            <input type="search" class="search-field" placeholder="Search blog posts, topics, or authors..."
+                value="<?php echo get_search_query(); ?>" name="s">
+            <input type="hidden" name="search_context" value="blog">
+            <button type="submit"><i class="fas fa-search"></i> Search</button>
+        </form>
     </div>
 </section>
 
@@ -61,7 +66,7 @@ get_header(); ?>
         <?php while ($featured_query->have_posts()):
             $featured_query->the_post(); ?>
 
-            <!-- Featured Post - Corrected Structure -->
+            <!-- Featured Post -->
             <div class="featured-post">
                 <div class="featured-image">
                     <a href="<?php the_permalink(); ?>">

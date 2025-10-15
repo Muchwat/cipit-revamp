@@ -49,6 +49,7 @@ function filter_blog_posts_ajax_handler()
         'paged' => $paged,
         'post_status' => 'publish',
         'tax_query' => array(),
+        'category_name' => 'blog',
     );
 
     // Only filter if a specific tag is selected (not 'all')
@@ -111,3 +112,40 @@ function filter_blog_posts_ajax_handler()
 add_action('wp_ajax_filter_blog_posts', 'filter_blog_posts_ajax_handler');
 // For non-logged-in users
 add_action('wp_ajax_nopriv_filter_blog_posts', 'filter_blog_posts_ajax_handler');
+
+/**
+ * Custom Search Handlers: Modifies the main query based on the 'search_context' URL parameter.
+ */
+function custom_multiple_search_handlers($query)
+{
+    // 1. Check if we're on the main search page query, not in the admin, and not a secondary query
+    if ($query->is_search() && $query->is_main_query() && !is_admin()) {
+
+        // Get and sanitize the context flag from the URL
+        $context = isset($_GET['search_context']) ? sanitize_key($_GET['search_context']) : 'all';
+
+        // 2. Route the Query based on the context flag
+        switch ($context) {
+
+            case 'books':
+                // --- Books Search Handler ---
+                $query->set('category_name', 'books');
+                $query->set('posts_per_page', 8); // Example: 8 results for books
+                break;
+
+            case 'blog':
+                // --- Blog Search Handler ---
+                $query->set('category_name', 'blog');
+                $query->set('posts_per_page', 6); // Example: 6 results for blog
+                break;
+
+            case 'all':
+            default:
+                // --- Default Handler (e.g., if no flag is set) ---
+                // You can choose to show all results or just set a default category/post type
+                // $query->set('post_type', array('post', 'page'));
+                break;
+        }
+    }
+}
+add_action('pre_get_posts', 'custom_multiple_search_handlers');

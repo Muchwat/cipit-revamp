@@ -69,8 +69,7 @@ function initNavigation() {
         }
     });
 }
-
-/* Blog Tag Filtering Logic (Revised main.js) */
+// --- BLOG PAGE AJAX FILTERING LOGIC ---
 
 jQuery(document).ready(function ($) {
     // Use the localized variable defined in functions.php

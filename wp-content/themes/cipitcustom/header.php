@@ -10,6 +10,19 @@
 <body <?php body_class(); ?>>
 
     <div class="container">
+        <div class="top-header">
+            <div class="top-header-left">
+                <a href="#opportunities">Opportunities</a>
+                <a href="#contact-us">Contact Us</a>
+            </div>
+            <div class="top-header-right">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
         <nav>
             <div class="main-header">
                 <div class="logo">
@@ -45,11 +58,11 @@
                             <div class="mega-menu">
                                 <div class="column">
                                     <h4 class="menu-title">Publications</h4>
-                                    <a href="books-and-chapters.html">Books and Book Chapters</a>
-                                    <a href="journal-articles.html">Journal Articles</a>
-                                    <a href="conference-papers.html">Conference Papers</a>
-                                    <a href="policy-briefs.html">Policy Briefs</a>
-                                    <a href="manuals.html">Manuals</a>
+                                    <a href="/books">Books and Book Chapters</a>
+                                    <a href="/journal-articles">Journal Articles</a>
+                                    <a href="/conference-papers">Conference Papers</a>
+                                    <a href="/policy-briefs">Policy Briefs</a>
+                                    <a href="/manuals">Manuals</a>
                                 </div>
                             </div>
                         </li>
