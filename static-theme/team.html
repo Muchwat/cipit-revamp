@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - CIPIT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --gr: 1.618;
+            --base-font-size: 1rem;
+            --h2-font-size: calc(var(--base-font-size) * var(--gr) * 1.5);
+            --h3-font-size: calc(var(--base-font-size) * var(--gr));
+            --section-padding: 5rem;
+            --section-padding-small: calc(var(--section-padding) / var(--gr));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            line-height: var(--gr);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 0 15px 2rem 15px;
+        }
+
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        .top-header-left a,
+        .top-header-right a {
+            color: #c02126;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .top-header-left a:hover,
+        .top-header-right a:hover {
+            color: #a2080d;
+        }
+
+        .top-header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            position: relative;
+        }
+
+        .main-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 6rem;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .logo {
+            position: relative;
+            bottom: -.5rem;
+            z-index: 1001;
+        }
+
+        .logo img {
+            max-height: 50px;
+            display: block;
+            content: url('/logo.png');
+        }
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu ul {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .menu>ul>li>a {
+            text-decoration: none;
+            color: #c02126;
+            text-align: center;
+            display: grid;
+            place-items: center;
+            width: 7rem;
+            height: 7rem;
+            border-radius: 50%;
+            border: .8rem solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            bottom: -1.5rem;
+            z-index: 20;
+            white-space: nowrap;
+        }
+
+        .menu>ul>li>a:hover,
+        .menu>ul>li>a.active-mega {
+            background-color: #c02126;
+            color: white;
+            border-color: white;
+            width: 6.5rem;
+            height: 6.5rem;
+            margin: 0.25rem;
+            white-space: normal;
+        }
+
+        .menu .active {
+            color: #c02126;
+        }
+
+        .mega-menu {
+            display: none;
+            position: absolute;
+            top: 6rem;
+            left: 0;
+            width: 100%;
+            background: #c02126;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: var(--section-padding-small);
+            text-align: left;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+            border-radius: 12px;
+        }
+
+        .mega-menu h3 {
+            grid-column: 1 / -1;
+            margin-bottom: 1rem;
+            font-size: var(--h3-font-size);
+        }
+
+        .mega-menu a {
+            display: block;
+            padding: 8px 12px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            width: auto;
+            height: auto;
+            transition: background 0.3s ease;
+        }
+
+        .mega-menu a:hover,
+        .mega-menu a.active-mega {
+            background: #eee;
+            border-radius: 8px;
+            color: #c02126;
+            font-weight: 600;
+            margin: 0;
+            border: none;
+        }
+
+        .mega-menu .column {
+            padding: 0 10px;
+        }
+
+        .mega-menu.active {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 2rem;
+            background: none;
+            border: none;
+            color: #c02126;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .breadcrumbs {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: white;
+            background-color: #c02126;
+            border-radius: 12px;
+            height: 4rem;
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .breadcrumbs h3,
+        .breadcrumbs a,
+        .breadcrumbs span {
+            color: white;
+        }
+
+        .breadcrumbs a {
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .breadcrumbs a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- Team Section Styles --- */
+        .team-header {
+            text-align: center;
+            padding: var(--section-padding) 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .team-header h1 {
+            font-size: var(--h2-font-size);
+            color: #c02126;
+            margin-bottom: 1rem;
+        }
+
+        .team-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .team-section {
+            padding: var(--section-padding) 0;
+        }
+
+        .team-section h2 {
+            font-size: var(--h2-font-size);
+            margin-bottom: var(--section-padding-small);
+            color: #c02126;
+            display: inline-block;
+            border-bottom: 3px solid #c02126;
+            padding-bottom: 5px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .team-member-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .team-member-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-member-image {
+            height: 200px;
+            background-color: #151515;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .team-member-card img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 5px solid #c02126;
+        }
+
+        .team-member-content {
+            padding: 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .team-member-content h3 {
+            font-size: 1.45rem;
+            color: #151515;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .team-member-content .member-role {
+            font-size: 0.95rem;
+            color: #c02126;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .team-member-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, #c02126 0%, #a2080d 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .newsletter h2 {
+            font-size: 1.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+            font-size: 1.1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.9rem 1.4rem;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1.05rem;
+        }
+
+        .newsletter-form button {
+            background: #151515;
+            color: white;
+            border: none;
+            padding: 0 1.8rem;
+            border-radius: 0 30px 30px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .newsletter-form button:hover {
+            background: #000;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: #c02126;
+            color: #e0e0e0;
+            padding: var(--section-padding) 0 0;
+            font-size: 0.95rem;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px var(--section-padding-small);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--section-padding-small);
+            text-align: left;
+        }
+
+        .footer-about p,
+        .footer-contact p {
+            line-height: 1.7;
+        }
+
+        .footer-about h4,
+        .footer-links h4,
+        .footer-social h4,
+        .footer-contact h4 {
+            margin-bottom: 1.5rem;
+            font-size: var(--h3-font-size);
+            font-weight: 600;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+            display: inline-block;
+            border-bottom: none;
+        }
+
+        .footer-about h4::after,
+        .footer-links h4::after,
+        .footer-social h4::after,
+        .footer-contact h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #fff;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul li a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-contact a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-contact a:hover {
+            color: #fff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: #c02126;
+            background-color: #fff;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-3px);
+            color: #c02126;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 20px;
+            background-color: #151515;
+            color: #a0a0a0;
+            margin-top: var(--section-padding-small);
+            font-size: 0.9rem;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .menu ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 6rem;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .menu ul.active {
+                display: flex;
+            }
+
+            .menu li {
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+            }
+
+            .menu>ul>li>a {
+                width: 100%;
+                height: auto;
+                border-radius: 0;
+                border: none;
+                padding: 1rem;
+                z-index: 1;
+                position: static;
+                bottom: 0;
+            }
+
+            .menu>ul>li>a:hover,
+            .menu>ul>li>a.active-mega {
+                background-color: transparent;
+                color: #c02126;
+                border-color: transparent;
+                width: 100%;
+                height: auto;
+                margin: 0;
+            }
+
+            .logo {
+                bottom: 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mega-menu {
+                position: static;
+                width: 100% !important;
+                box-shadow: none;
+                margin-top: 0;
+                transform: none;
+                opacity: 1;
+                visibility: visible;
+                display: none;
+                color: white;
+            }
+
+            li.has-mega.open .mega-menu {
+                display: grid;
+            }
+
+            .mega-menu.active {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .top-header {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+
+            .top-header-left {
+                margin-bottom: 0.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                border-radius: 30px;
+            }
+
+            .team-member-content {
+                padding: 1.5rem;
+            }
+        }
+
+        .menu-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-header">
+            <div class="top-header-left">
+                <a href="#opportunities">Opportunities</a>
+                <a href="#contact-us">Contact Us</a>
+            </div>
+            <div class="top-header-right">
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+
+        <nav>
+            <div class="main-header">
+                <div class="logo">
+                    <img src="logo.png" alt="CIPIT Logo"
+                        onerror="this.onerror=null;this.src='https://placehold.co/150x50/c02126/FFFFFF?text=CIPIT';">
+                </div>
+                <div class="menu">
+                    <button class="hamburger"><i class="fas fa-bars"></i></button>
+                    <ul>
+                        <li class="has-mega">
+                            <a href="#About">Who we are</a>
+                            <div class="mega-menu">
+                                <div class="column">
+                                    <h4 class="menu-title">Who we are</h4>
+                                    <a href="about-us.html">About Us</a>
+                                    <a href="team.html" class="active">Team</a>
+                                    <a href="steering-committee.html">Steering Committee</a>
+                                    <a href="our-work.html">Our Work</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega">
+                            <a href="#Research">Research</a>
+                            <div class="mega-menu">
+                                <div class="column">
+                                    <h4 class="menu-title">Our Research Themes</h4>
+                                    <a href="artificial-intelligence.html">Artificial Intelligence</a>
+                                    <a href="data-governance-and-policy.html">Data Governance & Policy</a>
+                                    <a href="digital-identity.html">Digital Identity</a>
+                                    <a href="ip-and-innovation.html">IP and Innovation</a>
+                                    <a href="cyber-law-and-policy.html">Cyber Law & Policy</a>
+                                </div>
+                                <div class="column">
+                                    <h4 class="menu-title">Learning and Development</h4>
+                                    <a href="trainings.html">Trainings</a>
+                                    <a href="writing-prizes.html">Writing Prizes</a>
+                                    <a href="fellowships.html">Fellowships</a>
+                                    <a href="jipit.html">JIPIT</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega">
+                            <a href="#Publications">Publications</a>
+                            <div class="mega-menu">
+                                <div class="column">
+                                    <h4 class="menu-title">Publications</h4>
+                                    <a href="books-and-chapters.html">Books and Book Chapters</a>
+                                    <a href="journal-articles.html">Journal Articles</a>
+                                    <a href="conference-papers.html">Conference Papers</a>
+                                    <a href="policy-briefs.html">Policy Briefs</a>
+                                    <a href="manuals.html">Manuals</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="news-and-events.html">News & Events</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="podcasts.html">Podcasts</a></li>
+                        <li><a href="#search" class="search-icon-link" aria-label="Search"><i
+                                    class="fas fa-search"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="breadcrumbs">
+            <div>
+                <h3>Team</h3>
+                <a href="index.html">Home</a> / <span>Team</span>
+            </div>
+        </div>
+
+        <!-- Team Header -->
+        <section class="team-header">
+            <h1>Meet Our Team</h1>
+            <p>The Centre for Intellectual Property and Information Technology Law (CIPIT) brings together experts from
+                diverse backgrounds including law, political science, computer science, and development studies.</p>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team-section">
+            <div class="team-grid">
+                <!-- Team Member Card 1 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Dr. Melissa Omino
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Dr. Melissa Omino</h3>
+                        <p class="member-role">Director</p>
+                        <p>An intellectual property (IP) expert with a research focus on the development and negotiation
+                            of IP provisions in international trade agreements.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 2 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Kendi Murithi
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Kendi Murithi</h3>
+                        <p class="member-role">Manager, Finance and Administrative Services</p>
+                        <p>Holds a Bachelor of Commerce and an MBA in Finance and oversees all the administrative and
+                            finance functions of the Centre.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 3 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Chebet Koros
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Chebet Koros</h3>
+                        <p class="member-role">Research Fellow</p>
+                        <p>An experienced advocate of the High Court of Kenya, specializing in intellectual property law
+                            with a focus on education and commercialization.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 4 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Nelly C. Rotich
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Nelly C. Rotich</h3>
+                        <p class="member-role">Research Fellow</p>
+                        <p>A Doctor of Laws Candidate, her research and practice areas are digital trade, digital
+                            rights, and data protection and governance.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 5 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Florence Ogonjo
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Florence Ogonjo</h3>
+                        <p class="member-role">Research Fellow</p>
+                        <p>A Tech Policy Researcher and Advocate of the High Court of Kenya, with a focus on AI policy,
+                            data governance, and digital rights.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 6 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Joshua Kitili
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Joshua Kitili</h3>
+                        <p class="member-role">Research Assistant</p>
+                        <p>An Advocate of the High Court who holds an LLM in Information Law from the University of
+                            Strathclyde.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 7 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Natasha Karanja
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Natasha Karanja</h3>
+                        <p class="member-role">Research Assistant</p>
+                        <p>Holds an LLB from the University of Kent and an LLM in International Commercial and Economic
+                            Law.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 8 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Josephine Kaaniru
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Josephine Kaaniru</h3>
+                        <p class="member-role">Research Assistant</p>
+                        <p>An upcoming lawyer and researcher who is passionate about tech policy research.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 9 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Calvin Mulindwa
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Calvin Mulindwa</h3>
+                        <p class="member-role">Research Assistant</p>
+                        <p>A graduate of Strathmore University with a background in Law, currently serving as a Research
+                            Assistant.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 10 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Cynthia Nzuki
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Cynthia Nzuki</h3>
+                        <p class="member-role">Research Assistant</p>
+                        <p>A young lawyer with expertise in policy, research, and legal consulting on intellectual
+                            property.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 11 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Catriona Onyango
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Catriona Onyango</h3>
+                        <p class="member-role">Administrative Assistant</p>
+                        <p>A CPA Finalist and holder of a Bachelor of Commerce Degree (Accounting Option) from
+                            Strathmore University.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 12 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Kevin Muchwat
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Kevin Muchwat</h3>
+                        <p class="member-role">Tech Lead</p>
+                        <p>Holds a Bachelor of Science degree in Physics and has a passion for building solutions for
+                            social impact.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 13 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Christine Mwangi
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Christine Mwangi</h3>
+                        <p class="member-role">Admin and Communications Assistant</p>
+                        <p>A communications professional with expertise in public relations and digital media,
+                            supporting the Centre's outreach.</p>
+                    </div>
+                </div>
+                <!-- Team Member Card 14 -->
+                <div class="team-member-card">
+                    <div class="team-member-image">
+                        Dr. Isaac Rutenberg
+                    </div>
+                    <div class="team-member-content">
+                        <h3>Dr. Isaac Rutenberg</h3>
+                        <p class="member-role">Founder</p>
+                        <p>A practicing IP lawyer, PhD scientist, and extensively published legal scholar who founded
+                            the Centre for Intellectual Property and Information Technology Law.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <div class="newsletter">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter to receive the latest research, publications, and updates from CIPIT directly
+                in your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <img src="logow.png" alt="CIPIT Logo" height="50px"
+                    onerror="this.onerror=null;this.src='https://placehold.co/150x50/FFFFFF/c02126?text=CIPIT';">
+                <br>
+                <br>
+                <p>The Centre for Intellectual Property and Information Technology Law (CIPIT) is an evidence-based
+                    research and training Centre based at Strathmore University, Nairobi, Kenya.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>CONTACT US</h4>
+                <p>
+                    Student Center Building,<br>
+                    2nd Floor,<br>
+                    Madaraka Estate Ole Sangale Road<br>
+                    City Square , Nairobi<br>
+                    P.O Box 59857 - 00200<br>
+                    Nairobi, Kenya<br>
+                    (+254) (0)703-034612<br>
+                    <a href="mailto:cipit@strathmore.edu">cipit@strathmore.edu</a>
+                </p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#Research">Research</a></li>
+                    <li><a href="#Study">Study</a></li>
+                    <li><a href="#People">People</a></li>
+                    <li><a href="news.html">News & Events</a></li>
+                    <li><a href="#Contact">About</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="copyright-year"></span> CIPIT. Except where otherwise noted, content on this site is
+                licensed under a Creative Commons Attribution 4.0 International license.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector(".hamburger");
+        const navMenu = document.querySelector(".menu ul");
+        hamburger.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+
+        const hasMegaElements = document.querySelectorAll(".has-mega");
+
+        hasMegaElements.forEach(hasMega => {
+            const megaMenu = hasMega.querySelector(".mega-menu");
+            const megaLink = hasMega.querySelector("a");
+
+            hasMega.addEventListener("mouseenter", () => {
+                if (window.innerWidth > 992) {
+                    megaMenu.classList.add("active");
+                    megaLink.classList.add("active-mega");
+                }
+            });
+
+            hasMega.addEventListener("mouseleave", () => {
+                if (window.innerWidth > 992) {
+                    megaMenu.classList.remove("active");
+                    megaLink.classList.remove("active-mega");
+                }
+            });
+
+            megaLink.addEventListener('click', (e) => {
+                if (window.innerWidth <= 992) {
+                    e.preventDefault();
+                    hasMega.classList.toggle('open');
+                }
+            });
+        });
+
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

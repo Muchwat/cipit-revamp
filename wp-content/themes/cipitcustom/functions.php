@@ -149,3 +149,127 @@ function custom_multiple_search_handlers($query)
     }
 }
 add_action('pre_get_posts', 'custom_multiple_search_handlers');
+
+/**
+ * Register Custom Post Type: Team Members
+ */
+function cipit_register_team_member_cpt()
+{
+    $labels = array(
+        'name' => 'Team Members',
+        'singular_name' => 'Team Member',
+        'menu_name' => 'Team',
+        'name_admin_bar' => 'Team Member',
+        'add_new' => 'Add New',
+        'add_new_item' => 'Add New Team Member',
+        'new_item' => 'New Team Member',
+        'edit_item' => 'Edit Team Member',
+        'view_item' => 'View Team Member',
+        'all_items' => 'All Team Members',
+        'search_items' => 'Search Team Members',
+        'not_found' => 'No team members found.',
+        'not_found_in_trash' => 'No team members found in Trash.'
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'menu_icon' => 'dashicons-groups',
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
+        'has_archive' => false,
+        'rewrite' => array('slug' => 'team'),
+        'show_in_rest' => true, // Enables Gutenberg
+    );
+
+    register_post_type('team_member', $args);
+}
+add_action('init', 'cipit_register_team_member_cpt');
+
+
+// Register Steering Committee post type
+function cipit_register_steering_committee()
+{
+    $labels = array(
+        'name' => __('Steering Committee', 'cipit'),
+        'singular_name' => __('Committee Member', 'cipit'),
+        'add_new' => __('Add New', 'cipit'),
+        'add_new_item' => __('Add New Committee Member', 'cipit'),
+        'edit_item' => __('Edit Committee Member', 'cipit'),
+        'new_item' => __('New Committee Member', 'cipit'),
+        'view_item' => __('View Committee Member', 'cipit'),
+        'search_items' => __('Search Committee Members', 'cipit'),
+        'not_found' => __('No committee members found', 'cipit'),
+        'not_found_in_trash' => __('No committee members found in Trash', 'cipit'),
+        'all_items' => __('All Committee Members', 'cipit'),
+        'menu_name' => __('Steering Committee', 'cipit'),
+        'name_admin_bar' => __('Committee Member', 'cipit'),
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'has_archive' => false,
+        'rewrite' => array('slug' => 'steering-committee'),
+        'show_in_rest' => true, // Enable Gutenberg
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'menu_icon' => 'dashicons-groups',
+    );
+
+    register_post_type('steering_committee', $args);
+}
+add_action('init', 'cipit_register_steering_committee');
+
+// Optional: Register meta for internal use (e.g., category type or order)
+function cipit_register_steering_committee_meta()
+{
+    register_post_meta('steering_committee', 'member_order', array(
+        'show_in_rest' => true,
+        'single' => true,
+        'type' => 'integer',
+        'sanitize_callback' => 'intval',
+    ));
+}
+add_action('init', 'cipit_register_steering_committee_meta');
+
+
+function cipit_theme_setup()
+{
+    add_theme_support('custom-logo', [
+        'height' => 100,
+        'width' => 400,
+        'flex-height' => true,
+        'flex-width' => true,
+    ]);
+}
+add_action('after_setup_theme', 'cipit_theme_setup');
+
+
+/**
+ * Add footer logo setting to the Customizer
+ */
+function cipit_customize_register($wp_customize)
+{
+    // Add a new section under Site Identity
+    $wp_customize->add_section('footer_logo_section', array(
+        'title' => __('Footer Logo', 'cipit'),
+        'priority' => 60,
+        'description' => __('Upload a logo for the footer area.', 'cipit'),
+        'panel' => '', // keep under "Site Identity"
+    ));
+
+    // Add the setting
+    $wp_customize->add_setting('footer_logo', array(
+        'default' => '',
+        'sanitize_callback' => 'esc_url_raw',
+    ));
+
+    // Add the control (upload button)
+    $wp_customize->add_control(new WP_Customize_Image_Control($wp_customize, 'footer_logo', array(
+        'label' => __('Footer Logo', 'cipit'),
+        'section' => 'footer_logo_section',
+        'settings' => 'footer_logo',
+        'description' => __('Upload a separate logo for the footer.'),
+    )));
+}
+add_action('customize_register', 'cipit_customize_register');
+

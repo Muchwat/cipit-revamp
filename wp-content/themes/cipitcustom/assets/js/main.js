@@ -300,3 +300,94 @@ document.addEventListener('DOMContentLoaded', () => {
         initSearchBar();
     }
 });
+
+// --- TEAM PAGE MODAL LOGIC ---
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("teamModal");
+    const closeModal = document.getElementById("closeModal");
+
+    const modalName = document.getElementById("modalName");
+    const modalPosition = document.getElementById("modalPosition");
+    const modalBio = document.getElementById("modalBio");
+    const modalPhoto = document.getElementById("modalPhoto");
+    const modalInitials = document.getElementById("modalInitials");
+    const modalLinkedin = document.getElementById("modalLinkedin");
+    const modalEmail = document.getElementById("modalEmail");
+
+    document.querySelectorAll(".team-card").forEach(card => {
+        card.addEventListener("click", () => {
+            // Get data from the card
+            const name = card.dataset.name;
+            const position = card.dataset.position;
+            const photo = card.dataset.photo;
+            const bio = card.dataset.bio;
+            const linkedin = card.dataset.linkedin;
+            const email = card.dataset.email;
+            const initials = card.dataset.initials;
+
+            // Populate Modal Elements
+            modalName.textContent = name;
+            modalPosition.textContent = position || '';
+
+            // Handle bio content
+            if (bio && bio.trim() !== '') {
+                modalBio.innerHTML = '<p>' + bio.replace(/\n/g, '</p><p>') + '</p>';
+            } else {
+                modalBio.innerHTML = '<p class="text-gray-500 italic">No detailed biography available.</p>';
+            }
+
+            // Handle photo - show either photo or initials
+            if (photo) {
+                modalPhoto.src = photo;
+                modalPhoto.alt = name;
+                modalPhoto.classList.remove('hidden');
+                modalInitials.classList.add('hidden');
+            } else {
+                modalPhoto.classList.add('hidden');
+                modalInitials.classList.remove('hidden');
+                modalInitials.textContent = initials;
+            }
+
+            // Handle social links
+            if (linkedin) {
+                modalLinkedin.href = linkedin;
+                modalLinkedin.classList.remove("hidden");
+            } else {
+                modalLinkedin.classList.add("hidden");
+            }
+
+            if (email) {
+                modalEmail.href = "mailto:" + email;
+                modalEmail.classList.remove("hidden");
+            } else {
+                modalEmail.classList.add("hidden");
+            }
+
+            // Show the modal
+            modal.classList.add("active");
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // Close Modal Logic
+    const closeHandler = () => {
+        modal.classList.remove("active");
+        document.body.style.overflow = '';
+    };
+
+    closeModal.addEventListener("click", closeHandler);
+
+    // Close when clicking the overlay
+    modal.addEventListener("click", e => {
+        if (e.target === modal) {
+            closeHandler();
+        }
+    });
+
+    // Close on ESC key press
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeHandler();
+        }
+    });
+});

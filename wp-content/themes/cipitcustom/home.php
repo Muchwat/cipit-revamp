@@ -91,32 +91,32 @@ get_header(); ?>
             </div>
         </div>
     </section>
-</div>
-
-<section class="podcast-section">
-    <div class="podcast-container">
-        <h2 style="text-align:center; width: 100%;">Recent Podcasts</h2>
-        <div class="podcast-grid">
-            <div class="podcast-card">
-                <img src="https://placehold.co/120x120/555/FFF?text=Podcast" alt="Podcast Cover Art">
-                <div class="podcast-info">
-                    <h3>Episode 12: The Future of Digital Identity</h3>
-                    <p>A conversation on self-sovereign identity, blockchain, and the next wave of digital
-                        verification.</p>
-                    <!-- Note: fa-play-circle is used here, main.js toggles this -->
-                    <a href="#" class="listen-now">Listen Now <i class="fas fa-play-circle"></i></a>
+    <section class="podcast-section">
+        <div class="podcast-container">
+            <h2 style="text-align:center; width: 100%;">Recent Podcasts</h2>
+            <div class="podcast-grid">
+                <div class="podcast-card">
+                    <img src="https://placehold.co/120x120/555/FFF?text=Podcast" alt="Podcast Cover Art">
+                    <div class="podcast-info">
+                        <h3>Episode 12: The Future of Digital Identity</h3>
+                        <p>A conversation on self-sovereign identity, blockchain, and the next wave of digital
+                            verification.</p>
+                        <!-- Note: fa-play-circle is used here, main.js toggles this -->
+                        <a href="#" class="listen-now">Listen Now <i class="fas fa-play-circle"></i></a>
+                    </div>
                 </div>
-            </div>
-            <div class="podcast-card">
-                <img src="https://placehold.co/120x120/555/FFF?text=Podcast" alt="Podcast Cover Art">
-                <div class="podcast-info">
-                    <h3>Episode 11: AI in Creative Industries</h3>
-                    <p>Exploring how artificial intelligence is transforming art, music, and storytelling.</p>
-                    <a href="#" class="listen-now">Listen Now <i class="fas fa-play-circle"></i></a>
+                <div class="podcast-card">
+                    <img src="https://placehold.co/120x120/555/FFF?text=Podcast" alt="Podcast Cover Art">
+                    <div class="podcast-info">
+                        <h3>Episode 11: AI in Creative Industries</h3>
+                        <p>Exploring how artificial intelligence is transforming art, music, and storytelling.</p>
+                        <a href="#" class="listen-now">Listen Now <i class="fas fa-play-circle"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<?php get_footer(); ?>
+
+
+    <?php get_footer(); ?>

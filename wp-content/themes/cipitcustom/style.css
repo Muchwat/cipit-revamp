@@ -1,22 +1,314 @@
-/* Pagination Styling */
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 3rem;
+.event_listings input[type="text"]:not(#search_datetimes),
+.event_listings .chosen-container-single .chosen-single {
+    padding: 0.8rem 1.2rem;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    /* Use theme's border radius */
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: white;
+    line-height: 1.2;
+    /* Fix for select container height */
+    height: auto !important;
+    /* Override inline/plugin style */
 }
 
-.pagination a {
-    color: #b50509;
-    border: 1px solid #b50509;
-    padding: 0.5rem 0.9rem;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: all 0.2s ease;
+#search_categories_chosen,
+#search_event_types_chosen {
+    border: none !important;
 }
 
-.pagination a:hover,
-.pagination a.active {
-    background-color: #b50509;
-    color: #fff;
+#drp_autogen0,
+body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-front.comiseo-daterangepicker-left {
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+}
+
+.ui-datepicker-header .ui-datepicker-month,
+.ui-datepicker-header .ui-datepicker-year {
+    color: var(--primary-color) !important;
+}
+
+/* For WP Event Manager datepicker specifically */
+.comiseo-daterangepicker .ui-datepicker-calendar .ui-state-active,
+.comiseo-daterangepicker .ui-datepicker-calendar .ui-state-highlight.ui-state-active {
+    background: #b50509 !important;
+    background-color: #b50509 !important;
+    border: 1px solid #9a0407 !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.comiseo-daterangepicker .ui-datepicker-calendar .ui-state-active:hover,
+.comiseo-daterangepicker .ui-datepicker-calendar .ui-state-highlight.ui-state-active:hover {
+    background: #9a0407 !important;
+    background-color: #9a0407 !important;
+}
+
+/* Chosen.js dropdown highlighted item */
+.event_listings .chosen-container .chosen-results li.highlighted {
+    background: #b50509 !important;
+    background-color: #b50509 !important;
+    color: white !important;
+    border: none !important;
+}
+
+/* Optional: Style the entire dropdown to match your theme */
+.event_listings .chosen-container .chosen-drop {
+    border: 2px solid var(--primary-color) !important;
+    border-top: none !important;
+    border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+.event_listings .chosen-container .chosen-results {
+    max-height: 200px !important;
+    border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+}
+
+.event_listings .chosen-container .chosen-results li {
+    padding: 0.5rem 1rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.event_listings .chosen-container .chosen-results li:hover {
+    background: #fcebeb !important;
+    color: var(--primary-color) !important;
+}
+
+/* List layout icon styling */
+#wpem-event-list-layout {
+    border-radius: var(--border-radius) !important;
+    border: 2px solid #ddd !important;
+    color: var(--secondary-color) !important;
+    background: transparent !important;
+}
+
+#wpem-event-list-layout:hover {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+#wpem-event-list-layout.wpem-active-layout {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Box layout icon styling */
+#wpem-event-box-layout {
+    border-radius: var(--border-radius) !important;
+    border: 2px solid #ddd !important;
+    color: var(--secondary-color) !important;
+    background: transparent !important;
+}
+
+#wpem-event-box-layout:hover {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+#wpem-event-box-layout.wpem-active-layout {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+/* Apply blog item border style to event cards */
+.wpem-event-layout-wrapper {
+    border-radius: var(--border-radius) !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    border: 1px solid #f0f0f0 !important;
+    background: white !important;
+}
+
+/* Hover effect with enhanced shadow and border */
+.wpem-event-layout-wrapper:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    border-color: #e9ecef !important;
+}
+
+/* Ensure the banner image also has rounded corners */
+.wpem-event-banner {
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+    overflow: hidden !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+/* Make sure the banner image respects the rounded corners */
+.wpem-event-banner-img {
+    border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+}
+
+/* Apply rounded corners to the information section */
+.wpem-event-infomation {
+    border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+    background: white !important;
+}
+
+/* Fix for list view - different corner rounding */
+.wpem-event-listing-list-view .wpem-event-layout-wrapper {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    border: 1px solid #f0f0f0 !important;
+}
+
+.wpem-event-listing-list-view .wpem-event-layout-wrapper:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    border-color: #e9ecef !important;
+}
+
+.wpem-event-listing-list-view .wpem-event-banner {
+    border-radius: var(--border-radius) 0 0 var(--border-radius) !important;
+    border-bottom: none !important;
+    border-right: 1px solid #f0f0f0 !important;
+}
+
+.wpem-event-listing-list-view .wpem-event-banner-img {
+    border-radius: var(--border-radius) 0 0 var(--border-radius) !important;
+}
+
+.wpem-event-listing-list-view .wpem-event-infomation {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0 !important;
+}
+
+/* Mobile responsive - stack layout */
+@media (max-width: 992px) {
+    .wpem-event-listing-list-view .wpem-event-banner {
+        border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+        border-right: none !important;
+        border-bottom: 1px solid #f0f0f0 !important;
+    }
+
+    .wpem-event-listing-list-view .wpem-event-banner-img {
+        border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+    }
+
+    .wpem-event-listing-list-view .wpem-event-infomation {
+        border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
+    }
+}
+
+/* Match the exact blog card styling from your theme */
+.wpem-event-layout-wrapper {
+    /* These match your .blog-card styles */
+    background: white !important;
+    border: 1px solid #f0f0f0 !important;
+    border-radius: var(--border-radius) !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.wpem-event-layout-wrapper:hover {
+    /* These match your .blog-card:hover styles */
+    transform: translateY(-8px) !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid #f0f0f0 !important;
+}
+
+.wpem-from-date {
+    border-radius: var(--border-radius) !important;
+    /* background: var(--primary-color) !important; */
+    padding: 8px 12px !important;
+    display: inline-block !important;
+}
+
+/* Single event image styling */
+.wpem-event-single-image-wrapper {
+    overflow: hidden !important;
+    border-top-left-radius: var(--border-radius) !important;
+    border-top-right-radius: var(--border-radius) !important;
+    border: 1px solid #f0f0f0 !important;
+    background: white !important;
+    margin-bottom: 2rem !important;
+}
+
+.wpem-event-single-image {
+
+    border-top-left-radius: var(--border-radius) !important;
+    border-top-right-radius: var(--border-radius) !important;
+    overflow: hidden !important;
+    line-height: 0 !important;
+    /* Remove extra space below image */
+}
+
+.wpem-event-single-image img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    border-top-left-radius: var(--border-radius) !important;
+    border-top-right-radius: var(--border-radius) !important;
+}
+
+/* Viewed Event */
+.wpem-viewed-event {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* Make viewed event eye icon primary color */
+.wpem-viewed-event .wpem-icon-eye::before {
+    color: var(--primary-color) !important;
+}
+
+
+/* If you want to match your theme's heading style exactly */
+.wpem-event-listings-header .wpem-event-listing-header-title h2.wpem-heading-text {
+    color: var(--primary-color) !important;
+    font-size: var(--h3-font-size) !important;
+    margin: 0 !important;
+    display: inline-block !important;
+    border-bottom: 3px solid var(--primary-color) !important;
+    padding-bottom: 5px !important;
+}
+
+/* Registration Button */
+.wpem-theme-button.registration_button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.wpem-theme-button.registration_button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(181, 5, 9, 0.3);
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+    .wpem-event-single-image-wrapper {
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+#post-162>div.post-content>div>div>div>div.wpem-single-event-header-top>div>div {
+    background-color: white;
+    border: none;
+}
+
+.single_event_listing {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.wpem-single-event-wrapper {
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    margin: 2rem 0;
 }

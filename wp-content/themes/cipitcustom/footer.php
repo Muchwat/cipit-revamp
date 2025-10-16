@@ -11,14 +11,29 @@
 <footer class="site-footer">
     <div class="footer-container">
         <div class="footer-about">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logow.png" alt="CIPIT Logo"
-                height="50px"
-                onerror="this.onerror=null;this.src='https://placehold.co/150x50/FFFFFF/b50509?text=CIPIT';">
-            <br>
-            <br>
+            <?php
+            // Try footer logo first
+            $footer_logo = get_theme_mod('footer_logo');
+
+            if ($footer_logo) {
+                echo '<img src="' . esc_url($footer_logo) . '" alt="CIPIT Footer Logo" class="footer-logo">';
+            } elseif (has_custom_logo()) {
+                // fallback to site logo
+                $logo_id = get_theme_mod('custom_logo');
+                $logo_url = wp_get_attachment_image_src($logo_id, 'full')[0];
+                echo '<img src="' . esc_url($logo_url) . '" alt="CIPIT Logo" class="footer-logo">';
+            } else {
+                // final fallback
+                $fallback_logo = get_template_directory_uri() . '/assets/images/logow.png';
+                echo '<img src="' . esc_url($fallback_logo) . '" alt="CIPIT Logo" class="footer-logo"
+            onerror="this.onerror=null;this.src=\'https://placehold.co/150x50/FFFFFF/b50509?text=CIPIT\';">';
+            }
+            ?>
+            <br><br>
             <p>The Centre for Intellectual Property and Information Technology Law (CIPIT) is an evidence-based
                 research and training Centre based at Strathmore University, Nairobi, Kenya.</p>
         </div>
+
         <div class="footer-contact">
             <h4>CONTACT US</h4>
             <p>

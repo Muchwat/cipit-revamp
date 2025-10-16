@@ -2747,3 +2747,412 @@ nav {
         height: 540px;
     }
 }
+
+/* === TEAM MODAL STYLING === */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    display: none;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: #fff;
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    max-width: 700px;
+    width: 90%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 10000;
+    animation: slideDown 0.3s ease-out;
+    max-height: 90vh;
+    overflow-y: auto;
+    border: 1px solid #f0f0f0;
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 2rem;
+    color: #444;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* === TEAM SECTION STYLING === */
+.team-header {
+    text-align: center;
+    padding: var(--section-padding) 0;
+    background: linear-gradient(135deg, var(--light-gray) 0%, #e9ecef 100%);
+    border-radius: var(--border-radius);
+    margin: 2rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.team-header h1 {
+    font-size: var(--h2-font-size);
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.team-header p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    margin: 2rem 0;
+}
+
+.team-card {
+    background: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Updated: Square photo container for 400x400 images */
+.team-photo-container {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    aspect-ratio: 1 / 1;
+    /* Ensures perfect square */
+    width: 100%;
+}
+
+.team-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ensures image covers the square container */
+    transition: transform 0.6s ease;
+}
+
+.team-card:hover .team-photo {
+    transform: scale(1.05);
+}
+
+.photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    aspect-ratio: 1 / 1;
+    /* Ensures placeholder is also square */
+}
+
+.team-card-content {
+    padding: 1.8rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-card-content h3 {
+    font-size: 1.45rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.team-position {
+    font-size: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    display: inline-block;
+    padding: 4px 12px;
+    align-self: center;
+}
+
+.team-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    display: none;
+}
+
+.team-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.team-socials a:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Modal specific styles */
+.modal-content {
+    text-align: center;
+}
+
+.modal-photo-container {
+    margin-bottom: 1.5rem;
+}
+
+/* Updated: Square modal photo for consistency */
+.modal-photo {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--light-gray);
+    margin: 0 auto;
+}
+
+.modal-initials {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0 auto;
+    border: 4px solid var(--light-gray);
+}
+
+.modal-name {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.modal-position {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.modal-bio {
+    text-align: left;
+    line-height: var(--gr);
+    color: #666;
+    margin-top: 1.5rem;
+    text-align: justify;
+}
+
+.modal-bio p {
+    margin-bottom: 1rem;
+}
+
+.modal-socials {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    display: none;
+}
+
+.modal-socials a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.3rem;
+}
+
+.modal-socials a:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .team-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    .modal {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .modal-photo,
+    .modal-initials {
+        width: 150px;
+        height: 150px;
+    }
+
+    .modal-initials {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .team-header {
+        padding: 2rem 0;
+    }
+
+    .team-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .modal-photo,
+    .modal-initials {
+        width: 120px;
+        height: 120px;
+    }
+
+    .modal-initials {
+        font-size: 2rem;
+    }
+}
+
+/* Fallback for older browsers that don't support aspect-ratio */
+@supports not (aspect-ratio: 1 / 1) {
+    .team-photo-container {
+        height: 0;
+        padding-bottom: 100%;
+        /* Creates a square using padding technique */
+    }
+
+    .team-photo-container .team-photo,
+    .team-photo-container .photo-placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Pagination Styling */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 3rem;
+}
+
+.pagination a {
+    color: #b50509;
+    border: 1px solid #b50509;
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pagination a:hover,
+.pagination a.active {
+    background-color: #b50509;
+    color: #fff;
+}
+
+.custom-logo {
+    height: auto !important;
+    width: auto !important;
+    max-height: 80px;
+    /* adjust to fit your navbar */
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.custom-logo-link img {
+    display: block;
+    height: auto;
+    width: auto;
+}
+
+.footer-logo {
+    max-height: 60px;
+    margin-top: 15px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
