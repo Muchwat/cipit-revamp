@@ -14,13 +14,9 @@
     --light-gray: #f8f9fa;
     --dark-gray: #333;
     --border-radius: 12px;
-    /* --- NEW UNIFIED CARD STYLES --- */
-    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    /* Minimal default shadow */
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     --card-hover-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-    /* Deeper lift shadow */
     --card-transition: all 0.3s ease;
-    /* ------------------------------ */
 }
 
 * {
