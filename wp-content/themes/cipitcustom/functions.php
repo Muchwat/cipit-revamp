@@ -128,15 +128,26 @@ function custom_multiple_search_handlers($query)
         switch ($context) {
 
             case 'books':
-                // --- Books Search Handler ---
-                $query->set('category_name', 'books');
-                $query->set('posts_per_page', 8); // Example: 8 results for books
+            case 'journal-articles':
+            case 'policy-briefs':
+            case 'manuals':
+            case 'jipit':
+            case 'conference-papers':
+                // --- Books, Journal Articles, Policy Briefs, Manuals, JIPIT, Conference Papers Search Handler ---
+                $query->set('category_name', $context);
+                $query->set('posts_per_page', 8); // Example: 8 results for books, journal articles, policy briefs, manuals, JIPIT, conference papers
                 break;
 
             case 'blog':
                 // --- Blog Search Handler ---
                 $query->set('category_name', 'blog');
                 $query->set('posts_per_page', 6); // Example: 6 results for blog
+                break;
+
+            case 'podcast':
+                // --- Podcast Search Handler ---
+                $query->set('category_name', 'podcast');
+                $query->set('posts_per_page', 6); // Example: 6 results for podcast
                 break;
 
             case 'all':
@@ -272,4 +283,12 @@ function cipit_customize_register($wp_customize)
     )));
 }
 add_action('customize_register', 'cipit_customize_register');
+
+function register_podcast_thumbnail_size()
+{
+    // Registers a custom image size named 'podcast-square'
+    // Arguments: name, width, height, hard_crop (true = crop to exact dimensions)
+    add_image_size('podcast-square', 200, 200, true);
+}
+add_action('after_setup_theme', 'register_podcast_thumbnail_size');
 

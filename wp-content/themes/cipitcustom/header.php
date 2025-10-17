@@ -63,18 +63,21 @@
                             <div class="mega-menu">
                                 <div class="column">
                                     <h4 class="menu-title">Our Research Themes</h4>
-                                    <a href="artificial-intelligence.html">Artificial Intelligence</a>
-                                    <a href="data-governance-and-policy.html">Data Governance & Policy</a>
-                                    <a href="digital-identity.html">Digital Identity</a>
-                                    <a href="ip-and-innovation.html">IP and Innovation</a>
-                                    <a href="cyber-law-and-policy.html">Cyber Law & Policy</a>
+                                    <a href="<?php echo esc_url(home_url('/artificial-intelligence')); ?>">Artificial
+                                        Intelligence</a>
+                                    <a href="<?php echo esc_url(home_url('/data-governance-and-policy')); ?>">Data
+                                        Governance & Policy</a>
+                                    <a href="<?php echo esc_url(home_url('/digital-identity')); ?>">Digital Identity</a>
+                                    <a href="<?php echo esc_url(home_url('/ip-and-innovation')); ?>">IP and
+                                        Innovation</a>
+                                    <a href="<?php echo esc_url(home_url('/cyber-law-and-policy')); ?>">Cyber Law &
+                                        Policy</a>
                                 </div>
                                 <div class="column">
-                                    <h4 class="menu-title">Learning and Development</h4>
-                                    <a href="trainings.html">Trainings</a>
-                                    <a href="writing-prizes.html">Writing Prizes</a>
-                                    <a href="fellowships.html">Fellowships</a>
-                                    <a href="jipit.html">JIPIT</a>
+                                    <h4 class="menu-title">Learning & Development</h4>
+                                    <a href="<?php echo esc_url(home_url('/trainings')); ?>">Trainings</a>
+                                    <a href="<?php echo esc_url(home_url('/writing-prizes')); ?>">Writing Prizes</a>
+                                    <a href="<?php echo esc_url(home_url('/fellowships')); ?>">Fellowships</a>
                                 </div>
                             </div>
                         </li>
@@ -85,10 +88,11 @@
                                     <h4 class="menu-title">Publications</h4>
                                     <a href="<?php echo esc_url(home_url('/books')); ?>">Books and Book Chapters</a>
                                     <a href="<?php echo esc_url(home_url('/journal-articles')); ?>">Journal Articles</a>
-                                    <a href="<?php echo esc_url(home_url('/conference-papers')); ?>">Conference
-                                        Papers</a>
                                     <a href="<?php echo esc_url(home_url('/policy-briefs')); ?>">Policy Briefs</a>
                                     <a href="<?php echo esc_url(home_url('/manuals')); ?>">Manuals</a>
+                                    <a href="<?php echo esc_url(home_url('/conference-papers')); ?>">Conference
+                                        Papers</a>
+                                    <a href="<?php echo esc_url(home_url('/jipit')); ?>">JIPIT</a>
                                 </div>
                             </div>
                         </li>

@@ -1,71 +1,100 @@
 <?php
 get_header();
 
-// Get the context to adjust the page title/description
+// Determine search context
 $context = isset($_GET['search_context']) ? sanitize_key($_GET['search_context']) : 'all';
 
-// Determine the content type for display text
-$content_type = ($context === 'books') ? 'books & book chapters' : 'blog posts';
+// Configuration arrays
+$content_labels = [
+    'books' => 'books & book chapters',
+    'journal-articles' => 'journal articles',
+    'policy-briefs' => 'policy briefs',
+    'manuals' => 'manuals',
+    'jipit' => 'JIPIT',
+    'conference-papers' => 'conference papers',
+    'blog' => 'blog posts',
+    'podcast' => 'podcast episodes',
+];
 
-// Use the global $wp_query, which was modified by the hook
+$book_related_contexts = ['books', 'journal-articles', 'policy-briefs', 'manuals', 'jipit', 'conference-papers'];
+
+// Determine template configuration
+$template_config = [
+    'podcast' => ['template' => 'podcast-card', 'grid_class' => 'podcast-row'],
+    'blog' => ['template' => 'blog-card', 'grid_class' => 'blog-posts'],
+];
+
+// Resolve template part and grid class
+if (array_key_exists($context, $template_config)) {
+    $template_part = $template_config[$context]['template'];
+    $grid_class = $template_config[$context]['grid_class'];
+} elseif (in_array($context, $book_related_contexts, true)) {
+    $template_part = 'book-card';
+    $grid_class = 'books-grid';
+} else {
+    $template_part = 'blog-card';
+    $grid_class = 'blog-posts';
+}
+
+$content_type = $content_labels[$context] ?? 'content';
 global $wp_query;
+
+$search_query = get_search_query(); // already escaped by WP when echoing, but we'll esc_html when outputting
+$trimmed_query = wp_trim_words($search_query, 3, '...');
 ?>
 
 <div class="breadcrumbs">
     <div>
         <h3>Search Results</h3>
-        <a href="<?php echo home_url(); ?>">Home</a> / <span>Search</span>
+        <a href="<?php echo esc_url(home_url()); ?>">Home</a> / <a
+            href="<?php echo esc_url(home_url('/' . $context)); ?>">
+            <?php echo ucwords(esc_html($content_labels[$context])); ?></a> / <span>Search</span>
     </div>
 </div>
+
 <section class="blog-header">
-    <h1>
-        Search Results for “<?php echo wp_trim_words(get_search_query(), 3, '...'); ?>”
-    </h1>
+    <h1>Search Results for "<?php echo esc_html($trimmed_query); ?>"</h1>
     <p>Showing <?php echo esc_html($content_type); ?> that match your search.</p>
+    <?php if (!empty($context) && !empty($content_labels[$context])): ?>
+        <br>
+        <div class="podcast-play-btn">
+            <a class="play-btn" href="<?php echo esc_url(home_url('/' . $context)); ?>">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Back to <?php echo esc_html($content_labels[$context]); ?>
+            </a>
+        </div>
+    <?php endif; ?>
+
 </section>
+
 <main class="site-main container">
-
     <?php if ($wp_query->have_posts()): ?>
-        <div class="<?php echo ($context === 'books') ? 'books-grid' : 'blog-posts'; ?>">
+        <div class="<?php echo esc_attr($grid_class); ?>">
             <?php while ($wp_query->have_posts()):
-                $wp_query->the_post();
-
-                // You can include a partial template here to handle different post formats:
-                if ($context === 'books') {
-                    get_template_part('template-parts/content', 'book-card');
-                } else {
-                    get_template_part('template-parts/content', 'blog-card');
-                }
-
-                ?>
-                <div class="blog-card">
-                    <div class="blog-card-content">
-                    </div>
-                </div>
+                $wp_query->the_post(); ?>
+                <?php get_template_part('template-parts/content', $template_part); ?>
             <?php endwhile; ?>
         </div>
 
         <div class="pagination">
             <?php
             echo paginate_links([
-                // Use the max_num_pages from the global query
                 'total' => $wp_query->max_num_pages,
                 'current' => max(1, get_query_var('paged')),
-                'prev_text' => '<i class="fas fa-chevron-left"></i>',
-                'next_text' => '<i class="fas fa-chevron-right"></i>',
-                // Important: Add the 'search_context' to the pagination links!
-                'add_args' => array('search_context' => $context),
+                'prev_text' => '<i class="fas fa-chevron-left" aria-hidden="true"></i>',
+                'next_text' => '<i class="fas fa-chevron-right" aria-hidden="true"></i>',
+                'add_args' => ['search_context' => $context],
             ]);
             ?>
         </div>
+
+        <?php wp_reset_postdata(); ?>
     <?php else: ?>
-        <p class="no-results"
-            style="text-align: center; padding: 2.5rem 0; font-size: 1.2rem; color: var(--secondary-color);">
-            No **<?php echo esc_html($content_type); ?>** found for “<?php echo esc_html(get_search_query()); ?>”. Try
-            another keyword.
+        <p class="no-results" style="text-align:center;padding:2.5rem 0;font-size:1.2rem;color:var(--secondary-color);">
+            No <strong><?php echo esc_html($content_type); ?></strong> found for "<?php echo esc_html($search_query); ?>".
+            Try another keyword.
         </p>
     <?php endif; ?>
-
-    <?php wp_reset_postdata(); // Reset in case you run other queries later ?>
 </main>
+
 <?php get_footer(); ?>

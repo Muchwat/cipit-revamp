@@ -391,3 +391,93 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// --- FEATURED POSTS SLIDER INDICATOR LOGIC ---
+document.addEventListener('DOMContentLoaded', function () {
+    const sliderContainer = document.getElementById('featured-slider-container');
+    const slider = document.getElementById('featured-slider');
+    const prevButton = document.getElementById('prev-slide');
+    const nextButton = document.getElementById('next-slide');
+    const indicatorsContainer = document.getElementById('slide-indicators');
+    const slides = slider.querySelectorAll('.featured-post');
+    const totalSlides = slides.length;
+    let currentSlide = 0;
+    let indicatorElements = [];
+
+    if (totalSlides <= 1) {
+        if (prevButton) prevButton.style.display = 'none';
+        if (nextButton) nextButton.style.display = 'none';
+        if (indicatorsContainer) indicatorsContainer.style.display = 'none';
+        return;
+    }
+
+    // --- 1. Create Indicators ---
+    for (let i = 0; i < totalSlides; i++) {
+        const indicator = document.createElement('span');
+        indicator.classList.add(
+            'w-3', 'h-3', 'rounded-full', 'cursor-pointer',
+            'transition-all', 'duration-300', 'ease-in-out'
+        );
+        indicator.style.backgroundColor = '#d1d5db'; // Default gray
+        indicator.setAttribute('data-slide-index', i);
+        indicatorsContainer.appendChild(indicator);
+        indicatorElements.push(indicator);
+
+        indicator.addEventListener('click', () => moveToSlide(i));
+    }
+
+    // --- 2. Move to a specific slide ---
+    function moveToSlide(index) {
+        currentSlide = (index + totalSlides) % totalSlides;
+        const offset = -currentSlide * 100;
+        slider.style.transform = `translateX(${offset}%)`;
+        updateIndicators();
+    }
+
+    // --- 3. Update Indicators ---
+    function updateIndicators() {
+        indicatorElements.forEach((indicator, index) => {
+            if (index === currentSlide) {
+                indicator.style.backgroundColor = '#b50509'; // Active red (CIPIT Red)
+                indicator.style.transform = 'scale(1.3)';
+            } else {
+                indicator.style.backgroundColor = '#d1d5db'; // Inactive gray
+                indicator.style.transform = 'scale(1)';
+            }
+        });
+    }
+
+    // --- 4. Attach Button Listeners ---
+    prevButton.addEventListener('click', () => moveToSlide(currentSlide - 1));
+    nextButton.addEventListener('click', () => moveToSlide(currentSlide + 1));
+
+    // --- 5. Optional: Scroll-based indicator update (for swiping/dragging) ---
+    sliderContainer.addEventListener('scroll', () => {
+        const scrollLeft = sliderContainer.scrollLeft;
+        const containerWidth = sliderContainer.offsetWidth;
+        const newIndex = Math.round(scrollLeft / containerWidth);
+
+        if (newIndex !== currentSlide) {
+            currentSlide = newIndex;
+            updateIndicators();
+        }
+    });
+
+    // --- 6. Intersection Observer fallback ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const visibleIndex = Array.from(slides).indexOf(entry.target);
+                if (visibleIndex !== currentSlide) {
+                    currentSlide = visibleIndex;
+                    updateIndicators();
+                }
+            }
+        });
+    }, { threshold: 0.6 });
+
+    slides.forEach(slide => observer.observe(slide));
+
+    // --- 7. Initial Setup ---
+    moveToSlide(0);
+});

@@ -11,6 +11,13 @@
     --light-gray: #f8f9fa;
     --dark-gray: #333;
     --border-radius: 12px;
+    /* --- NEW UNIFIED CARD STYLES --- */
+    --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Minimal default shadow */
+    --card-hover-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    /* Deeper lift shadow */
+    --card-transition: all 0.3s ease;
+    /* ------------------------------ */
 }
 
 * {
@@ -379,7 +386,8 @@ nav {
 .books-header,
 .events-header,
 .podcast-header,
-.work-header {
+.work-header,
+.team-header {
     text-align: center;
     padding: var(--section-padding) 0;
     background: linear-gradient(135deg, var(--light-gray) 0%, #e9ecef 100%);
@@ -394,7 +402,8 @@ nav {
 .books-header h1,
 .events-header h1,
 .podcast-header h1,
-.work-header h1 {
+.work-header h1,
+.team-header h1 {
     font-size: var(--h2-font-size);
     color: var(--primary-color);
     margin-bottom: 1rem;
@@ -405,7 +414,8 @@ nav {
 .books-header p,
 .events-header p,
 .podcast-header p,
-.work-header p {
+.work-header p,
+.team-header p {
     max-width: 700px;
     margin: 0 auto;
     color: #666;
@@ -445,8 +455,15 @@ nav {
     position: relative;
     overflow: hidden;
     gap: 2rem;
+    /* Unique shadow for this prominent component */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 0 auto;
+}
+
+.report-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .report-content {
@@ -525,13 +542,15 @@ nav {
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
 }
 
 .publication-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    /* Standardized Card Hover */
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .publication-card img {
@@ -584,6 +603,7 @@ nav {
     gap: var(--section-padding-small);
 }
 
+/* Index Podcast Card (Large layout) */
 .podcast-card {
     display: flex;
     flex-direction: column;
@@ -591,13 +611,17 @@ nav {
     background: #fff;
     border: 1px solid #ddd;
     padding: var(--section-padding-small);
-    transition: box-shadow 0.3s;
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
     text-align: center;
     border-radius: var(--border-radius);
 }
 
 .podcast-card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    /* Standardized Card Hover */
+    transform: translateY(-8px);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .podcast-card img {
@@ -650,8 +674,16 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     padding: 2.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
     border: 1px solid #f0f0f0;
+    transition: var(--card-transition);
+}
+
+.about-content:hover {
+    /* Standardized Card Hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .about-content p {
@@ -677,14 +709,16 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     padding: 2.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
     border: 1px solid #f0f0f0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: var(--card-transition);
 }
 
 .card:hover {
+    /* Standardized Card Hover */
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .card h3 {
@@ -712,9 +746,17 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     padding: 2.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
     border: 1px solid #f0f0f0;
+    transition: var(--card-transition);
     text-align: center;
+}
+
+.team-content:hover {
+    /* Standardized Card Hover (subtle lift) */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .team-content p {
@@ -757,8 +799,16 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     padding: 1.8rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
     border: 1px solid #f0f0f0;
+    transition: var(--card-transition);
+}
+
+.ai-sidebar:hover {
+    /* Standardized Card Hover */
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .ai-sidebar h3 {
@@ -812,8 +862,16 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     padding: 2.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
     border: 1px solid #f0f0f0;
+    transition: var(--card-transition);
+}
+
+.ai-main-content:hover {
+    /* Standardized Card Hover (subtle lift) */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .ai-main-content h3 {
@@ -1104,8 +1162,9 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
     flex-direction: column;
@@ -1113,8 +1172,9 @@ nav {
 }
 
 .blog-card:hover {
+    /* Standardized Card Hover */
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-hover-shadow);
 }
 
 /* *** Image Container Styles for Grid Cards (Darker Gradient) *** */
@@ -1281,8 +1341,10 @@ nav {
     border: 1px solid #eee;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    /* Retain unique subtle shadow */
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Retain unique transition */
     aspect-ratio: 640 / 830;
     /* Default ratio */
 }
@@ -1315,7 +1377,9 @@ nav {
 
 .book-card:hover {
     transform: translateY(-4px);
+    /* Retain unique hover lift */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Retain unique hover shadow */
 }
 
 /* Cover Image - FIXED for full coverage */
@@ -1408,8 +1472,9 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
     flex-direction: column;
@@ -1417,8 +1482,9 @@ nav {
 }
 
 .work-theme-card:hover {
+    /* Standardized Card Hover */
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .work-theme-icon {
@@ -1489,8 +1555,9 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
     flex-direction: column;
@@ -1498,8 +1565,9 @@ nav {
 }
 
 .event-card:hover {
+    /* Standardized Card Hover */
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .event-date {
@@ -1671,8 +1739,9 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     /* Base default for all cards in the grid */
     display: flex;
@@ -1681,8 +1750,9 @@ nav {
 }
 
 .podcast-card:hover {
+    /* Standardized Card Hover */
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-hover-shadow);
 }
 
 .podcast-card-image {
@@ -2287,7 +2357,7 @@ nav {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    /* Light shadow for depth */
+    /* Light shadow for depth (retains unique style) */
 }
 
 .post-featured-image img {
@@ -2407,7 +2477,8 @@ nav {
 #featured-slider-container {
     overflow: hidden;
     border-radius: var(--border-radius);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--card-shadow);
+    /* Using standard shadow */
     border: 1px solid #eee;
     background: white;
 }
@@ -2816,28 +2887,7 @@ nav {
 }
 
 /* === TEAM SECTION STYLING === */
-.team-header {
-    text-align: center;
-    padding: var(--section-padding) 0;
-    background: linear-gradient(135deg, var(--light-gray) 0%, #e9ecef 100%);
-    border-radius: var(--border-radius);
-    margin: 2rem 0;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    position: relative;
-}
-
-.team-header h1 {
-    font-size: var(--h2-font-size);
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
-.team-header p {
-    max-width: 700px;
-    margin: 0 auto;
-    color: #666;
-    font-size: 1.1rem;
-}
+/* team-header styles are now unified with other headers at the top */
 
 .team-grid {
     display: grid;
@@ -2850,8 +2900,9 @@ nav {
     background: white;
     border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Standardized Card Styling */
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
     flex-direction: column;
@@ -2861,8 +2912,9 @@ nav {
 }
 
 .team-card:hover {
+    /* Standardized Card Hover */
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--card-hover-shadow);
 }
 
 /* Updated: Square photo container for 400x400 images */
@@ -2910,14 +2962,14 @@ nav {
 
 .team-card-content h3 {
     font-size: 1.45rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     margin-bottom: 0.5rem;
     line-height: 1.3;
 }
 
 .team-position {
     font-size: 1rem;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: 600;
     display: inline-block;
     padding: 4px 12px;
@@ -2989,13 +3041,13 @@ nav {
 
 .modal-name {
     font-size: 1.8rem;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     margin-bottom: 0.5rem;
 }
 
 .modal-position {
     font-size: 1.2rem;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     font-weight: 600;
     margin-bottom: 1.5rem;
 }

@@ -5,22 +5,22 @@ get_header();
 
 <div class="breadcrumbs">
     <div>
-        <h3>Books & Book Chapters</h3>
-        <a href="<?php echo esc_url(home_url('/')); ?>">Home</a> / <span>Publications</span> / <span>Books & Book
-            Chapters</span>
+        <h3>Conference Papers</h3>
+        <a href="<?php echo esc_url(home_url('/')); ?>">Home</a> / <span>Publications</span> / <span>Conference
+            Papers</span>
     </div>
 </div>
 
 <section class="books-header">
-    <h1>Books & Book Chapters</h1>
+    <h1>Conference Papers</h1>
 
     <p>Our publications on intellectual property, information technology law, and digital policy in Africa</p>
 
     <div class="search-container">
         <form class="search-bar" method="get" action="<?php echo esc_url(home_url('/')); ?>">
-            <input type="text" name="s" placeholder="Search books, topics, or authors..."
+            <input type="text" name="s" placeholder="Search conference papers, topics, or authors..."
                 value="<?php echo get_search_query(); ?>">
-            <input type="hidden" name="search_context" value="books">
+            <input type="hidden" name="search_context" value="conference-papers">
             <button type="submit"><i class="fas fa-search"></i> Search</button>
         </form>
     </div>
@@ -33,10 +33,10 @@ get_header();
 
     // 1. Featured Book Query - Fetching up to 3 sticky posts
     $featured_query = new WP_Query([
-        'posts_per_page' => 3, // Fetch up to 3 featured books
+        'posts_per_page' => 3, // Fetch up to 3 featured conference papers
         'post__in' => get_option('sticky_posts'),
         'ignore_sticky_posts' => 1,
-        'category_name' => 'books',
+        'category_name' => 'conference-papers',
     ]);
 
     // --- FIX: Logic to capture ALL featured post IDs for exclusion ---
@@ -54,7 +54,7 @@ get_header();
 
     // 2. Main Books Query - Exclude all featured posts
     $books_query = new WP_Query([
-        'category_name' => 'books',
+        'category_name' => 'conference-papers',
         'posts_per_page' => 8,
         'paged' => $paged,
         'orderby' => 'date',
@@ -107,7 +107,7 @@ get_header();
                                 </p>
 
                                 <a href="<?php the_permalink(); ?>" class="read-more-btn">
-                                    View Book Details
+                                    View Paper Details
                                 </a>
                             </div>
                         </div>
@@ -175,7 +175,7 @@ get_header();
         </div>
 
     <?php else: ?>
-        <p class="text-gray-600 text-center">No books found yet.</p>
+        <p class="text-gray-600 text-center">No conference papers found yet.</p>
     <?php endif; ?>
 
     <?php wp_reset_postdata(); ?>

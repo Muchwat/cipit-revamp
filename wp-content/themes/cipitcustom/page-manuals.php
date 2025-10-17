@@ -1,26 +1,25 @@
 <?php
-/* Template Name: Books */
+/* Template Name: manuals */
 get_header();
 ?>
 
 <div class="breadcrumbs">
     <div>
-        <h3>Books & Book Chapters</h3>
-        <a href="<?php echo esc_url(home_url('/')); ?>">Home</a> / <span>Publications</span> / <span>Books & Book
-            Chapters</span>
+        <h3>Manuals</h3>
+        <a href="<?php echo esc_url(home_url('/')); ?>">Home</a> / <span>Publications</span> / <span>Manuals</span>
     </div>
 </div>
 
 <section class="books-header">
-    <h1>Books & Book Chapters</h1>
+    <h1>Manuals</h1>
 
     <p>Our publications on intellectual property, information technology law, and digital policy in Africa</p>
 
     <div class="search-container">
         <form class="search-bar" method="get" action="<?php echo esc_url(home_url('/')); ?>">
-            <input type="text" name="s" placeholder="Search books, topics, or authors..."
+            <input type="text" name="s" placeholder="Search manuals, topics, or authors..."
                 value="<?php echo get_search_query(); ?>">
-            <input type="hidden" name="search_context" value="books">
+            <input type="hidden" name="search_context" value="manuals">
             <button type="submit"><i class="fas fa-search"></i> Search</button>
         </form>
     </div>
@@ -33,10 +32,10 @@ get_header();
 
     // 1. Featured Book Query - Fetching up to 3 sticky posts
     $featured_query = new WP_Query([
-        'posts_per_page' => 3, // Fetch up to 3 featured books
+        'posts_per_page' => 3, // Fetch up to 3 featured manuals
         'post__in' => get_option('sticky_posts'),
         'ignore_sticky_posts' => 1,
-        'category_name' => 'books',
+        'category_name' => 'manuals',
     ]);
 
     // --- FIX: Logic to capture ALL featured post IDs for exclusion ---
@@ -52,14 +51,14 @@ get_header();
     // --- END FIX ---
     
 
-    // 2. Main Books Query - Exclude all featured posts
-    $books_query = new WP_Query([
-        'category_name' => 'books',
+    // 2. Main manuals Query - Exclude all featured posts
+    $manuals_query = new WP_Query([
+        'category_name' => 'manuals',
         'posts_per_page' => 8,
         'paged' => $paged,
         'orderby' => 'date',
         'order' => 'DESC',
-        'post__not_in' => $exclude_post_ids, // Exclude all captured featured book IDs
+        'post__not_in' => $exclude_post_ids, // Exclude all captured featured manual IDs
     ]);
     ?>
 
@@ -107,7 +106,7 @@ get_header();
                                 </p>
 
                                 <a href="<?php the_permalink(); ?>" class="read-more-btn">
-                                    View Book Details
+                                    View Manual Details
                                 </a>
                             </div>
                         </div>
@@ -134,10 +133,10 @@ get_header();
         <?php wp_reset_postdata(); ?>
     <?php endif; ?>
 
-    <?php if ($books_query->have_posts()): ?>
+    <?php if ($manuals_query->have_posts()): ?>
         <div class="books-grid">
-            <?php while ($books_query->have_posts()):
-                $books_query->the_post(); ?>
+            <?php while ($manuals_query->have_posts()):
+                $manuals_query->the_post(); ?>
                 <div class="book-card group">
                     <div class="book-cover">
                         <a href="<?php the_permalink(); ?>">
@@ -166,7 +165,7 @@ get_header();
         <div class="pagination">
             <?php
             echo paginate_links([
-                'total' => $books_query->max_num_pages,
+                'total' => $manuals_query->max_num_pages,
                 'current' => max(1, get_query_var('paged')),
                 'prev_text' => '<i class="fas fa-chevron-left"></i>',
                 'next_text' => '<i class="fas fa-chevron-right"></i>',
@@ -175,7 +174,7 @@ get_header();
         </div>
 
     <?php else: ?>
-        <p class="text-gray-600 text-center">No books found yet.</p>
+        <p class="text-gray-600 text-center">No manuals found yet.</p>
     <?php endif; ?>
 
     <?php wp_reset_postdata(); ?>
