@@ -29,14 +29,22 @@
     <div class="container">
         <div class="top-header">
             <div class="top-header-left">
-                <a href="#opportunities">Opportunities</a>
-                <a href="#contact-us">Contact Us</a>
+                <a href="<?php echo esc_url(home_url('/opportunities')); ?>">Opportunities</a>
+                <a href="<?php echo esc_url(home_url('/contact-us')); ?>">Contact Us</a>
             </div>
             <div class="top-header-right">
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://x.com/StrathCIPIT" target="_blank" aria-label="Twitter"><i
+                        class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/StrathmoreCIPIT?_rdc=1&_rdr#" target="_blank" aria-label="Facebook"><i
+                        class="fab fa-facebook-f"></i></a>
+                <a href="https://www.youtube.com/@centreforipitlawcipit2930" target="_blank" aria-label="YouTube"><i
+                        class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/company/centre-for-intellectual-property-and-information-technology-law/"
+                    target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/strathmorecipit/" target="_blank" aria-label="Instagram"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="mailto:cipit@strathmore.edu" target="_blank" aria-label="Email"><i
+                        class="fas fa-envelope"></i></a>
             </div>
         </div>
 

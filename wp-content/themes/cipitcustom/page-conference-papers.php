@@ -152,11 +152,14 @@ get_header();
 
                     <!-- Hidden title slides up on hover -->
                     <div class="book-content">
-                        <h3 class="text-lg font-semibold text-center">
+                        <h5>
                             <a href="<?php the_permalink(); ?>" class="hover:text-red-500 transition-colors">
                                 <?php the_title(); ?>
                             </a>
-                        </h3>
+                        </h5>
+                        <a href="<?php the_permalink(); ?>" class="view-more">
+                            Click to view
+                        </a>
                     </div>
                 </div>
 
