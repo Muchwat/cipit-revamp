@@ -1,26 +1,27 @@
 /**
  * main.js
- * * Contains all shared and page-specific JavaScript for the CIPIT website.
- * Logic is executed conditionally based on the presence of elements on the current page.
+ * Contains all shared and page-specific JavaScript functionality.
+ * Logic executes conditionally based on the presence of elements on the current page.
  */
 
-// --- GLOBAL UTILITIES ---
+// -----------------------------------------------------------------------------
+// GLOBAL UTILITIES (Navigation & Copyright)
+// -----------------------------------------------------------------------------
 
 /**
- * Initializes the common navigation features (hamburger menu and mega menu functionality).
- * Uses resilient selectors to target elements output by the Custom_Mega_Menu_Walker.
+ * Initializes the header navigation, handling both mobile hamburger toggle
+ * and desktop/mobile mega menu interaction.
  */
 function initNavigation() {
     const hamburger = document.querySelector(".hamburger");
     const navMenu = document.querySelector(".menu ul");
-    // Selects <li> elements with the 'has-mega' class (applied in WP Admin)
     const hasMegaElements = document.querySelectorAll(".has-mega");
 
     // 1. Hamburger Menu Toggle (Mobile)
     if (hamburger && navMenu) {
         hamburger.addEventListener("click", () => {
             navMenu.classList.toggle("active");
-            // Also close any open mega-menus when the main menu is toggled
+            // Close any open mega-menus when the main menu is toggled
             hasMegaElements.forEach(item => item.classList.remove('open'));
         });
     } else {
@@ -29,13 +30,13 @@ function initNavigation() {
 
     // 2. Mega Menu Hover (Desktop) and Click Toggle (Mobile)
     hasMegaElements.forEach(hasMega => {
-        // Use :scope to target only direct children, matching the Walker's output
+        // Target direct children for mega-menu and link (selectors are resilient to theme structure)
         const megaMenu = hasMega.querySelector(":scope > .mega-menu");
         const megaLink = hasMega.querySelector(":scope > a");
 
         if (megaMenu && megaLink) {
 
-            // Desktop hover behavior
+            // Desktop hover behavior (window width > 992px)
             hasMega.addEventListener("mouseenter", () => {
                 if (window.innerWidth > 992) {
                     megaMenu.classList.add("active");
@@ -62,30 +63,49 @@ function initNavigation() {
                         }
                     });
 
-                    // Toggle the current one
+                    // Toggle the current menu
                     hasMega.classList.toggle('open');
                 }
             });
         }
     });
 }
-// --- BLOG PAGE AJAX FILTERING LOGIC ---
+
+/**
+ * Updates the footer copyright year to the current year.
+ */
+function updateCopyrightYear() {
+    const yearElement = document.getElementById('copyright-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+
+// -----------------------------------------------------------------------------
+// BLOG PAGE LOGIC (AJAX Filtering)
+// -----------------------------------------------------------------------------
 
 jQuery(document).ready(function ($) {
-    // Use the localized variable defined in functions.php
+    // This entire block runs only if jQuery is present (typical of WordPress environments)
+    // Assumes my_ajax_object is localized in functions.php
     const ajaxurl = my_ajax_object.ajax_url;
 
     const $filterButtons = $('#blog-tag-filter .tag-btn');
     const $postsContainer = $('.blog-posts');
     const postsPerLoad = 6;
 
-    // Function to handle fetching and replacing posts
+    /**
+     * Fetches and replaces blog posts based on the selected tag and page number.
+     * @param {string} tagSlug - The slug of the tag to filter by.
+     * @param {number} page - The page number to load.
+     */
     function filterPosts(tagSlug, page = 1) {
-        // Show a loading state
+        // Show a loading indicator while fetching data
         $postsContainer.html('<div class="loading-indicator" style="text-align:center; padding: 50px;">Loading...</div>');
 
         $.ajax({
-            url: ajaxurl, // <-- Uses the correctly localized URL
+            url: ajaxurl,
             type: 'POST',
             data: {
                 action: 'filter_blog_posts',
@@ -97,7 +117,6 @@ jQuery(document).ready(function ($) {
                 $postsContainer.html(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                // Log the error to the console for detailed debugging
                 console.error("AJAX Error: ", textStatus, errorThrown);
                 $postsContainer.html('<p style="text-align:center;">Sorry, we could not load the posts. Check console for details.</p>');
             }
@@ -119,38 +138,35 @@ jQuery(document).ready(function ($) {
 });
 
 
+// -----------------------------------------------------------------------------
+// INDEX PAGE LOGIC (Jumbotron Slider & Podcast Player)
+// -----------------------------------------------------------------------------
+
 /**
- * Updates the footer copyright year.
+ * Initializes the automatic, dot-controlled jumbotron slider.
  */
-function updateCopyrightYear() {
-    const yearElement = document.getElementById('copyright-year');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
-}
-
-// --- INDEX PAGE (SLIDER & PODCAST) LOGIC ---
-
 function initJumbotronSlider() {
     const sliderWrapper = document.querySelector('.slider-wrapper');
     const slides = document.querySelectorAll('.jumbotron-slider .slide');
     const dots = document.querySelectorAll('.jumbotron-slider .dot');
     const slideCount = slides.length;
     let currentIndex = 0;
+    const autoAdvanceInterval = 5000;
 
     if (!sliderWrapper || slides.length === 0) return;
 
-    // Set background images (simulated data-bg loading)
+    // Set background images using data-bg attribute
     slides.forEach(slide => {
         const bgImage = slide.getAttribute('data-bg') || 'https://placehold.co/1200x500/b50509/FFFFFF?text=Slide';
         slide.style.backgroundImage = `url(${bgImage})`;
     });
 
     /**
-     * Transitions to a specific slide index.
+     * Transitions to a specific slide index and manages active states.
      * @param {number} index - The index of the slide to show.
      */
     function goToSlide(index) {
+        // Loop back to start/end
         if (index < 0) {
             index = slideCount - 1;
         } else if (index >= slideCount) {
@@ -160,60 +176,39 @@ function initJumbotronSlider() {
 
         sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
 
+        // Manage 'active' class for CSS animations and dots
         slides.forEach(slide => {
             slide.classList.remove('active');
-            // Reset content animation properties
-            const content = slide.querySelector('.slide-content');
-            if (content) {
-                content.style.opacity = '0';
-                content.style.zIndex = '1';
-                content.querySelectorAll('h2, p, .btn').forEach(el => {
-                    el.style.opacity = '0';
-                    el.style.transform = 'translateY(20px)';
-                });
-            }
         });
+        slides[currentIndex].classList.add('active');
 
-        const activeSlide = slides[currentIndex];
-        activeSlide.classList.add('active');
-
-        // Force reflow/repaint to restart CSS animation
-        const activeContent = activeSlide.querySelector('.slide-content');
+        // Force reflow/repaint to restart CSS animation (for slide content)
+        const activeContent = slides[currentIndex].querySelector('.slide-content');
         if (activeContent) {
             activeContent.style.opacity = '1';
             activeContent.style.zIndex = '10';
-            void activeContent.offsetWidth;
+            void activeContent.offsetWidth; // Force repaint
         }
 
+        // Update dots
         dots.forEach(dot => dot.classList.remove('active'));
         dots[currentIndex].classList.add('active');
     }
 
-    // Initialize: Set the first slide as active
-    slides[0].classList.add('active');
-    const firstContent = slides[0].querySelector('.slide-content');
-    if (firstContent) {
-        firstContent.style.opacity = '1';
-        firstContent.style.zIndex = '10';
-        void firstContent.offsetWidth;
-    }
-    dots[0].classList.add('active');
+    // Initial Setup
+    goToSlide(0);
 
     // Dot click listeners
     dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            goToSlide(index);
-        });
+        dot.addEventListener('click', () => goToSlide(index));
     });
 
     // Auto-advance
-    setInterval(() => {
-        goToSlide(currentIndex + 1);
-    }, 5000);
+    setInterval(() => goToSlide(currentIndex + 1), autoAdvanceInterval);
 }
 
 /**
- * Initializes the play/pause button toggle for the podcast section (index.html).
+ * Initializes the play/pause button toggle for the podcast section on the index page.
  */
 function initPodcastControls() {
     const playButtons = document.querySelectorAll('.listen-now');
@@ -221,29 +216,29 @@ function initPodcastControls() {
     playButtons.forEach(button => {
         button.addEventListener('click', function (e) {
             e.preventDefault();
-            // In a real app, this would start/pause audio. Here we simulate the effect.
+            // In a real app, this would control audio playback.
             console.log(`Simulating playing podcast: ${this.closest('.podcast-card').querySelector('h3').textContent}`);
 
             const icon = this.querySelector('i');
-            // Simple visual toggle for demonstration
+            // Simple visual toggle
             if (icon.classList.contains('fa-play-circle')) {
                 icon.classList.remove('fa-play-circle');
                 icon.classList.add('fa-pause-circle');
-                console.log("-> Paused/Stopped");
             } else {
                 icon.classList.remove('fa-pause-circle');
                 icon.classList.add('fa-play-circle');
-                console.log("-> Playing...");
             }
         });
     });
 }
 
 
-// --- BLOG/BOOKS PAGE LOGIC ---
+// -----------------------------------------------------------------------------
+// LISTING PAGES LOGIC (Blog, Books, etc.)
+// -----------------------------------------------------------------------------
 
 /**
- * Initializes category filtering logic for Blog and Books pages.
+ * Initializes category filtering logic for listing pages.
  */
 function initCategoryFilters() {
     const categoryBtns = document.querySelectorAll('.category-btn');
@@ -253,7 +248,7 @@ function initCategoryFilters() {
                 categoryBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // In a full application, this would trigger content filtering
+                // Placeholder for actual content filtering logic
                 console.log(`Filtering content by category: ${btn.textContent}`);
             });
         });
@@ -261,7 +256,7 @@ function initCategoryFilters() {
 }
 
 /**
- * Initializes search bar logic for Blog and Books pages.
+ * Initializes search bar form submission logic.
  */
 function initSearchBar() {
     const searchForm = document.querySelector('.search-bar');
@@ -270,42 +265,26 @@ function initSearchBar() {
             e.preventDefault();
             const searchTerm = searchForm.querySelector('input').value;
             if (searchTerm.trim() !== '') {
-                // Replacing banned alert() with console.log
                 console.log(`Searching for: "${searchTerm}". (Form submission prevented)`);
+                // Add actual search handling here (e.g., redirect or AJAX)
             }
         });
     }
 }
 
-// --- MAIN INITIALIZATION ON DOCUMENT LOAD ---
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Always initialize common elements
-    initNavigation();
-    updateCopyrightYear();
 
-    // 2. Initialize page-specific scripts conditionally
+// -----------------------------------------------------------------------------
+// TEAM PAGE LOGIC (Modal Display)
+// -----------------------------------------------------------------------------
 
-    // Index.html (Slider and Podcast)
-    if (document.querySelector('.jumbotron-slider')) {
-        initJumbotronSlider();
-    }
-    if (document.querySelector('.podcast-section')) {
-        // Font Awesome is assumed to be loaded for the icons
-        initPodcastControls();
-    }
-
-    // Blog.html or books-and-chapters.html (Category and Search)
-    if (document.querySelector('.blog-categories') || document.querySelector('.book-categories')) {
-        initCategoryFilters();
-        initSearchBar();
-    }
-});
-
-// --- TEAM PAGE MODAL LOGIC ---
-document.addEventListener("DOMContentLoaded", () => {
+/**
+ * Initializes the interactive team modal functionality.
+ */
+function initTeamModal() {
     const modal = document.getElementById("teamModal");
     const closeModal = document.getElementById("closeModal");
 
+    // Modal content elements
     const modalName = document.getElementById("modalName");
     const modalPosition = document.getElementById("modalPosition");
     const modalBio = document.getElementById("modalBio");
@@ -314,29 +293,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalLinkedin = document.getElementById("modalLinkedin");
     const modalEmail = document.getElementById("modalEmail");
 
+    // Click handler for all team cards
     document.querySelectorAll(".team-card").forEach(card => {
         card.addEventListener("click", () => {
-            // Get data from the card
-            const name = card.dataset.name;
-            const position = card.dataset.position;
-            const photo = card.dataset.photo;
-            const bio = card.dataset.bio;
-            const linkedin = card.dataset.linkedin;
-            const email = card.dataset.email;
-            const initials = card.dataset.initials;
+            // Retrieve data attributes
+            const { name, position, photo, bio, linkedin, email, initials } = card.dataset;
 
-            // Populate Modal Elements
+            // Populate text fields
             modalName.textContent = name;
             modalPosition.textContent = position || '';
 
-            // Handle bio content
+            // Handle bio content (supports line breaks from data attribute)
             if (bio && bio.trim() !== '') {
                 modalBio.innerHTML = '<p>' + bio.replace(/\n/g, '</p><p>') + '</p>';
             } else {
                 modalBio.innerHTML = '<p class="text-gray-500 italic">No detailed biography available.</p>';
             }
 
-            // Handle photo - show either photo or initials
+            // Handle photo/initials display
             if (photo) {
                 modalPhoto.src = photo;
                 modalPhoto.alt = name;
@@ -348,7 +322,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalInitials.textContent = initials;
             }
 
-            // Handle social links
+            // Handle social links visibility
             if (linkedin) {
                 modalLinkedin.href = linkedin;
                 modalLinkedin.classList.remove("hidden");
@@ -363,13 +337,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalEmail.classList.add("hidden");
             }
 
-            // Show the modal
+            // Show modal and disable background scrolling
             modal.classList.add("active");
             document.body.style.overflow = 'hidden';
         });
     });
 
-    // Close Modal Logic
+    // Close Modal Logic handler
     const closeHandler = () => {
         modal.classList.remove("active");
         document.body.style.overflow = '';
@@ -377,7 +351,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     closeModal.addEventListener("click", closeHandler);
 
-    // Close when clicking the overlay
+    // Close when clicking the overlay area
     modal.addEventListener("click", e => {
         if (e.target === modal) {
             closeHandler();
@@ -386,14 +360,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Close on ESC key press
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
             closeHandler();
         }
     });
-});
+}
 
-// --- FEATURED POSTS SLIDER INDICATOR LOGIC ---
-document.addEventListener('DOMContentLoaded', function () {
+
+// -----------------------------------------------------------------------------
+// FEATURED CONTENT SLIDER (Books/Posts/Podcast)
+// -----------------------------------------------------------------------------
+
+/**
+ * Initializes the featured content slider with navigation, controls, and indicators.
+ */
+function initFeaturedContentSlider() {
     const sliderContainer = document.getElementById('featured-slider-container');
     const slider = document.getElementById('featured-slider');
     const prevButton = document.getElementById('prev-slide');
@@ -404,6 +385,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let currentSlide = 0;
     let indicatorElements = [];
 
+    // Hide controls if only one slide exists
     if (totalSlides <= 1) {
         if (prevButton) prevButton.style.display = 'none';
         if (nextButton) nextButton.style.display = 'none';
@@ -411,14 +393,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    // --- 1. Create Indicators ---
+    // 1. Create Indicators
     for (let i = 0; i < totalSlides; i++) {
         const indicator = document.createElement('span');
-        indicator.classList.add(
-            'w-3', 'h-3', 'rounded-full', 'cursor-pointer',
-            'transition-all', 'duration-300', 'ease-in-out'
-        );
-        indicator.style.backgroundColor = '#d1d5db'; // Default gray
+        indicator.classList.add('w-3', 'h-3', 'rounded-full', 'cursor-pointer', 'transition-all', 'duration-300', 'ease-in-out');
+        indicator.style.backgroundColor = '#d1d5db'; // Inactive gray
         indicator.setAttribute('data-slide-index', i);
         indicatorsContainer.appendChild(indicator);
         indicatorElements.push(indicator);
@@ -426,19 +405,19 @@ document.addEventListener('DOMContentLoaded', function () {
         indicator.addEventListener('click', () => moveToSlide(i));
     }
 
-    // --- 2. Move to a specific slide ---
+    // 2. Transitions to a specific slide index
     function moveToSlide(index) {
-        currentSlide = (index + totalSlides) % totalSlides;
+        currentSlide = (index + totalSlides) % totalSlides; // Wrap around logic
         const offset = -currentSlide * 100;
         slider.style.transform = `translateX(${offset}%)`;
         updateIndicators();
     }
 
-    // --- 3. Update Indicators ---
+    // 3. Updates active indicator appearance
     function updateIndicators() {
         indicatorElements.forEach((indicator, index) => {
             if (index === currentSlide) {
-                indicator.style.backgroundColor = '#b50509'; // Active red (CIPIT Red)
+                indicator.style.backgroundColor = '#b50509'; // Active red
                 indicator.style.transform = 'scale(1.3)';
             } else {
                 indicator.style.backgroundColor = '#d1d5db'; // Inactive gray
@@ -447,23 +426,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- 4. Attach Button Listeners ---
+    // 4. Attach Button Listeners
     prevButton.addEventListener('click', () => moveToSlide(currentSlide - 1));
     nextButton.addEventListener('click', () => moveToSlide(currentSlide + 1));
 
-    // --- 5. Optional: Scroll-based indicator update (for swiping/dragging) ---
-    sliderContainer.addEventListener('scroll', () => {
-        const scrollLeft = sliderContainer.scrollLeft;
-        const containerWidth = sliderContainer.offsetWidth;
-        const newIndex = Math.round(scrollLeft / containerWidth);
-
-        if (newIndex !== currentSlide) {
-            currentSlide = newIndex;
-            updateIndicators();
-        }
-    });
-
-    // --- 6. Intersection Observer fallback ---
+    // 5. Intersection Observer fallback (to detect slide changes on swipe/drag)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -478,6 +445,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     slides.forEach(slide => observer.observe(slide));
 
-    // --- 7. Initial Setup ---
+    // 6. Initial Setup
     moveToSlide(0);
+}
+
+
+// -----------------------------------------------------------------------------
+// MAIN INITIALIZATION ON DOCUMENT LOAD
+// -----------------------------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Initialize Common/Global Elements
+    initNavigation();
+    updateCopyrightYear();
+
+    // 2. Initialize Page-Specific Scripts Conditionally
+
+    // Index Page
+    if (document.querySelector('.jumbotron-slider')) {
+        initJumbotronSlider();
+    }
+    if (document.querySelector('.podcast-section')) {
+        initPodcastControls();
+    }
+
+    // Listing Pages (Blog/Books)
+    if (document.querySelector('.blog-categories') || document.querySelector('.book-categories')) {
+        initCategoryFilters();
+        initSearchBar();
+    }
+
+    // Team Page
+    if (document.querySelector('.team-grid')) {
+        initTeamModal();
+    }
+
+    // Featured Content Slider (e.g., on books.html)
+    if (document.getElementById('featured-slider-container')) {
+        initFeaturedContentSlider();
+    }
 });
