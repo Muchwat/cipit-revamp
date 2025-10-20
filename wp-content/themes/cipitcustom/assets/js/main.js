@@ -71,15 +71,135 @@ function initNavigation() {
     });
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const searchIcon = document.querySelector('.search-icon-link');
+    const nav = document.querySelector('nav');
+    const searchInput = document.querySelector('.search-input');
+
+    if (!searchIcon || !nav || !searchInput) return;
+
+    // Toggle search mode
+    searchIcon.addEventListener('click', (e) => {
+        e.preventDefault();
+        nav.classList.toggle('nav-search-active');
+        if (nav.classList.contains('nav-search-active')) {
+            searchInput.focus();
+        } else {
+            searchInput.blur();
+        }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && nav.classList.contains('nav-search-active')) {
+            nav.classList.remove('nav-search-active');
+        }
+    });
+
+    // Optional: close on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('nav-search-active')) {
+            nav.classList.remove('nav-search-active');
+        }
+    });
+});
+
+// -----------------------------------------------------------------------------
+// INDEX PAGE LOGIC (Jumbotron Slider & Podcast Player)
+// -----------------------------------------------------------------------------
+
 /**
- * Updates the footer copyright year to the current year.
+ * Initializes the automatic, dot-controlled jumbotron slider.
  */
-function updateCopyrightYear() {
-    const yearElement = document.getElementById('copyright-year');
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
+function initJumbotronSlider() {
+    const sliderWrapper = document.querySelector('.slider-wrapper');
+    const slides = document.querySelectorAll('.jumbotron-slider .slide');
+    const dots = document.querySelectorAll('.jumbotron-slider .dot');
+    const slideCount = slides.length;
+    let currentIndex = 0;
+    const autoAdvanceInterval = 5000;
+
+    if (!sliderWrapper || slides.length === 0) return;
+
+    // Set background images using data-bg attribute
+    slides.forEach(slide => {
+        const bgImage = slide.getAttribute('data-bg') || 'https://placehold.co/1200x500/b50509/FFFFFF?text=Slide';
+        slide.style.backgroundImage = `url(${bgImage})`;
+    });
+
+    /**
+     * Transitions to a specific slide index and manages active states.
+     * @param {number} index - The index of the slide to show.
+     */
+    function goToSlide(index) {
+        // Loop back to start/end
+        if (index < 0) {
+            index = slideCount - 1;
+        } else if (index >= slideCount) {
+            index = 0;
+        }
+        currentIndex = index;
+
+        // Move slider
+        sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+
+        // Manage 'active' class for slides
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[currentIndex].classList.add('active');
+
+        // Force reflow/repaint to restart CSS animation (for slide content)
+        const activeContent = slides[currentIndex].querySelector('.slide-content');
+        if (activeContent) {
+            activeContent.style.opacity = '1';
+            activeContent.style.zIndex = '10';
+            void activeContent.offsetWidth; // Force repaint
+        }
+
+        // Update dots
+        dots.forEach(dot => dot.classList.remove('active'));
+        if (dots[currentIndex]) dots[currentIndex].classList.add('active');
     }
+
+    // Initial setup
+    goToSlide(0);
+
+    // Dot click listeners
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => goToSlide(index));
+    });
+
+    // Auto-advance
+    setInterval(() => goToSlide(currentIndex + 1), autoAdvanceInterval);
 }
+
+// -----------------------------------------------------------------------------
+// DYNAMIC DOT GENERATION (non-intrusive pre-step)
+// -----------------------------------------------------------------------------
+
+document.addEventListener('DOMContentLoaded', () => {
+    const jumbotron = document.querySelector('.jumbotron-slider');
+    if (!jumbotron) return;
+
+    const slides = jumbotron.querySelectorAll('.slide');
+    const dotsContainer = jumbotron.querySelector('.slider-dots');
+
+    if (!dotsContainer || slides.length === 0) return;
+
+    // Clear existing dots (avoid duplicates)
+    dotsContainer.innerHTML = '';
+
+    // Dynamically generate dots to match slides
+    slides.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dotsContainer.appendChild(dot);
+    });
+
+    // Initialize slider AFTER dots exist
+    initJumbotronSlider();
+});
+
 
 
 // -----------------------------------------------------------------------------
@@ -137,75 +257,6 @@ jQuery(document).ready(function ($) {
     });
 });
 
-
-// -----------------------------------------------------------------------------
-// INDEX PAGE LOGIC (Jumbotron Slider & Podcast Player)
-// -----------------------------------------------------------------------------
-
-/**
- * Initializes the automatic, dot-controlled jumbotron slider.
- */
-function initJumbotronSlider() {
-    const sliderWrapper = document.querySelector('.slider-wrapper');
-    const slides = document.querySelectorAll('.jumbotron-slider .slide');
-    const dots = document.querySelectorAll('.jumbotron-slider .dot');
-    const slideCount = slides.length;
-    let currentIndex = 0;
-    const autoAdvanceInterval = 5000;
-
-    if (!sliderWrapper || slides.length === 0) return;
-
-    // Set background images using data-bg attribute
-    slides.forEach(slide => {
-        const bgImage = slide.getAttribute('data-bg') || 'https://placehold.co/1200x500/b50509/FFFFFF?text=Slide';
-        slide.style.backgroundImage = `url(${bgImage})`;
-    });
-
-    /**
-     * Transitions to a specific slide index and manages active states.
-     * @param {number} index - The index of the slide to show.
-     */
-    function goToSlide(index) {
-        // Loop back to start/end
-        if (index < 0) {
-            index = slideCount - 1;
-        } else if (index >= slideCount) {
-            index = 0;
-        }
-        currentIndex = index;
-
-        sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
-
-        // Manage 'active' class for CSS animations and dots
-        slides.forEach(slide => {
-            slide.classList.remove('active');
-        });
-        slides[currentIndex].classList.add('active');
-
-        // Force reflow/repaint to restart CSS animation (for slide content)
-        const activeContent = slides[currentIndex].querySelector('.slide-content');
-        if (activeContent) {
-            activeContent.style.opacity = '1';
-            activeContent.style.zIndex = '10';
-            void activeContent.offsetWidth; // Force repaint
-        }
-
-        // Update dots
-        dots.forEach(dot => dot.classList.remove('active'));
-        dots[currentIndex].classList.add('active');
-    }
-
-    // Initial Setup
-    goToSlide(0);
-
-    // Dot click listeners
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => goToSlide(index));
-    });
-
-    // Auto-advance
-    setInterval(() => goToSlide(currentIndex + 1), autoAdvanceInterval);
-}
 
 /**
  * Initializes the play/pause button toggle for the podcast section on the index page.
@@ -449,7 +500,6 @@ function initFeaturedContentSlider() {
     moveToSlide(0);
 }
 
-
 // -----------------------------------------------------------------------------
 // MAIN INITIALIZATION ON DOCUMENT LOAD
 // -----------------------------------------------------------------------------
@@ -484,4 +534,47 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('featured-slider-container')) {
         initFeaturedContentSlider();
     }
+});
+
+/**
+ * Updates the footer copyright year to the current year.
+ */
+function updateCopyrightYear() {
+    const yearElement = document.getElementById('copyright-year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const resourceTabs = document.querySelectorAll('.resource-tab');
+
+    if (!categoryButtons.length || !resourceTabs.length) return;
+
+    // Show only active tab on load
+    const activeButton = document.querySelector('.category-btn.active');
+    const defaultTab = activeButton
+        ? activeButton.getAttribute('data-tab')
+        : categoryButtons[0].getAttribute('data-tab');
+
+    resourceTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.id === defaultTab);
+    });
+
+    // Handle clicks
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+
+            // Update active button
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+
+            // Show corresponding tab
+            resourceTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.id === targetTab);
+            });
+        });
+    });
 });

@@ -1,8 +1,6 @@
 :root {
     --gr: 1.618;
-    /* Golden Ratio constant for visual harmony */
     --base-font-size: 1rem;
-    /* Heading font sizes based on the Golden Ratio for a typographic scale */
     --h2-font-size: calc(var(--base-font-size) * var(--gr) * 1.5);
     --h3-font-size: calc(var(--base-font-size) * var(--gr));
     --h4-font-size: calc(var(--base-font-size) * var(--gr) / 1.5);
@@ -10,21 +8,17 @@
     --h6-font-size: calc(var(--base-font-size) * var(--gr) / 5);
     --section-padding: 5rem;
     --section-padding-small: calc(var(--section-padding) / var(--gr));
-    /* Color Palette */
     --primary-color: #b50509;
     --primary-hover: #9a0407;
     --secondary-color: #151515;
     --light-gray: #f8f9fa;
     --dark-gray: #333;
-    /* UI Constants */
     --border-radius: 12px;
-    /* Standardized card styling variables */
     --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     --card-hover-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     --card-transition: all 0.3s ease;
 }
 
-/* Global Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -34,7 +28,6 @@
 
 body {
     line-height: var(--gr);
-    /* Apply Golden Ratio line-height for readability */
     background-color: #fff;
     color: var(--dark-gray);
 }
@@ -46,9 +39,6 @@ body {
     padding: 0 15px 2rem 15px;
 }
 
-/* -------------------------------------------------------
-   Header & Navigation Styles
-   ------------------------------------------------------- */
 .top-header {
     display: flex;
     justify-content: space-between;
@@ -98,8 +88,7 @@ nav {
 .logo img {
     max-height: 50px;
     display: block;
-    content: url('/logo.png');
-    /* Specifies logo image file */
+    content: url('../images/logo.png');
 }
 
 .menu {
@@ -113,7 +102,6 @@ nav {
     list-style: none;
 }
 
-/* Main Navigation circular button style */
 .menu>ul>li>a {
     text-decoration: none;
     color: var(--primary-color);
@@ -127,7 +115,6 @@ nav {
     transition: all 0.3s ease;
     position: relative;
     bottom: -1.5rem;
-    /* Lift menu items above header baseline */
     z-index: 20;
     white-space: nowrap;
 }
@@ -167,7 +154,6 @@ nav {
 
 .mega-menu h3 {
     grid-column: 1 / -1;
-    /* Full width title in grid layout */
     margin-bottom: 1rem;
     font-size: var(--h3-font-size);
 }
@@ -207,7 +193,6 @@ nav {
 
 .hamburger {
     display: none;
-    /* Hidden on desktop */
     font-size: 2rem;
     background: none;
     border: none;
@@ -251,9 +236,6 @@ nav {
 }
 
 
-/* -------------------------------------------------------
-   Jumbotron Slider (index.html)
-   ------------------------------------------------------- */
 .jumbotron-slider {
     position: relative;
     width: 100%;
@@ -263,7 +245,6 @@ nav {
     border-radius: var(--border-radius);
 }
 
-/* Dark overlay for slide images */
 .slide::before {
     content: '';
     position: absolute;
@@ -296,7 +277,7 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('/curve.svg');
+    background-image: url('../images/curve.svg');
     background-size: cover;
     background-position: bottom;
     z-index: 2;
@@ -312,7 +293,6 @@ nav {
     width: 20%;
 }
 
-/* Initial hidden state for content animation */
 .slide-content h2,
 .slide-content p,
 .slide-content .btn {
@@ -327,7 +307,6 @@ nav {
     }
 }
 
-/* Animation sequence for active slide */
 .slide.active .slide-content h2 {
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
 }
@@ -391,10 +370,6 @@ nav {
 }
 
 
-/* -------------------------------------------------------
-   Page Headers and Section Titles
-   ------------------------------------------------------- */
-/* Unified header styles for various pages */
 .about-header,
 .blog-header,
 .books-header,
@@ -437,7 +412,6 @@ nav {
     font-size: 1.1rem;
 }
 
-/* Section H2 title styling with primary color underline */
 .reports-section h2,
 .publications-section h2,
 .work-themes-section h2,
@@ -453,7 +427,6 @@ nav {
     padding-bottom: 5px;
 }
 
-/* Consistent styling for H3 titles within sections */
 .reports-section h3,
 .publications-section h3,
 .work-themes-section h3,
@@ -469,7 +442,6 @@ nav {
     padding-bottom: 5px !important;
 }
 
-/* Consistent styling for H4 titles within sections */
 .reports-section h4,
 .publications-section h4,
 .work-themes-section h4,
@@ -485,16 +457,12 @@ nav {
     padding-bottom: 5px !important;
 }
 
-/* -------------------------------------------------------
-   Index Page Sections (Reports, Publications, Podcast)
-   ------------------------------------------------------- */
 .reports-section,
 .publications-section {
     padding: var(--section-padding) 0;
     text-align: center;
 }
 
-/* Featured Report Card Styling */
 .report-card {
     display: flex;
     flex-direction: column;
@@ -505,7 +473,6 @@ nav {
     overflow: hidden;
     gap: 2rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-    /* Unique shadow for this prominent component */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 0 auto;
 }
@@ -579,7 +546,6 @@ nav {
     bottom: -30px;
 }
 
-/* General Publications Grid */
 .publications-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -593,14 +559,12 @@ nav {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     transition: var(--card-transition);
 }
 
 .publication-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    /* Standardized Card Hover */
 }
 
 .publication-card img {
@@ -653,7 +617,6 @@ nav {
     gap: var(--section-padding-small);
 }
 
-/* Index Podcast Card (Large layout) - Pre-responsive adjustment */
 .podcast-card {
     display: flex;
     flex-direction: column;
@@ -711,9 +674,6 @@ nav {
 }
 
 
-/* -------------------------------------------------------
-   About Us Page Styles
-   ------------------------------------------------------- */
 .about-section {
     margin: 3rem 0;
 }
@@ -723,7 +683,6 @@ nav {
     border-radius: var(--border-radius);
     padding: 2.5rem;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     border: 1px solid #f0f0f0;
     transition: var(--card-transition);
     margin-top: 3rem;
@@ -732,7 +691,6 @@ nav {
 .about-content:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    /* Subtle lift on hover */
 }
 
 .about-content p {
@@ -747,7 +705,6 @@ nav {
     margin-bottom: 0;
 }
 
-/* Mission & Vision Cards container */
 .mission-vision {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -764,7 +721,6 @@ nav {
     border-radius: var(--border-radius);
     padding: 2.5rem;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     border: 1px solid #f0f0f0;
     transition: var(--card-transition);
 }
@@ -772,7 +728,6 @@ nav {
 .card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    /* Standardized Card Hover */
 }
 
 .card h3 {
@@ -791,7 +746,6 @@ nav {
     color: #666;
 }
 
-/* Team Section (Placeholder/Intro) */
 .team-section {
     margin: 3rem 0;
 }
@@ -801,7 +755,6 @@ nav {
     border-radius: var(--border-radius);
     padding: 2.5rem;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     border: 1px solid #f0f0f0;
     transition: var(--card-transition);
     text-align: center;
@@ -810,7 +763,6 @@ nav {
 .team-content:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    /* Subtle lift on hover */
 }
 
 .team-content p {
@@ -833,9 +785,6 @@ nav {
     font-size: 1.2rem;
 }
 
-/* -------------------------------------------------------
-   AI Page Styles
-   ------------------------------------------------------- */
 .ai-section {
     padding: var(--section-padding) 0;
 }
@@ -846,14 +795,12 @@ nav {
     align-items: flex-start;
 }
 
-/* Sidebar Navigation */
 .ai-sidebar {
     width: 300px;
     background: white;
     border-radius: var(--border-radius);
     padding: 1.8rem;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     border: 1px solid #f0f0f0;
     transition: var(--card-transition);
 }
@@ -908,14 +855,12 @@ nav {
     padding-left: 1.2rem;
 }
 
-/* Main Content Area */
 .ai-main-content {
     flex: 1;
     background: white;
     border-radius: var(--border-radius);
     padding: 2.5rem;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     border: 1px solid #f0f0f0;
     transition: var(--card-transition);
 }
@@ -923,7 +868,6 @@ nav {
 .ai-main-content:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    /* Subtle lift on hover */
 }
 
 .ai-main-content h3 {
@@ -943,9 +887,6 @@ nav {
     margin-bottom: 0;
 }
 
-/* -------------------------------------------------------
-   Shared Interaction Components (Search, Buttons, Filters)
-   ------------------------------------------------------- */
 .search-container {
     max-width: 600px;
     margin: 2rem auto 0;
@@ -986,7 +927,6 @@ nav {
     background: var(--primary-hover);
 }
 
-/* Shared Button Styles */
 .read-more-btn,
 .play-btn,
 .register-btn {
@@ -1015,7 +955,6 @@ nav {
 }
 
 
-/* Shared Filter/Category Button Styles */
 .tag-btn,
 .filter-btn {
     padding: 0.6rem 1.6rem;
@@ -1065,9 +1004,6 @@ nav {
     border-color: var(--primary-color);
 }
 
-/* -------------------------------------------------------
-   Blog Page Styles
-   ------------------------------------------------------- */
 .blog-tags {
     display: flex;
     justify-content: center;
@@ -1076,7 +1012,6 @@ nav {
     margin: 2.5rem 0 1.5rem;
 }
 
-/* Featured Content Base Structure (for Post/Book/Podcast) */
 .featured-post,
 .featured-book,
 .featured-podcast {
@@ -1089,12 +1024,10 @@ nav {
     border: 1px solid #eee;
 }
 
-/* Featured Section Image Container & Gradient */
 .featured-image {
     flex: 1;
     min-height: 350px;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    /* Primary Red to Secondary Dark Gradient */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1106,7 +1039,6 @@ nav {
     position: relative;
 }
 
-/* Link element overlaying the image */
 .featured-image a {
     position: absolute;
     top: 0;
@@ -1122,24 +1054,20 @@ nav {
     padding: 1rem;
     font-size: 1.2rem;
     z-index: 1;
-    /* Overlay layer */
     transition: background 0.3s ease;
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
 }
 
-/* Actual thumbnail image */
 .featured-image a img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Ensures image covers area without distortion */
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
-    /* Below text overlay */
 }
 
 .featured-badge {
@@ -1197,7 +1125,6 @@ nav {
 }
 
 
-/* Blog Posts Grid */
 .blog-posts {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -1210,7 +1137,6 @@ nav {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
@@ -1221,10 +1147,8 @@ nav {
 .blog-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    /* Standardized Card Hover */
 }
 
-/* Image container with fixed height and dark gradient fallback */
 .blog-card-image {
     height: 250px;
     position: relative;
@@ -1233,7 +1157,6 @@ nav {
     background: linear-gradient(45deg, var(--secondary-color), #333);
 }
 
-/* Link element acting as image container and text overlay */
 .blog-card-image a {
     position: absolute;
     top: 0;
@@ -1249,14 +1172,12 @@ nav {
     padding: 1rem;
     font-size: 1.2rem;
     z-index: 2;
-    /* Overlay layer */
     transition: background 0.3s ease;
     text-align: center;
     font-size: 1.5rem;
     font-weight: bold;
 }
 
-/* Thumbnail image inside the link */
 .blog-card-image a img {
     width: 100%;
     height: 100%;
@@ -1265,10 +1186,8 @@ nav {
     top: 0;
     left: 0;
     z-index: 1;
-    /* Below text and overlay */
 }
 
-/* Dark transparent overlay for text readability */
 .blog-card-image a::before {
     content: '';
     position: absolute;
@@ -1281,7 +1200,6 @@ nav {
     transition: background 0.3s ease;
 }
 
-/* Ensure content within link is above the pseudo-element overlay */
 .blog-card-image a>* {
     z-index: 3;
     position: relative;
@@ -1289,7 +1207,6 @@ nav {
 
 .blog-card-image a:hover::before {
     background: rgba(0, 0, 0, 0.2);
-    /* Lighter overlay on hover */
 }
 
 
@@ -1304,7 +1221,6 @@ nav {
     font-size: 0.8rem;
     font-weight: 600;
     z-index: 5;
-    /* Ensure badge is on top */
 }
 
 .blog-card-content {
@@ -1340,7 +1256,6 @@ nav {
     margin-bottom: 1.5rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    /* Truncate description after 3 lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.6;
@@ -1353,9 +1268,6 @@ nav {
     align-self: flex-start;
 }
 
-/* -------------------------------------------------------
-   Books/Publications Page Styles
-   ------------------------------------------------------- */
 .book-categories {
     display: flex;
     justify-content: center;
@@ -1364,7 +1276,6 @@ nav {
     margin: 2.5rem 0 1.5rem;
 }
 
-/* Books Grid */
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -1372,21 +1283,17 @@ nav {
     margin-top: 3rem;
 }
 
-/* Book Card Container (3:4 aspect ratio) */
 .book-card {
     position: relative;
     background: #fff;
     border: 1px solid #eee;
     border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    /* Unique subtle shadow */
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     aspect-ratio: 640 / 830;
-    /* Default print-like ratio */
 }
 
-/* Mobile responsiveness for book grid layout */
 @media (max-width: 768px) {
     .books-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -1396,7 +1303,6 @@ nav {
 
     .book-card {
         aspect-ratio: 3 / 4;
-        /* More mobile-friendly ratio */
     }
 
     .book-categories {
@@ -1414,12 +1320,9 @@ nav {
 
 .book-card:hover {
     transform: translateY(-4px);
-    /* Unique hover lift */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    /* Unique hover shadow */
 }
 
-/* Cover Image - fixed for full coverage */
 .book-cover {
     width: 100%;
     height: 100%;
@@ -1438,7 +1341,6 @@ nav {
     transform: scale(1.05);
 }
 
-/* Hidden Title Overlay (revealed on hover/touch) */
 .book-content {
     position: absolute;
     bottom: 0;
@@ -1464,7 +1366,6 @@ nav {
     font-size: small;
 }
 
-/* Mobile touch support - keep overlay visible */
 @media (max-width: 768px) {
     .book-content {
         opacity: 1;
@@ -1478,13 +1379,11 @@ nav {
     }
 }
 
-/* Reveal on hover */
 .book-card:hover .book-content {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Title Styling */
 .book-content h3 {
     font-size: 1.1rem;
     font-weight: 600;
@@ -1502,9 +1401,6 @@ nav {
 }
 
 
-/* -------------------------------------------------------
-   Our Work Page Styles
-   ------------------------------------------------------- */
 .work-themes-section {
     padding: var(--section-padding) 0;
 }
@@ -1521,7 +1417,6 @@ nav {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
@@ -1532,7 +1427,6 @@ nav {
 .work-theme-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    /* Standardized Card Hover */
 }
 
 .work-theme-icon {
@@ -1581,9 +1475,6 @@ nav {
 }
 
 
-/* -------------------------------------------------------
-   Events Page Styles
-   ------------------------------------------------------- */
 .events-filter {
     display: flex;
     justify-content: center;
@@ -1604,7 +1495,6 @@ nav {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
@@ -1615,7 +1505,6 @@ nav {
 .event-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    /* Standardized Card Hover */
 }
 
 .event-date {
@@ -1670,7 +1559,6 @@ nav {
     margin-bottom: 1.5rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    /* Truncate description after 3 lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.6;
@@ -1697,11 +1585,6 @@ nav {
     transform: translateY(-3px);
 }
 
-/* -------------------------------------------------------
-   Podcasts Page Styles (Main & Featured)
-   ------------------------------------------------------- */
-/* Featured Podcast - Reuses .featured-post / .featured-image styles */
-
 .featured-content .podcast-meta {
     display: flex;
     gap: 1.2rem;
@@ -1716,7 +1599,6 @@ nav {
     gap: 0.4rem;
 }
 
-/* Audio Player */
 .audio-player {
     background: #f8f9fa;
     border-radius: var(--border-radius);
@@ -1759,7 +1641,6 @@ nav {
     background: var(--primary-color);
     border-radius: 3px;
     width: 30%;
-    /* Placeholder width */
 }
 
 .audio-player .time {
@@ -1784,13 +1665,11 @@ nav {
     margin: 2rem 0;
 }
 
-/* Podcast Card (Grid Style) */
 .podcast-card {
     background: white;
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
@@ -1803,7 +1682,6 @@ nav {
     box-shadow: var(--card-hover-shadow);
 }
 
-/* Reuses blog card image structure for podcast grid thumbnails */
 .podcast-card-image {
     height: 250px;
     display: block;
@@ -1842,7 +1720,6 @@ nav {
     transition: background 0.3s ease;
 }
 
-/* Dark overlay for text readability */
 .podcast-card-image a::before {
     content: '';
     position: absolute;
@@ -1859,7 +1736,6 @@ nav {
     background: rgba(0, 0, 0, 0.2);
 }
 
-/* Ensure content is above overlay */
 .podcast-card-image a>* {
     z-index: 3;
     position: relative;
@@ -1910,7 +1786,6 @@ nav {
     margin-bottom: 1.5rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    /* Truncate description after 3 lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.6;
@@ -1923,9 +1798,6 @@ nav {
     align-self: flex-start;
 }
 
-/* -------------------------------------------------------
-   Newsletter Section
-   ------------------------------------------------------- */
 .newsletter {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     color: white;
@@ -1977,9 +1849,6 @@ nav {
     background: #000;
 }
 
-/* -------------------------------------------------------
-   Footer
-   ------------------------------------------------------- */
 .site-footer {
     background-color: var(--primary-color);
     color: #e0e0e0;
@@ -2017,7 +1886,6 @@ nav {
     border-bottom: none;
 }
 
-/* Underline style for footer headings */
 .footer-about h4::after,
 .footer-links h4::after,
 .footer-social h4::after,
@@ -2096,12 +1964,8 @@ nav {
 }
 
 
-/* -------------------------------------------------------
-   Responsive Design - Desktop/Tablet Overrides
-   ------------------------------------------------------- */
 @media (min-width: 768px) {
 
-    /* Index Page Overrides (Horizontal Report Card) */
     .report-card {
         flex-direction: row;
         justify-content: space-between;
@@ -2127,7 +1991,6 @@ nav {
         margin-right: initial;
     }
 
-    /* Podcast Card Layout Fix (Horizontal on larger screens) */
     .podcast-card {
         flex-direction: row;
         text-align: left;
@@ -2155,7 +2018,6 @@ nav {
 
 @media (max-width: 992px) {
 
-    /* Mobile Menu Logic */
     .menu ul {
         display: none;
         flex-direction: column;
@@ -2204,7 +2066,6 @@ nav {
 
     .hamburger {
         display: block;
-        /* Hamburger visible on tablet/mobile */
     }
 
     .mega-menu {
@@ -2226,7 +2087,6 @@ nav {
         grid-template-columns: 1fr;
     }
 
-    /* AI Page Layout: Stack sidebar and main content */
     .ai-layout {
         flex-direction: column;
     }
@@ -2235,7 +2095,6 @@ nav {
         width: 100%;
     }
 
-    /* Featured items stack vertically on tablet */
     .featured-post,
     .featured-book,
     .featured-podcast {
@@ -2253,7 +2112,6 @@ nav {
         margin-bottom: 0.5rem;
     }
 
-    /* About Page: Stack mission/vision cards */
     .mission-vision {
         grid-template-columns: 1fr;
     }
@@ -2270,12 +2128,10 @@ nav {
         padding: 3rem 0;
     }
 
-    /* AI Page: Sidebar and main content padding adjustments */
     .ai-sidebar {
         padding: 1.5rem;
     }
 
-    /* Blog & Books & Podcasts: Height adjustments for featured images on mobile */
     .featured-image,
     .book-cover {
         min-height: 280px;
@@ -2285,7 +2141,6 @@ nav {
         height: 250px;
     }
 
-    /* Single column layout for most grids on small screens */
     .blog-posts,
     .books-grid,
     .events-grid,
@@ -2294,7 +2149,6 @@ nav {
         grid-template-columns: 1fr;
     }
 
-    /* Stack search bar elements */
     .search-bar {
         flex-direction: column;
         gap: 1rem;
@@ -2306,7 +2160,6 @@ nav {
         border-radius: 30px;
     }
 
-    /* Stack newsletter form elements */
     .newsletter-form {
         flex-direction: column;
         gap: 1rem;
@@ -2318,7 +2171,6 @@ nav {
         border-radius: 30px;
     }
 
-    /* Index Slider Mobile Adjustments */
     .svg-overlay {
         background-image: none;
     }
@@ -2338,7 +2190,6 @@ nav {
         font-size: 1rem;
     }
 
-    /* Events/Work/Podcast Pages */
     .events-filter {
         flex-wrap: wrap;
     }
@@ -2347,7 +2198,6 @@ nav {
         padding: 1.5rem;
     }
 
-    /* Stack audio player elements */
     .audio-player {
         flex-direction: column;
         gap: 1rem;
@@ -2357,7 +2207,6 @@ nav {
         width: 100%;
     }
 
-    /* Podcast Card mobile layout fix (stack elements) */
     .podcast-card {
         flex-direction: column;
     }
@@ -2368,9 +2217,6 @@ nav {
     }
 }
 
-/* -------------------------------------------------------
-   Single Post Page Styles (Blog Detail Page)
-   ------------------------------------------------------- */
 .single-post {
     padding-top: var(--section-padding-small);
 }
@@ -2383,7 +2229,6 @@ nav {
 
 .post-title {
     font-size: calc(var(--h2-font-size) * 1.1);
-    /* Slightly larger than standard H2 */
     color: var(--secondary-color);
     line-height: 1.2;
     margin-bottom: 1.5rem;
@@ -2413,7 +2258,6 @@ nav {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    /* Light shadow for depth */
 }
 
 .post-featured-image img {
@@ -2422,7 +2266,6 @@ nav {
     display: block;
 }
 
-/* Post Content Styling (for readability and Golden Ratio line-height) */
 .post-content {
     max-width: 800px;
     margin: 0 auto;
@@ -2455,7 +2298,6 @@ nav {
     color: var(--primary-hover);
 }
 
-/* Post Footer (Tags and Author) */
 .post-footer {
     max-width: 800px;
     margin: 3rem auto 0;
@@ -2483,7 +2325,6 @@ nav {
     color: white;
 }
 
-/* Author Box Styling */
 .author-box {
     display: flex;
     align-items: center;
@@ -2520,10 +2361,6 @@ nav {
     }
 }
 
-/* -------------------------------------------------------
-   Featured Book Slider Styles
-   ------------------------------------------------------- */
-/* Featured Slider Container */
 .featured-slider-wrapper {
     position: relative;
     margin-bottom: 3rem;
@@ -2533,19 +2370,16 @@ nav {
     overflow: hidden;
     border-radius: var(--border-radius);
     box-shadow: var(--card-shadow);
-    /* Using standard shadow */
     border: 1px solid #eee;
     background: white;
 }
 
-/* Slider Track */
 .featured-slider {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 100%;
 }
 
-/* Individual Slide - Fixed height with 3:4 ratio */
 .featured-slider .featured-post {
     min-width: 100%;
     flex-shrink: 0;
@@ -2559,15 +2393,12 @@ nav {
     overflow: hidden;
     width: 100%;
     height: 420px;
-    /* Default desktop height */
 }
 
-/* Featured Image Container - Fixed 3:4 ratio (420px height * 3/4 = 315px width) */
 .featured-slider .featured-image {
     flex: 0 0 auto;
     width: 315px;
     height: 420px;
-    /* Fixed height */
     position: relative;
     overflow: hidden;
     background: white;
@@ -2627,7 +2458,6 @@ nav {
     border: 1px solid #eee;
 }
 
-/* Featured Content */
 .featured-slider .featured-content {
     flex: 1;
     min-width: 0;
@@ -2687,7 +2517,6 @@ nav {
     margin-top: auto;
 }
 
-/* Slider Controls */
 .slider-controls {
     display: flex;
     justify-content: center;
@@ -2726,7 +2555,6 @@ nav {
     color: var(--secondary-color);
 }
 
-/* Slide Indicators */
 #slide-indicators {
     display: flex;
     gap: 0.5rem;
@@ -2751,26 +2579,19 @@ nav {
     background-color: #aaa;
 }
 
-/* Responsive adjustments for Featured Book Slider */
 @media (max-width: 768px) {
     .featured-slider .featured-post {
         flex-direction: column;
         height: auto;
-        /* Auto height on mobile */
         min-height: 500px;
-        /* Minimum height for mobile */
     }
 
     .featured-slider .featured-image {
         flex: none;
         width: 100%;
-        /* Full width on mobile */
         height: 375px;
-        /* Maintain 3:4 ratio: 500px * 0.75 = 375px */
         max-width: 280px;
-        /* Limit maximum width */
         margin: 0 auto;
-        /* Center the image */
     }
 
     .featured-slider .featured-image a {
@@ -2781,7 +2602,6 @@ nav {
         padding: 1.5rem;
         min-width: 0;
         height: auto;
-        /* Auto height on mobile */
     }
 
     .featured-slider .featured-content h2 {
@@ -2806,7 +2626,6 @@ nav {
 
     .featured-slider .featured-image {
         height: 337px;
-        /* 450px * 0.75 = 337px */
         max-width: 250px;
     }
 
@@ -2824,16 +2643,13 @@ nav {
     }
 }
 
-/* Medium screens adjustment */
 @media (min-width: 769px) and (max-width: 1024px) {
     .featured-slider .featured-post {
         height: 360px;
-        /* Smaller height for tablet */
     }
 
     .featured-slider .featured-image {
         width: 270px;
-        /* 360px * 0.75 = 270px */
         height: 360px;
     }
 
@@ -2846,38 +2662,28 @@ nav {
     }
 }
 
-/* Large screens */
 @media (min-width: 1025px) {
     .featured-slider .featured-post {
         height: 480px;
-        /* Larger height for big screens */
     }
 
     .featured-slider .featured-image {
         width: 360px;
-        /* 480px * 0.75 = 360px */
         height: 480px;
     }
 }
 
-/* Extra large screens */
 @media (min-width: 1440px) {
     .featured-slider .featured-post {
         height: 540px;
-        /* Even larger for very big screens */
     }
 
     .featured-slider .featured-image {
         width: 405px;
-        /* 540px * 0.75 = 405px */
         height: 540px;
     }
 }
 
-/* -------------------------------------------------------
-   Team Modal & Team Grid Styling
-   ------------------------------------------------------- */
-/* Modal Overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -2944,7 +2750,6 @@ nav {
     }
 }
 
-/* Team Grid Styling */
 .team-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -2957,7 +2762,6 @@ nav {
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--card-shadow);
-    /* Standardized Card Styling */
     transition: var(--card-transition);
     border: 1px solid #f0f0f0;
     display: flex;
@@ -2970,16 +2774,13 @@ nav {
 .team-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--card-hover-shadow);
-    /* Standardized Card Hover */
 }
 
-/* Square photo container (aspect ratio 1/1) */
 .team-photo-container {
     position: relative;
     overflow: hidden;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     aspect-ratio: 1 / 1;
-    /* Ensures perfect square */
     width: 100%;
 }
 
@@ -2987,7 +2788,6 @@ nav {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Ensures image covers the square container */
     transition: transform 0.6s ease;
 }
 
@@ -3006,7 +2806,6 @@ nav {
     font-size: 3rem;
     font-weight: bold;
     aspect-ratio: 1 / 1;
-    /* Ensures placeholder is also square */
 }
 
 .team-card-content {
@@ -3039,7 +2838,6 @@ nav {
     margin-top: auto;
     padding-top: 1rem;
     display: none;
-    /* Hidden by default in card view */
 }
 
 .team-socials a {
@@ -3062,7 +2860,6 @@ nav {
     transform: translateY(-2px);
 }
 
-/* Modal specific styles */
 .modal-content {
     text-align: center;
 }
@@ -3071,7 +2868,6 @@ nav {
     margin-bottom: 1.5rem;
 }
 
-/* Square modal photo for consistency */
 .modal-photo {
     width: 200px;
     height: 200px;
@@ -3127,7 +2923,6 @@ nav {
     gap: 1rem;
     margin: 1.5rem 0;
     display: none;
-    /* Hidden by default in modal content */
 }
 
 .modal-socials a {
@@ -3154,7 +2949,6 @@ nav {
     display: none !important;
 }
 
-/* Team Section Responsive adjustments */
 @media (max-width: 768px) {
     .team-grid {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -3202,12 +2996,10 @@ nav {
     }
 }
 
-/* Fallback for older browsers that don't support aspect-ratio */
 @supports not (aspect-ratio: 1 / 1) {
     .team-photo-container {
         height: 0;
         padding-bottom: 100%;
-        /* Creates a square using padding technique */
     }
 
     .team-photo-container .team-photo,
@@ -3220,7 +3012,6 @@ nav {
     }
 }
 
-/* General Pagination Styling (Applies to all) */
 .pagination {
     display: flex;
     justify-content: center;
@@ -3243,12 +3034,10 @@ nav {
     color: #fff;
 }
 
-/* Custom Logo Utility Classes */
 .custom-logo {
     height: auto !important;
     width: auto !important;
     max-height: 80px;
-    /* Adjust to fit navbar height */
     max-width: 100%;
     object-fit: contain;
 }
@@ -3269,9 +3058,6 @@ nav {
 }
 
 
-/* -------------------------------------------------------
-   Podcasts Page Specific Styling (Row Layout)
-   ------------------------------------------------------- */
 .podcasts-header {
     text-align: center;
     padding: var(--section-padding) 0;
@@ -3302,7 +3088,6 @@ nav {
     margin: 2rem 0;
 }
 
-/* Podcast List Row */
 .podcast-row {
     background: white;
     border-radius: var(--border-radius);
@@ -3318,7 +3103,6 @@ nav {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Featured row visual distinction */
 .podcast-row.featured-podcast {
     border: 2px solid var(--primary-color);
     position: relative;
@@ -3339,15 +3123,11 @@ nav {
     z-index: 2;
 }
 
-/* Podcast Thumbnail - Fixed Square Size */
 .podcast-thumbnail {
     flex: 0 0 260px;
     width: 260px;
-    /* Explicit width */
     height: 260px;
-    /* Explicit height */
     aspect-ratio: 1 / 1;
-    /* Modern browsers */
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
@@ -3377,7 +3157,6 @@ nav {
     font-weight: bold;
 }
 
-/* Podcast Content */
 .podcast-content {
     flex: 1;
     padding: 1.8rem;
@@ -3406,7 +3185,6 @@ nav {
     color: var(--primary-color);
 }
 
-/* Podcast Description */
 .podcast-description {
     flex: 1;
     margin-bottom: 1.5rem;
@@ -3418,12 +3196,10 @@ nav {
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 3;
-    /* Truncate description after 3 lines */
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
-/* Podcast Meta Information */
 .podcast-meta {
     display: flex;
     align-items: center;
@@ -3439,18 +3215,6 @@ nav {
     gap: 0.5rem;
 }
 
-/* Custom icons for meta info (using Unicode emojis or similar for placeholder) */
-.podcast-date::before {
-    content: "📅";
-    font-size: 1rem;
-}
-
-.podcast-authors::before {
-    content: "👤";
-    font-size: 1rem;
-}
-
-/* Play Button positioning */
 .podcast-play-btn {
     margin-left: auto;
 }
@@ -3476,7 +3240,6 @@ nav {
     box-shadow: 0 6px 12px rgba(181, 5, 9, 0.3);
 }
 
-/* Fallback for older browsers that don't support aspect-ratio */
 @supports not (aspect-ratio: 1 / 1) {
     .podcast-thumbnail {
         height: 200px;
@@ -3487,7 +3250,6 @@ nav {
     }
 }
 
-/* Responsive Design for Podcast Rows */
 @media (max-width: 992px) {
     .podcast-thumbnail {
         flex: 0 0 180px;
@@ -3600,7 +3362,6 @@ nav {
     }
 }
 
-/* No Podcasts Message */
 .podcasts-grid .no-podcasts {
     text-align: center;
     color: #666;
@@ -3610,7 +3371,6 @@ nav {
     grid-column: 1 / -1;
 }
 
-/* Loading State */
 .podcasts-grid .loading {
     display: flex;
     justify-content: center;
@@ -3619,7 +3379,6 @@ nav {
     grid-column: 1 / -1;
 }
 
-/* Pagination for Podcasts List */
 .podcast-pagination {
     display: flex;
     justify-content: center;
@@ -3649,11 +3408,366 @@ nav {
     border-color: var(--primary-color);
 }
 
-/* Active slide indicator utility colors */
 #slide-indicators span.bg-red-600 {
     background-color: #b50509 !important;
 }
 
 #slide-indicators span.bg-gray-400 {
     background-color: #d1d5db !important;
+}
+
+
+.search-box {
+    position: relative;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    height: 7rem;
+    transition: all 0.3s ease;
+}
+
+.nav-search-active .search-box {
+    display: flex;
+    margin-right: 0.5rem;
+}
+
+.search-input {
+    width: 0;
+    opacity: 0;
+    height: 2.6rem;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    background: transparent;
+    color: var(--secondary-color);
+    font-size: 1rem;
+    padding: 0 0.8rem;
+    outline: none;
+    transition: width 0.4s ease, opacity 0.3s ease, background 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    bottom: -.5rem;
+    position: relative;
+}
+
+.nav-search-active .search-input {
+    width: 240px;
+    opacity: 1;
+    background-color: var(--light-gray);
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 0 1.2rem;
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(181, 5, 9, 0.15);
+}
+
+.search-input::placeholder {
+    color: #888;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.nav-search-active .menu>ul>li {
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+.nav-search-active .menu>ul>li.search-icon-item,
+.nav-search-active .menu>ul>li.search-box {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+@media (max-width: 768px) {
+    .nav-search-active .search-box {
+        height: auto;
+    }
+
+    .nav-search-active .search-input {
+        width: 100%;
+        height: 2.8rem;
+        bottom: 0;
+        border-radius: 20px;
+        box-shadow: none;
+    }
+}
+
+.latest-publications {
+    padding: 4rem 0;
+}
+
+.latest-publications .section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: #222;
+}
+
+.publications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+
+.publication-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.publication-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.publication-thumb {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+}
+
+.publication-content {
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.publication-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+}
+
+.publication-title a {
+    color: #111;
+    text-decoration: none;
+}
+
+.publication-title a:hover {
+    color: #b50509;
+}
+
+.publication-meta {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.8rem;
+}
+
+.publication-category {
+    color: #b50509;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.publication-category:hover {
+    text-decoration: underline;
+}
+
+.publication-excerpt {
+    flex-grow: 1;
+    color: #444;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+}
+
+.read-more-button {
+    align-self: flex-start;
+    background: #b50509;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.read-more-button:hover {
+    background: #8b0407;
+}
+
+.about-section {
+    padding: 4rem 0;
+    background: #fff;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.about-text p {
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.rounded-image {
+    width: 100%;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.focus-areas {
+    background: #f9f9f9;
+    border-radius: var(--border-radius);
+    padding: var(--section-padding-small);
+    margin-top: 1.5rem;
+    text-align: justify;
+}
+
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    text-align: left;
+}
+
+.focus-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.focus-card h4 {
+    color: #b50509;
+    margin-bottom: 0.5rem;
+}
+
+.partners-section {
+    background: #b50509;
+    color: #fff;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.partners-section .read-more-button {
+    background: #fff;
+    color: #b50509;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+.afri-resources-section {
+    padding-top: var(--section-padding);
+    padding-bottom: var(--section-padding);
+    text-align: center;
+}
+
+.afri-section-title {
+    font-size: var(--h2-font-size);
+    margin-bottom: var(--section-padding-small);
+    color: var(--primary-color);
+    display: inline-block;
+    border-bottom: 3px solid var(--primary-color);
+    padding-bottom: 5px;
+}
+
+.afri-resources-section>.container>p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+}
+
+.tag-btn:hover,
+.tag-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+
+.afri-tab-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.afri-tab-content.active {
+    display: grid;
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.focus-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+    text-align: left;
+}
+
+@media (max-width: 1024px) {
+    .focus-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .focus-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.focus-card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--card-shadow);
+    transition: var(--card-transition);
+}
+
+.focus-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.focus-card h4 {
+    color: var(--primary-color);
+    font-size: var(--h4-font-size);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.focus-card p {
+    color: #444;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .focus-card p {
+        text-align: justify;
+    }
 }

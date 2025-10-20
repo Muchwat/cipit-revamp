@@ -137,7 +137,7 @@ get_header();
                         </div>
 
                         <div class="podcast-meta">
-                            <div class="podcast-date"><?php echo get_the_date(); ?></div>
+                            <div class="podcast-date"><i class="far fa-calendar"></i> <?php echo get_the_date(); ?></div>
 
                             <?php if ($authors): ?>
                                 <div class="podcast-authors"><?php echo esc_html($authors); ?></div>

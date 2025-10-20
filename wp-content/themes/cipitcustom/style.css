@@ -3,15 +3,12 @@
     padding: 0.8rem 1.2rem;
     border: 1px solid #ddd;
     border-radius: var(--border-radius);
-    /* Use theme's border radius */
     font-size: 1rem;
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
     background-color: white;
     line-height: 1.2;
-    /* Fix for select container height */
     height: auto !important;
-    /* Override inline/plugin style */
 }
 
 #search_categories_chosen,
@@ -30,7 +27,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: var(--primary-color) !important;
 }
 
-/* For WP Event Manager datepicker specifically */
 .comiseo-daterangepicker .ui-datepicker-calendar .ui-state-active,
 .comiseo-daterangepicker .ui-datepicker-calendar .ui-state-highlight.ui-state-active {
     background: var(--primary-color) !important;
@@ -50,7 +46,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: var(--primary-color) !important;
 }
 
-/* Chosen.js dropdown highlighted item */
 .event_listings .chosen-container .chosen-results li.highlighted {
     background: var(--primary-color) !important;
     background-color: var(--primary-color) !important;
@@ -58,7 +53,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     border: none !important;
 }
 
-/* Optional: Style the entire dropdown to match your theme */
 .event_listings .chosen-container .chosen-drop {
     border: 2px solid var(--primary-color) !important;
     border-top: none !important;
@@ -81,7 +75,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: var(--primary-color) !important;
 }
 
-/* List layout icon styling */
 #wpem-event-list-layout {
     border-radius: var(--border-radius) !important;
     border: 2px solid #ddd !important;
@@ -100,7 +93,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: white !important;
 }
 
-/* Box layout icon styling */
 #wpem-event-box-layout {
     border-radius: var(--border-radius) !important;
     border: 2px solid #ddd !important;
@@ -119,7 +111,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: white !important;
 }
 
-/* Apply blog item border style to event cards */
 .wpem-event-layout-wrapper {
     border-radius: var(--border-radius) !important;
     overflow: hidden !important;
@@ -129,32 +120,27 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     background: white !important;
 }
 
-/* Hover effect with enhanced shadow and border */
 .wpem-event-layout-wrapper:hover {
     transform: translateY(-4px) !important;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
     border-color: #e9ecef !important;
 }
 
-/* Ensure the banner image also has rounded corners */
 .wpem-event-banner {
     border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
     overflow: hidden !important;
     border-bottom: 1px solid #f0f0f0 !important;
 }
 
-/* Make sure the banner image respects the rounded corners */
 .wpem-event-banner-img {
     border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
 }
 
-/* Apply rounded corners to the information section */
 .wpem-event-infomation {
     border-radius: 0 0 var(--border-radius) var(--border-radius) !important;
     background: white !important;
 }
 
-/* Fix for list view - different corner rounding */
 .wpem-event-listing-list-view .wpem-event-layout-wrapper {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
     border: 1px solid #f0f0f0 !important;
@@ -180,7 +166,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     border-radius: 0 var(--border-radius) var(--border-radius) 0 !important;
 }
 
-/* Mobile responsive - stack layout */
 @media (max-width: 992px) {
     .wpem-event-listing-list-view .wpem-event-banner {
         border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
@@ -197,9 +182,7 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     }
 }
 
-/* Match the exact blog card styling from your theme */
 .wpem-event-layout-wrapper {
-    /* These match your .blog-card styles */
     background: white !important;
     border: 1px solid #f0f0f0 !important;
     border-radius: var(--border-radius) !important;
@@ -209,7 +192,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
 }
 
 .wpem-event-layout-wrapper:hover {
-    /* These match your .blog-card:hover styles */
     transform: translateY(-8px) !important;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
     border: 1px solid #f0f0f0 !important;
@@ -217,12 +199,10 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
 
 .wpem-from-date {
     border-radius: var(--border-radius) !important;
-    /* background: var(--primary-color) !important; */
     padding: 8px 12px !important;
     display: inline-block !important;
 }
 
-/* Single event image styling */
 .wpem-event-single-image-wrapper {
     overflow: hidden !important;
     border-top-left-radius: var(--border-radius) !important;
@@ -238,7 +218,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     border-top-right-radius: var(--border-radius) !important;
     overflow: hidden !important;
     line-height: 0 !important;
-    /* Remove extra space below image */
 }
 
 .wpem-event-single-image img {
@@ -249,20 +228,17 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     border-top-right-radius: var(--border-radius) !important;
 }
 
-/* Viewed Event */
 .wpem-viewed-event {
     color: var(--primary-color);
     font-size: 0.9rem;
     margin-top: 1rem;
 }
 
-/* Make viewed event eye icon primary color */
 .wpem-viewed-event .wpem-icon-eye::before {
     color: var(--primary-color) !important;
 }
 
 
-/* If you want to match your theme's heading style exactly */
 .wpem-event-listings-header .wpem-event-listing-header-title h2.wpem-heading-text {
     color: var(--primary-color) !important;
     font-size: var(--h3-font-size) !important;
@@ -272,7 +248,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     padding-bottom: 5px !important;
 }
 
-/* Registration Button */
 .wpem-theme-button.registration_button {
     background: var(--primary-color);
     color: white;
@@ -290,7 +265,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     box-shadow: 0 6px 12px rgba(181, 5, 9, 0.3);
 }
 
-/* Responsive sizing */
 @media (max-width: 768px) {
     .wpem-event-single-image-wrapper {
         margin-bottom: 1.5rem !important;
@@ -317,47 +291,33 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     margin: 2rem 0;
 }
 
-/* =======================================================
-   Tab Section Redesign (vc_tta)
-   ======================================================= */
-
-/* General Tabs Container Styling */
 .vc_tta-container {
     margin-bottom: var(--section-padding-small);
-    /* Consistent spacing */
 }
 
-/* Base TTA Tabs Wrapper */
 .vc_general.vc_tta.vc_tta-tabs {
     display: flex;
     flex-direction: column;
-    /* Default stack for better mobile/vertical flow */
     gap: var(--section-padding-small);
 }
 
-/* Ensure a row-like flow on larger screens for horizontal tabs, if needed. */
 @media (min-width: 768px) {
     .vc_general.vc_tta.vc_tta-tabs.vc_tta-tabs-position-left {
         flex-direction: row;
         align-items: flex-start;
-        /* Align the top of the tabs and panels */
     }
 }
 
-/* --- Tab List (The Navigation / Buttons) --- */
 .vc_tta-tabs-container {
     flex-shrink: 0;
     width: 100%;
-    /* Default full width for stacking */
     padding: 0;
     box-shadow: none !important;
-    /* Remove any default box shadows */
 }
 
 @media (min-width: 768px) {
     .vc_general.vc_tta.vc_tta-tabs.vc_tta-tabs-position-left .vc_tta-tabs-container {
         width: 30%;
-        /* Allocate space for side tabs - adjust as needed (Golden Ratio of full width is approx 61.8% / 38.2%) */
         max-width: 300px;
     }
 }
@@ -373,7 +333,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     overflow: hidden;
 }
 
-/* Individual Tab Item */
 .vc_tta-tab {
     margin: 0;
     border: none !important;
@@ -384,7 +343,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     border-bottom: 1px solid #e0e0e0;
 }
 
-/* Tab Link (The Button/Anchor) */
 .vc_tta-tab a {
     text-decoration: none;
     color: var(--secondary-color);
@@ -395,43 +353,33 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     transition: all 0.3s ease;
     text-align: left;
     border-left: 5px solid transparent;
-    /* Placeholder for active state indicator */
     line-height: 1.5;
-    /* Good readability */
 }
 
 .vc_tta-tab a:hover {
     color: var(--primary-color);
     background-color: #f0f0f0;
     padding-left: 1.8rem;
-    /* Subtle hover effect */
 }
 
-/* Active Tab Link Styling */
 .vc_tta-tab.vc_active a {
     background-color: white;
     color: var(--primary-color);
     font-weight: 700;
     border-left-color: var(--primary-color);
-    /* Primary color indicator line */
     box-shadow: var(--card-shadow);
-    /* Lift the active tab subtly */
     padding-left: 1.8rem;
     z-index: 1;
-    /* Ensure active tab is on top of border */
 }
 
-/* Remove default V-C styling on active tab */
 .vc_tta-tab.vc_active {
     box-shadow: none !important;
     border-right: none !important;
 }
 
-/* --- Tab Panels (The Content) --- */
 .vc_tta-panels-container {
     flex: 1;
     min-width: 0;
-    /* Important for flex layout */
 }
 
 .vc_tta-panels {
@@ -439,38 +387,28 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     border-radius: var(--border-radius);
     border: 1px solid #f0f0f0 !important;
     box-shadow: var(--card-shadow);
-    /* Match card styling */
     border: 1px solid #f0f0f0;
     padding: var(--section-padding-small);
-    /* Padding based on GR */
     min-height: 250px;
-    /* Ensure content area has minimum height */
     transition: var(--card-transition);
 }
 
 .vc_tta-panels:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    /* Subtle lift on hover */
 }
 
-/* Panel Body - ensures inner content padding is correct */
 .vc_tta-panel-body {
     padding: 0 !important;
-    /* Reset V-C panel padding */
     line-height: var(--gr);
-    /* Apply Golden Ratio line-height */
 }
 
-/* Inner Content Styling within Tab Panels */
 .vc_tta-panel-body .wpb_wrapper h4 {
-    /* Use the standard H4 style from your stylesheet */
     font-size: var(--h4-font-size) !important;
     color: var(--primary-color) !important;
     margin-top: 0 !important;
     margin-bottom: 1rem !important;
     display: inline-block !important;
-    border-bottom: 3px solid var(--primary-color) !important;
     padding-bottom: 5px !important;
 }
 
@@ -478,17 +416,12 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: #666;
     margin-bottom: 1.5rem;
     line-height: 1.7;
-    /* Closer to the 1.618 GR line height */
     font-size: 1.05rem;
 }
 
-/* --- Accordion Mode (Small Screens) --- */
-
-/* Tab Heading acts as the button in Accordion mode */
 .vc_tta-panel-heading {
     background: var(--light-gray);
     margin-bottom: 8px;
-    /* Slight separation between accordions */
     border-radius: var(--border-radius);
     border: 1px solid #e0e0e0;
     overflow: hidden;
@@ -509,7 +442,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: var(--secondary-color) !important;
 }
 
-/* Active Accordion Button Style */
 .vc_tta-panel.vc_active .vc_tta-panel-heading {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
@@ -521,7 +453,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     font-weight: 700 !important;
 }
 
-/* Remove Pagination Dots as they are redundant for this clean design */
 .vc_general.vc_pagination {
     display: none !important;
 }
@@ -531,11 +462,6 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     border: 1px solid #f0f0f0 !important;
 }
 
-/* .vc_tta.vc_tta-shape-round.vc_tta-tabs {
-    border-radius: var(--border-radius) !important;
-    border: 1px solid #f0f0f0 !important;
-} */
-
 .vc_tta.vc_tta-shape-round .vc_tta-tabs-container {
     border-radius: var(--border-radius) !important;
     box-shadow: var(--card-shadow);
@@ -543,11 +469,25 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     margin: 0;
 }
 
-/* .vc_tta.vc_tta-shape-round .vc_tta-panel-body,
+.vc_tta.vc_tta-shape-round .vc_tta-panel-body,
 .vc_tta.vc_tta-shape-round .vc_tta-panel-heading {
-    border-radius: var(--border-radius) !important;
-    border: 1px solid #f0f0f0 !important;
-} */
+    border-radius: 0 !important;
+}
+
+@media (max-width: 767px) {
+
+    .vc_tta.vc_tta-shape-round .vc_tta-panel-heading {
+        padding: 0 !important;
+    }
+
+    .vc_tta.vc_tta-shape-round .vc_tta-panel-title a {
+        padding: 1rem 1.5rem !important;
+    }
+
+    .vc_tta.vc_tta-shape-round .vc_tta-panel-body {
+        padding: 1rem !important;
+    }
+}
 
 .vc_tta.vc_tta-shape-round .vc_tta-tabs-container {
     margin: 0;
@@ -575,21 +515,15 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     color: var(--primary-color) !important;
 }
 
-/* Target the tabs with the reasearch-tabs and the vc_tta-gap-20 class */
 .vc_tta-gap-20 {
-    /* Resets the margin that typically separates the tab items */
     margin: 0 !important;
 }
 
-/* Specific targeting for the list items if V-C adds margin/padding there */
 .vc_tta-tabs-position-left .vc_tta-tabs-list>li {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 
-/* Ensure the space between the tab list and the panel container is controlled by your custom styles (from previous steps) */
 .vc_tta-gap-20 {
-    /* Resetting the default V-C gap logic for the main flex/block container */
-    gap: var(--section-padding-small) !important;
-    /* Retain your existing gap style */
+    gap: 1rem !important;
 }

@@ -292,3 +292,50 @@ function register_podcast_thumbnail_size()
 }
 add_action('after_setup_theme', 'register_podcast_thumbnail_size');
 
+/**
+ * Include all public post types in WordPress search
+ */
+function cipit_expand_search_to_all_post_types($query)
+{
+    if ($query->is_search && !is_admin() && $query->is_main_query()) {
+        $query->set('post_type', get_post_types([
+            'public' => true,
+        ]));
+    }
+}
+add_action('pre_get_posts', 'cipit_expand_search_to_all_post_types');
+
+// -----------------------------------------------------------------------------
+// Register "Slides" Custom Post Type with Custom Fields Support
+// -----------------------------------------------------------------------------
+function create_slides_cpt()
+{
+    $labels = array(
+        'name' => 'Slides',
+        'singular_name' => 'Slide',
+        'add_new' => 'Add New Slide',
+        'add_new_item' => 'Add New Slide',
+        'edit_item' => 'Edit Slide',
+        'new_item' => 'New Slide',
+        'view_item' => 'View Slide',
+        'all_items' => 'All Slides',
+        'menu_name' => 'Slider',
+        'name_admin_bar' => 'Slide',
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'menu_icon' => 'dashicons-images-alt2',
+        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
+        'has_archive' => false,
+        'rewrite' => array('slug' => 'slides'),
+        'show_in_rest' => true, // Gutenberg support
+    );
+
+    register_post_type('slide', $args);
+}
+add_action('init', 'create_slides_cpt');
+
+
+

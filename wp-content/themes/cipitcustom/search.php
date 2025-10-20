@@ -6,6 +6,7 @@ $context = isset($_GET['search_context']) ? sanitize_key($_GET['search_context']
 
 // Configuration arrays
 $content_labels = [
+    'all' => 'all content',
     'books' => 'books & book chapters',
     'journal-articles' => 'journal articles',
     'policy-briefs' => 'policy briefs',
@@ -46,11 +47,16 @@ $trimmed_query = wp_trim_words($search_query, 3, '...');
 <div class="breadcrumbs">
     <div>
         <h3>Search Results</h3>
-        <a href="<?php echo esc_url(home_url()); ?>">Home</a> / <a
-            href="<?php echo esc_url(home_url('/' . $context)); ?>">
-            <?php echo ucwords(esc_html($content_labels[$context])); ?></a> / <span>Search</span>
+        <a href="<?php echo esc_url(home_url()); ?>">Home</a>
+        <?php if ($context !== 'all' && isset($content_labels[$context])): ?>
+            / <a href="<?php echo esc_url(home_url('/' . $context)); ?>">
+                <?php echo ucwords(esc_html($content_labels[$context])); ?>
+            </a>
+        <?php endif; ?>
+        / <span>Search</span>
     </div>
 </div>
+
 
 <section class="blog-header">
     <h1>Search Results for "<?php echo esc_html($trimmed_query); ?>"</h1>
@@ -58,11 +64,16 @@ $trimmed_query = wp_trim_words($search_query, 3, '...');
     <?php if (!empty($context) && !empty($content_labels[$context])): ?>
         <br>
         <div class="podcast-play-btn">
-            <a class="play-btn" href="<?php echo esc_url(home_url('/' . $context)); ?>">
+            <a class="play-btn"
+                href="<?php echo esc_url($context === 'all' ? home_url('/') : home_url('/' . $context)); ?>">
                 <i class="fas fa-arrow-left mr-2"></i>
-                Back to <?php echo esc_html($content_labels[$context]); ?>
+                Back to
+                <?php echo $context === 'all'
+                    ? 'Home'
+                    : esc_html($content_labels[$context] ?? 'Home'); ?>
             </a>
         </div>
+
     <?php endif; ?>
 
 </section>

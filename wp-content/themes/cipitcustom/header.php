@@ -115,7 +115,6 @@
                                 </div>
                             </div>
                         </li>
-
                         <li class="has-mega">
                             <a href="#">About Us</a>
                             <div class="mega-menu">
@@ -129,7 +128,16 @@
                                 </div>
                             </div>
                         </li>
+
+                        <!-- Search Icon and Box -->
                         <li><a href="#" class="search-icon-link" aria-label="Search"><i class="fas fa-search"></i></a>
+                        </li>
+                        <li class="search-box">
+                            <form action="<?php echo esc_url(home_url('/')); ?>" method="get" class="search-form">
+                                <input type="text" name="s" class="search-input" placeholder="Search..." />
+                                <input type="hidden" name="search_context" value="all" />
+                            </form>
+
                         </li>
                     </ul>
                 </div>
