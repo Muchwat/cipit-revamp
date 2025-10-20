@@ -316,3 +316,280 @@ body>div.comiseo-daterangepicker.ui-widget.ui-widget-content.ui-corner-all.ui-fr
     overflow: hidden;
     margin: 2rem 0;
 }
+
+/* =======================================================
+   Tab Section Redesign (vc_tta)
+   ======================================================= */
+
+/* General Tabs Container Styling */
+.vc_tta-container {
+    margin-bottom: var(--section-padding-small);
+    /* Consistent spacing */
+}
+
+/* Base TTA Tabs Wrapper */
+.vc_general.vc_tta.vc_tta-tabs {
+    display: flex;
+    flex-direction: column;
+    /* Default stack for better mobile/vertical flow */
+    gap: var(--section-padding-small);
+}
+
+/* Ensure a row-like flow on larger screens for horizontal tabs, if needed. */
+@media (min-width: 768px) {
+    .vc_general.vc_tta.vc_tta-tabs.vc_tta-tabs-position-left {
+        flex-direction: row;
+        align-items: flex-start;
+        /* Align the top of the tabs and panels */
+    }
+}
+
+/* --- Tab List (The Navigation / Buttons) --- */
+.vc_tta-tabs-container {
+    flex-shrink: 0;
+    width: 100%;
+    /* Default full width for stacking */
+    padding: 0;
+    box-shadow: none !important;
+    /* Remove any default box shadows */
+}
+
+@media (min-width: 768px) {
+    .vc_general.vc_tta.vc_tta-tabs.vc_tta-tabs-position-left .vc_tta-tabs-container {
+        width: 30%;
+        /* Allocate space for side tabs - adjust as needed (Golden Ratio of full width is approx 61.8% / 38.2%) */
+        max-width: 300px;
+    }
+}
+
+.vc_tta-tabs-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    background: var(--light-gray);
+    border-radius: var(--border-radius) !important;
+    overflow: hidden;
+}
+
+/* Individual Tab Item */
+.vc_tta-tab {
+    margin: 0;
+    border: none !important;
+    position: relative;
+}
+
+.vc_tta-tab:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Tab Link (The Button/Anchor) */
+.vc_tta-tab a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 1.05rem;
+    padding: 1rem 1.5rem;
+    display: block;
+    transition: all 0.3s ease;
+    text-align: left;
+    border-left: 5px solid transparent;
+    /* Placeholder for active state indicator */
+    line-height: 1.5;
+    /* Good readability */
+}
+
+.vc_tta-tab a:hover {
+    color: var(--primary-color);
+    background-color: #f0f0f0;
+    padding-left: 1.8rem;
+    /* Subtle hover effect */
+}
+
+/* Active Tab Link Styling */
+.vc_tta-tab.vc_active a {
+    background-color: white;
+    color: var(--primary-color);
+    font-weight: 700;
+    border-left-color: var(--primary-color);
+    /* Primary color indicator line */
+    box-shadow: var(--card-shadow);
+    /* Lift the active tab subtly */
+    padding-left: 1.8rem;
+    z-index: 1;
+    /* Ensure active tab is on top of border */
+}
+
+/* Remove default V-C styling on active tab */
+.vc_tta-tab.vc_active {
+    box-shadow: none !important;
+    border-right: none !important;
+}
+
+/* --- Tab Panels (The Content) --- */
+.vc_tta-panels-container {
+    flex: 1;
+    min-width: 0;
+    /* Important for flex layout */
+}
+
+.vc_tta-panels {
+    background: white;
+    border-radius: var(--border-radius);
+    border: 1px solid #f0f0f0 !important;
+    box-shadow: var(--card-shadow);
+    /* Match card styling */
+    border: 1px solid #f0f0f0;
+    padding: var(--section-padding-small);
+    /* Padding based on GR */
+    min-height: 250px;
+    /* Ensure content area has minimum height */
+    transition: var(--card-transition);
+}
+
+.vc_tta-panels:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    /* Subtle lift on hover */
+}
+
+/* Panel Body - ensures inner content padding is correct */
+.vc_tta-panel-body {
+    padding: 0 !important;
+    /* Reset V-C panel padding */
+    line-height: var(--gr);
+    /* Apply Golden Ratio line-height */
+}
+
+/* Inner Content Styling within Tab Panels */
+.vc_tta-panel-body .wpb_wrapper h4 {
+    /* Use the standard H4 style from your stylesheet */
+    font-size: var(--h4-font-size) !important;
+    color: var(--primary-color) !important;
+    margin-top: 0 !important;
+    margin-bottom: 1rem !important;
+    display: inline-block !important;
+    border-bottom: 3px solid var(--primary-color) !important;
+    padding-bottom: 5px !important;
+}
+
+.vc_tta-panel-body .wpb_wrapper p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    /* Closer to the 1.618 GR line height */
+    font-size: 1.05rem;
+}
+
+/* --- Accordion Mode (Small Screens) --- */
+
+/* Tab Heading acts as the button in Accordion mode */
+.vc_tta-panel-heading {
+    background: var(--light-gray);
+    margin-bottom: 8px;
+    /* Slight separation between accordions */
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.vc_tta-panel-heading:hover {
+    box-shadow: var(--card-shadow);
+}
+
+.vc_tta-panel-title a {
+    text-align: left;
+    padding: 1rem 1.5rem !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    text-decoration: none;
+    display: block;
+    color: var(--secondary-color) !important;
+}
+
+/* Active Accordion Button Style */
+.vc_tta-panel.vc_active .vc_tta-panel-heading {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: var(--card-shadow);
+}
+
+.vc_tta-panel.vc_active .vc_tta-panel-title a {
+    color: white !important;
+    font-weight: 700 !important;
+}
+
+/* Remove Pagination Dots as they are redundant for this clean design */
+.vc_general.vc_pagination {
+    display: none !important;
+}
+
+.vc_tta.vc_tta-shape-round.vc_tta-tabs .vc_tta-panels {
+    border-radius: var(--border-radius) !important;
+    border: 1px solid #f0f0f0 !important;
+}
+
+/* .vc_tta.vc_tta-shape-round.vc_tta-tabs {
+    border-radius: var(--border-radius) !important;
+    border: 1px solid #f0f0f0 !important;
+} */
+
+.vc_tta.vc_tta-shape-round .vc_tta-tabs-container {
+    border-radius: var(--border-radius) !important;
+    box-shadow: var(--card-shadow);
+    border: 1px solid #f0f0f0 !important;
+    margin: 0;
+}
+
+/* .vc_tta.vc_tta-shape-round .vc_tta-panel-body,
+.vc_tta.vc_tta-shape-round .vc_tta-panel-heading {
+    border-radius: var(--border-radius) !important;
+    border: 1px solid #f0f0f0 !important;
+} */
+
+.vc_tta.vc_tta-shape-round .vc_tta-tabs-container {
+    margin: 0;
+}
+
+.vc_tta.vc_tta-shape-round .vc_tta-tab>a {
+    border-radius: var(--border-radius) !important;
+    border: 1px solid #f0f0f0 !important;
+}
+
+.vc_non_responsive .vc_tta.vc_tta-shape-round.vc_tta-tabs .vc_tta-panels,
+.vc_tta-o-non-responsive .vc_tta.vc_tta-shape-round.vc_tta-tabs .vc_tta-panels {
+    border-radius: var(--border-radius) !important;
+    border: 1px solid #f0f0f0 !important;
+}
+
+@media (min-width:768px) {
+    .vc_tta.vc_tta-shape-round.vc_tta-tabs .vc_tta-panels {
+        border-radius: var(--border-radius) !important;
+        border: 1px solid #f0f0f0 !important;
+    }
+}
+
+.vc_tta-tab.vc_active a .vc_tta-title-text {
+    color: var(--primary-color) !important;
+}
+
+/* Target the tabs with the reasearch-tabs and the vc_tta-gap-20 class */
+.vc_tta-gap-20 {
+    /* Resets the margin that typically separates the tab items */
+    margin: 0 !important;
+}
+
+/* Specific targeting for the list items if V-C adds margin/padding there */
+.vc_tta-tabs-position-left .vc_tta-tabs-list>li {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Ensure the space between the tab list and the panel container is controlled by your custom styles (from previous steps) */
+.vc_tta-gap-20 {
+    /* Resetting the default V-C gap logic for the main flex/block container */
+    gap: var(--section-padding-small) !important;
+    /* Retain your existing gap style */
+}
