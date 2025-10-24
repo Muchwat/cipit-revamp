@@ -94,12 +94,17 @@ nav {
 .menu {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .menu ul {
     display: flex;
-    gap: 0.5rem;
+    justify-content: space-evenly; /* or space-around / space-evenly */
+    align-items: center;
+    width: 100%;
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .menu>ul>li>a {

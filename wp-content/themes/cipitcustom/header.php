@@ -67,6 +67,13 @@
                     <button class="hamburger"><i class="fas fa-bars"></i></button>
                     <ul>
                         <li class="has-mega">
+                            <a href="<?php echo esc_url(home_url('/')); ?>">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="has-mega">
                             <a href="#">Research</a>
                             <div class="mega-menu">
                                 <div class="column">
