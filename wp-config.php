@@ -20,13 +20,13 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'cipit_revamp');
+define('DB_NAME', 'cipit_muchu');
 
 /** Database username */
-define('DB_USER', 'muchu');
+define('DB_USER', 'lkasera');
 
 /** Database password */
-define('DB_PASSWORD', '702040001');
+define('DB_PASSWORD', '30551544');
 
 /** Database hostname */
 define('DB_HOST', 'localhost');
@@ -91,7 +91,8 @@ define('WP_DEBUG_DISPLAY', true); // 👈 **SET THIS TO TRUE**
 @ini_set('display_errors', 1);
 /* Add any custom values between this line and the "stop editing" line. */
 
-
+define('WP_HOME', 'https://lkasera/cipit');
+define('WP_SITEURL', 'https://lkasera/cipit');
 
 /* That's all, stop editing! Happy publishing. */
 
